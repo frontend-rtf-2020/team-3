@@ -1,14 +1,14 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom"
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import LogIn from './components/LogIn';
 import Reg from './components/Reg';
 import Home from './components/Home';
 import Guest from './components/Guest';
 import './App.css';
 import logo from './components/logo2.png';
-import TESTPAGE from "./components/TESTPAGE";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, FormControl, Container, Button, Form } from 'react-bootstrap';
+import { Navbar, Nav} from 'react-bootstrap';
 
 
 //import Drawer from './containers/Logs/Drawer/Drawer';
