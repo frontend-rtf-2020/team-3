@@ -24,7 +24,7 @@ return (
         <input type="register" placeholder="Придумайте логин" name="login" />
         <label className="but" for="Password">Password </label>
         <input type="password" placeholder="Введите пароль" name="password" />
-        <button className="but" type="submit" className="but" value="Войти" onclick={this.onclick}>Войти</button>
+        <button className="but" type="submit" onclick={this.onclick}>Войти</button>
         <button className="but" ><a href='/'>Oтмена</a></button>
     </form>
 
