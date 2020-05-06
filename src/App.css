@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -50,14 +51,15 @@
 }
 
 .mr-auto {
-  background-color: #224ea5;
-  min-height: 10vh;
+  min-height: 7vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(4px + 2vmin);
+  font-size: calc(2px + 2vmin);
   color: white;
+  padding-left: 10px;
+  
 }
 
 .App-link {
@@ -84,3 +86,121 @@
   height: 26px;
 }
 
+.inputs {
+  align-items: center;
+  margin: 0 auto;
+}
+.btn2
+{
+  margin: 0 auto;
+  max-width: 500px;
+  align-items: center;
+  padding: 20px;
+  
+}
+.divvv
+{
+  display: flex;
+    flex-direction: row;
+  position: center;
+  margin:0 auto;
+  align-items: center;
+  padding: 10px;
+}
+
+.links{
+  margin-right: 10px;
+  color: white; 
+}
+.appbar{
+  color: #5b8dc2;
+}
+
+.appbar2{
+  background-color: #EEEEEE;
+  color: #212121;
+
+}
+
+.taskstyle1{
+  width: 200px;
+  height: 200px;
+}
+
+.but3{
+  color: "red";
+}
+
+.toinline{
+  display: inline-block;
+}
+
+.flextry{
+  width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flx1{
+  display: flex;
+  box-sizing: inherit;
+  margin-top: 150px;
+}
+.flx2{
+  width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-bottom: auto;
+    margin-right: auto;
+    margin-top: auto;
+    max-width: 600px;
+    
+}
+.flx3{
+  width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin-left: 20px;
+    margin-bottom: auto;
+   
+    margin-top: auto;
+    max-width: 300px;
+    
+}
+
+.flx4{
+  justify-content: space-between;
+  flex: 1;
+  display: block;
+  max-width: 1140px;
+  
+}
+
+.regimg{
+  background-color: #5b8dc2;
+}
+
+.round1{
+  border-radius: 50px;
+}
+
+.justifyelts{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  min-height:50px;
+  
+  
+  margin-top: auto;
+  margin-bottom: auto;
+
+}
+
+.marg1{
+  padding-top: 10px;
+  
+}
