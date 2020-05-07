@@ -198,15 +198,14 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,</Typograph
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes1.details}>
           <div className={classes1.column} />
-          <div className={classes1.column}>
-          <Chip label="Название задачи" onDelete={() => {}} />
-          <Chip label="Участник: Петя" onDelete={() => {}} />
-            
-          </div>
+            <div className={classes1.column}>
+            <Chip label="Название задачи" onDelete={() => {}} />
+            <Chip label="Участник: Петя" onDelete={() => {}} />
+              
+            </div>
           <div className={clsx(classes1.column, classes1.helper)}>
             <Typography variant="caption">
               Примененные фильтры
-              <br />
               {/* <a href="#secondary-heading-and-columns" className={classes1.link}>
                 Learn more
               </a> */}
@@ -234,9 +233,10 @@ Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,</Typograph
         <Container maxWidth="xl"  >
           <Typography component="div" style={{ backgroundColor: '#ffffff', height: '100vh' }}>
             <div className={styles2.root}>
+            <Button className={styles2.paper}variant="outlined" color="primary">+Добавить колонку</Button>
               <Grid container spacing={0}>
                  <Grid item xs={12}>
-                 <Button className={styles2.paper}variant="outlined" color="primary">+Добавить колонку</Button>
+                  <Button className={styles2.paper}variant="outlined" color="primary">+Добавить колонку</Button>
                 </Grid>
                 <Grid item xs={3}>
                   <Paper className={styles2.paper}>
