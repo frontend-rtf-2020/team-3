@@ -16,8 +16,7 @@ function postExample(req, res, next) {
         res.send({Error: 'NO PARAMS'})
     }
     console.log(id, age, name);
-    res.json({Success: true});    
-    res.redirect('/guest.js');
+    res.json({Success: true})
 }
 
 async function acyncFyn() {
