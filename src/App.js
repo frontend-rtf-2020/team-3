@@ -9,10 +9,11 @@ import Guest from './components/Guest'
 function App() {
   
   return (
+    <div>
     <Router>
       <div classsName="app">
         <ul class="menu">
-          <li ><Link to="/reg">Регистрация</Link></li>
+          <li ><Link to="/reg" >Регистрация</Link></li>
           <li ><Link to="/auth">Авторизация</Link></li>          
           <li><Link to="/">Главная</Link></li>          
         </ul>       
@@ -25,6 +26,7 @@ function App() {
       </Switch>
       </div>    
     </Router>
+    </div>
 
   );
 }
