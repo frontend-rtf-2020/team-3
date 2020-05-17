@@ -32,15 +32,15 @@ class LogIns extends React.Component{
       {/*хедер на замену*/}
               
               <AppBar position="static" className={classes.appbarstyle}>
-                <Toolbar className={classes.appbarstyle}>   
+                <Toolbar className={classes.appbarstyle} >   
           
-                  <Link href="/" className={this.props.classes.linkstyle} >Главная</Link>
-                  <Link href="/guests" className={classes.useStyles0} >Доска Задач</Link>
-                  <Link href="/guestD" className={classes.linkstyle} >Доска</Link>
+                  <Link href="/" className={this.props.classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white",}}>Главная</Link>
+                  <Link href="/guests" className={classes.useStyles0} style = {{paddingRight: 30, fontSize: 20,color: "white",}}>Доска Задач</Link>
+                  <Link href="/guestD" className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white",}} >Доска</Link>
                   
-                  <h4  className={classes.linkstyle}  >DeskName</h4>
-                  <h3 className={classes.linkstyle} >UserName</h3>
-                  <Link href="/" className={classes.linkstyle} >Выход</Link>
+                  <h4  className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white", }}  >DeskName</h4>
+                  <h3 className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white", }} >UserName</h3>
+                  <Link href="/" className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white", }} >Выход</Link>
                 </Toolbar>
               </AppBar>
        
