@@ -1,8 +1,8 @@
 import './App.css';
 import React, { Component} from 'react';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
-import LogIn from './components/LogIn';
-import Reg from './components/Reg';
+import LogIn from './components/LogIn.jsx';
+import Reg from './components/Reg.jsx';
 import Guest from './components/Desk/Guest'
 import Body from './components/Body'
 import GuestDesk from './components/Desk/GuestDesk'
