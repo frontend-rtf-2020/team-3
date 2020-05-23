@@ -8,8 +8,26 @@ import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Link from '@material-ui/core/Link';
+import { TextField } from '@material-ui/core';
+import GuestDesk from './GuestDesk';
+import GuestField from './DeskField'
+import Grid from '@material-ui/core/Grid';
+import DeskField from './DeskField';
 
 export default class LogIns extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state={
+      count:0
+    }
+  }
+  
+    AddTask = () => {
+      this.setState(({ count }) => ({
+        count: count + 1,
+      }));
+    }
 
   render(){
     const useStyles = makeStyles({
@@ -50,7 +68,14 @@ export default class LogIns extends React.Component{
         
         
         <Container maxWidth="100%">
-        <Button variant="outlined" color="primary">+Добавить колонку</Button>
+        <Grid container spacing={0}>
+                       <Grid item xs={12}>
+                        <Button variant="outlined" color="primary" onClick={this.AddTask}>+Добавить колонку</Button>
+                        {[...Array(this.state.count)].map(() => <DeskField />)}
+                      </Grid>
+                      </Grid>
+
+        {/* </Grid><Button variant="outlined" color="primary">+Добавить доску</Button>  */}
           <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
             
           </Typography>

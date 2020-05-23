@@ -17,6 +17,7 @@ import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import { withStyles } from "@material-ui/core/styles";
 import useStyles from './useStyles';
+import ColumnComponent from './ColumnComponent'
 //import makeStyles from '@material-ui/styles';
 
 import { Paper,Typography, makeStyles, Box} from '@material-ui/core';
@@ -25,16 +26,25 @@ import { Paper,Typography, makeStyles, Box} from '@material-ui/core';
 class LogIns extends React.Component{
   constructor(props) {
     super(props);
-   
+    //this.AddTask = this.AddTask.bind(this);
     this.state = {
       name:'',
       tags:'',
+      count: 0,
       description: '',
       owner:''
     }
   }
 
+  AddTask = () => {
+    this.setState(({ count }) => ({
+      count: count + 1,
+    }));
+  }
+
   render(){
+
+    
 
     const { classes } = this.props;
     const sr = {paddingRight: 30, fontSize: 20,color: "white",};
@@ -47,7 +57,7 @@ class LogIns extends React.Component{
                 <Toolbar className={classes.appbarstyle} >   
           
                   <Link href="/" className={this.props.classes.linkstyle} style = {sr}>Главная</Link>
-                  <Link href="/guests" className={classes.useStyles0} style = {{paddingRight: 30, fontSize: 20,color: "white",}}>Доска Задач</Link>
+                  <Link href="/guests" className={classes.useStyles} style = {{paddingRight: 30, fontSize: 20,color: "white",}}>Доска Задач</Link>
                   <Link href="/guestD" className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white",}} >Доска</Link>
                   
                   <h4  className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white", }}  >DeskName</h4>
@@ -100,6 +110,45 @@ class LogIns extends React.Component{
               </ExpansionPanelActions>
             </ExpansionPanel>
           </div>
+
+
+          <div className={classes.root1}>
+            <ExpansionPanel defaultExpanded className={classes.root1}>
+              <ExpansionPanelSummary
+             
+                aria-controls="panel1c-content"
+                id="panel1c-header"
+              >
+                <div className={classes.column}>
+                  <Typography className={classes.heading}>Участники</Typography>
+                </div>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.details}>
+                <div className={classes.column} />
+                  <div className={classes.column}>
+                  <Chip label="Участник 1" onDelete={() => {}} />
+                  <Chip label="Участник 2" onDelete={() => {}} />
+                    
+                  </div>
+                <div className={clsx(classes.column, classes.helper)}>
+                  <Typography variant="caption">
+                    Примененные фильтры
+                    {/* <a href="#secondary-heading-and-columns" className={classes1.link}>
+                      Learn more
+                    </a> */}
+                  </Typography>
+                </div>
+              </ExpansionPanelDetails>
+              <Divider />
+              <ExpansionPanelActions>
+                <Button size="small">Отмена</Button>
+                <Button size="small" color="primary">
+                  Применить
+                </Button>
+              </ExpansionPanelActions>
+            </ExpansionPanel>
+            
+          </div>
       
       
           <div className={classes.root1}>
@@ -137,6 +186,7 @@ class LogIns extends React.Component{
                 </Button>
               </ExpansionPanelActions>
             </ExpansionPanel>
+
           </div>
       
           </div>
@@ -150,15 +200,17 @@ class LogIns extends React.Component{
               <Container maxWidth="xl"  >
                 <Typography component="div" style={{ backgroundColor: '#ffffff', height: '100vh' }}>
                   <div className={classes.root}>
-                  <Button className={classes.paper}variant="outlined" color="primary">+Добавить колонку</Button>
+                  
                     <Grid container spacing={0}>
                        <Grid item xs={12}>
-                        <Button className={classes.paper}variant="outlined" color="primary">+Добавить колонку</Button>
+                        <Button className={classes.paper}variant="outlined" color="primary" onClick={this.AddTask}>+Добавить колонку</Button>
+                        {[...Array(this.state.count)].map(() => <ColumnComponent />)}
                       </Grid>
-                      <Grid item xs={3}>
+                      {/* <Grid item xs={3}>
                         <Paper className={classes.paper}>
                           <Typography><h3>Task Name</h3>
-                            <button >+Добавить задачу</button>
+                            <button onClick={this.AddTask}>+Добавить задачу</button>
+                            {[...Array(this.state.count)].map(() => <textarea />)}
                           </Typography>
                         </Paper>
                       </Grid>
@@ -182,7 +234,7 @@ class LogIns extends React.Component{
                             <button >+Добавить задачу</button>
                           </Typography>
                         </Paper>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                   </div>
                 </Typography>
