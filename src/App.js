@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 
 export default function App(){
   const linksunderline = useStyles();
+  const istest = true;
   return (
     <Router >
       <Navbar.Collapse id="responsive-navbar-nav" >
@@ -40,7 +41,7 @@ export default function App(){
             <Link href="/" className={linksunderline.linkstyle}  >Главная</Link>
             <Link href="/auth" className={linksunderline.linkstyle} >Авторизация</Link>
             <Link href="/reg" className={linksunderline.linkstyle} >Регистрация</Link>
-            <Link href="/guests" className={linksunderline.linkstyle} >Доска Задач</Link>
+            {istest && <Link href="/guests" className={linksunderline.linkstyle} >Доска Задач</Link>}
             <Link href="/guestD" className={linksunderline.linkstyle} >Доска</Link>
           </Toolbar>
         </AppBar>
