@@ -157,6 +157,7 @@
     margin-right: auto;
     margin-top: auto;
     max-width: 600px;
+    padding-top: 100px;
     
 }
 .flx3{
@@ -203,4 +204,11 @@
 .marg1{
   padding-top: 10px;
   
+}
+
+.greet{
+  display:block;
+margin:auto;
+padding-top: 20px;
+
 }

@@ -113,48 +113,49 @@ LogIn(props){
     })  
     //const regstyles = {useStyles};
     return(
-      
-     
-      
-      <div>
+      <Typography component="div" style={{ backgroundColor: '#fafafa', height: '100vh' }}>
+           <div>
         
-         <div className="flx1">
-      <div className="flx2">
-      <Paper elevation = {3} className={useStyles.roundtry} style = {{borderRadius: 25}} variant = "elevation" theme={this.theme}>
-          
-          <div className="flx4">
-            <div>
-              <form style = {{padding: "40px"}} className="flx3" >
-                
-                {/* <p className = "divvv"  ><label className = "inputs" > Логин: <input type="text" name="login" value={this.state.login}  onChange={this.onChangeLogin}/></label></p>
-                <p className = "divvv" > <label className = "inputs" > Email: <input type="text" name="email" value={this.state.email}  onChange={this.onChangeEmail}/></label></p>
-                <p className = "divvv" ><label className = "inputs" > Пароль: <input type="password" name="password" value={this.state.password} onChange={this.onChangePassword}/></label></p>  */}
-              <Typography variant="h6"  /* className={this.regstyles.typostyle} */>Регистрация</Typography>
-                <p style = {{paddingBottom: "1%" }} ><TextField id="standerd-basic" label = "Логин" type="text" onChange = {this.handleLoginChange} name = "login" /></p>
-                <p style = {{paddingBottom: "1%" }}><TextField id="standerd-basic" label = "Email" type="text" onChange = {this.handleEmailChange} name = "email"/></p>
-                <p style = {{paddingBottom: "1%" }}><TextField id="standerd-basic" label = "Пароль" type="password" onChange = {this.handlePasswordChange} name = "password"/></p>
-                 <p style = {{paddingTop: "5%"}} ><Button variant="outlined" color="primary">Подтвердить</Button></p>
-              </form>
-            </div>
+       
+        <div className="flx2">
+        <Paper elevation = {3} className={useStyles.roundtry} style = {{borderRadius: 25, backgroundColor: '#eeeeee'}} variant = "elevation" theme={this.theme}>
             
+            <div className="flx4">
+              <div>
+                <form style = {{padding: "40px"}} className="flx3" >
+                  
+                  {/* <p className = "divvv"  ><label className = "inputs" > Логин: <input type="text" name="login" value={this.state.login}  onChange={this.onChangeLogin}/></label></p>
+                  <p className = "divvv" > <label className = "inputs" > Email: <input type="text" name="email" value={this.state.email}  onChange={this.onChangeEmail}/></label></p>
+                  <p className = "divvv" ><label className = "inputs" > Пароль: <input type="password" name="password" value={this.state.password} onChange={this.onChangePassword}/></label></p>  */}
+                <Typography variant="h6"  /* className={this.regstyles.typostyle} */>Регистрация</Typography>
+                  <p style = {{paddingBottom: "1%" }} ><TextField id="standerd-basic" label = "Логин" type="text" onChange = {this.handleLoginChange} name = "login" /></p>
+                  <p style = {{paddingBottom: "1%" }}><TextField id="standerd-basic" label = "Email" type="text" onChange = {this.handleEmailChange} name = "email"/></p>
+                  <p style = {{paddingBottom: "1%" }}><TextField id="standerd-basic" label = "Пароль" type="password" onChange = {this.handlePasswordChange} name = "password"/></p>
+                   <p style = {{paddingTop: "5%"}} ><Button variant="outlined" color="primary">Подтвердить</Button></p>
+                </form>
+              </div>
+              
+               
              
-           
-             
-          </div>
-        </Paper>    
-        
-
-
-     
-      <div className="regimg">
-
-      </div>
-      </div>
+               
+            </div>
+          </Paper>    
+          
+  
+  
+       
+        <div className="regimg">
+  
+        </div>
+        </div>
       
-    </div>
-
-      {this.LogIn}
-      </div>
+  
+        {this.LogIn}
+        </div>
+      </Typography>
+     
+      
+     
     );
   }
 }

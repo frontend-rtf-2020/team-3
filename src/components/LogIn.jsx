@@ -76,46 +76,47 @@ render(){
   }) ;
 
   return(
-    <div className="flx1">
-    <div className="flx2">
-    <Paper elevation = {3} /* className={regstyles.roundtry} */ style = {{borderRadius: 25}} variant = "elevation" theme={theme}>
-        
-        <div className="flx4">
-          <div>
-            <form style = {{padding: "40px"}} className="flx3" >
+    <Typography component="div" style={{ backgroundColor: '#fafafa', height: '100vh' }}>
+      <div   > 
+        <div className="flx2" >
+          <Paper  elevation = {3} /* className={regstyles.roundtry} */ style = {{borderRadius: 25, backgroundColor: '#eeeeee'}} variant = "elevation" theme={theme}>
               
-              {/* <p className = "divvv"  ><label className = "inputs" > Логин: <input type="text" name="login" value={this.state.login}  onChange={this.onChangeLogin}/></label></p>
-              <p className = "divvv" > <label className = "inputs" > Email: <input type="text" name="email" value={this.state.email}  onChange={this.onChangeEmail}/></label></p>
-              <p className = "divvv" ><label className = "inputs" > Пароль: <input type="password" name="password" value={this.state.password} onChange={this.onChangePassword}/></label></p>  */}
-              <Typography variant="h6"  /* className={regstyles.typostyle} */>Авторизация</Typography>
-              <p style = {{paddingBottom: "1%" }} ><TextField id="standerd-basic" label = "Логин" type="text" name = "login" /></p>
-              <p style = {{paddingBottom: "1%" }}><TextField id="standerd-basic" label = "Пароль" type="password" name = "password"/></p>
-              <div style = {{paddingTop: "10%"}}>
-                  <Button style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Вход</Button>
-                  
+              <div className="flx4">
+                <div>
+                  <form style = {{padding: "40px"}} className="flx3" >
+                    
+                    {/* <p className = "divvv"  ><label className = "inputs" > Логин: <input type="text" name="login" value={this.state.login}  onChange={this.onChangeLogin}/></label></p>
+                    <p className = "divvv" > <label className = "inputs" > Email: <input type="text" name="email" value={this.state.email}  onChange={this.onChangeEmail}/></label></p>
+                    <p className = "divvv" ><label className = "inputs" > Пароль: <input type="password" name="password" value={this.state.password} onChange={this.onChangePassword}/></label></p>  */}
+                    <Typography variant="h6"  /* className={regstyles.typostyle} */>Авторизация</Typography>
+                    <p style = {{paddingBottom: "1%" }} ><TextField id="standerd-basic" label = "Логин" type="text" name = "login" /></p>
+                    <p style = {{paddingBottom: "1%" }}><TextField id="standerd-basic" label = "Пароль" type="password" name = "password"/></p>
+                    <div style = {{paddingTop: "10%"}}>
+                        <Button style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Вход</Button>
+                        
+                    </div>
+                    
+                  </form>
+                </div>
+                {/* <div>
+                  <Paper className={regstyles.paperimgstyle} elevation = {12}>
+                    <Typography></Typography>
+                  </Paper>
+                </div> */}
+              
+                
               </div>
               
-            </form>
-          </div>
-          {/* <div>
-            <Paper className={regstyles.paperimgstyle} elevation = {12}>
-              <Typography></Typography>
-            </Paper>
-          </div> */}
-         
-          
-        </div>
-        
-      
+            
 
 
-    </Paper>
-    <div className="regimg">
+          </Paper>
 
-    </div>
     </div>
     
-  </div>
+    </div>
+          </Typography>
+    
   );
 }
   

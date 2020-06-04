@@ -18,6 +18,7 @@ import clsx from 'clsx';
 import { withStyles } from "@material-ui/core/styles";
 import useStyles from './useStyles';
 import ColumnComponent from './ColumnComponent'
+import InputBase from '@material-ui/core/InputBase';
 //import makeStyles from '@material-ui/styles';
 
 import { Paper,Typography, makeStyles, Box} from '@material-ui/core';
@@ -84,7 +85,15 @@ class LogIns extends React.Component{
               </ExpansionPanelSummary>
               <ExpansionPanelDetails className={classes.details}>
                 <div className={classes.column} />
-                <div className={classes.column}>
+                <div >
+                <InputBase fullWidth multiline style = {{paddingLeft: "10px", paddingTop: "10px", paddingRight: "10px", paddingBottom: "10px"}}
+                          // className={classes.margin}
+                            defaultValue="Cras mattis consectetur purus sit amet fermentum.
+                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,"
+                            inputProps={{ 'aria-label': 'naked' }}
+                          />
                   <Typography>Cras mattis consectetur purus sit amet fermentum.
       Cras justo odio, dapibus ac facilisis in, egestas eget quam.
       Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
@@ -203,7 +212,7 @@ class LogIns extends React.Component{
                   
                     <Grid container spacing={0}>
                        <Grid item xs={12}>
-                        <Button className={classes.paper}variant="outlined" color="primary" onClick={this.AddTask}>+Добавить колонку</Button>
+                        <Button className={classes.paper}variant="outlined" color="primary" onClick={this.AddTask}>+ Добавить колонку</Button>
                         {[...Array(this.state.count)].map(() => <ColumnComponent />)}
                       </Grid>
                       {/* <Grid item xs={3}>

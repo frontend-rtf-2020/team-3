@@ -68,17 +68,21 @@ export default class LogIns extends React.Component{
         
         
         <Container maxWidth="100%">
-        <Grid container spacing={0}>
-                       <Grid item xs={12}>
-                        <Button variant="outlined" color="primary" onClick={this.AddTask}>+Добавить колонку</Button>
+        <Grid container spacing={0} >
+                       <Grid item xs={12} style = {{ paddingTop: "20px"}}>
+                        
                         {[...Array(this.state.count)].map(() => <DeskField />)}
+                        <div style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}}>
+
+                        </div>
+                        <Button  variant="outlined" color="primary" onClick={this.AddTask}>+ Добавить доску</Button>
                       </Grid>
                       </Grid>
 
         {/* </Grid><Button variant="outlined" color="primary">+Добавить доску</Button>  */}
-          <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
+         {/*  <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
             
-          </Typography>
+          </Typography> */}
         </Container>
       </React.Fragment>
     );

@@ -25,18 +25,19 @@ const useStyles = makeStyles({
     fontSize: 20
   },
   appbarstyle:{
-    elevation: "4"
+    elevation: "4",
+    color: 'secondary'
   }
 });
 
 export default function App(){
   const linksunderline = useStyles();
   return (
-    <Router>
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <AppBar position="static" className={linksunderline.appbarstyle}>
-          <Toolbar className={linksunderline.appbarstyle}>   
-            <Link href="/" className={linksunderline.linkstyle} >Главная</Link>
+    <Router >
+      <Navbar.Collapse id="responsive-navbar-nav" >
+        <AppBar position="static" className={linksunderline.appbarstyle}  style={{ сolor: '#fafafa'}}>
+          <Toolbar className={linksunderline.appbarstyle} >   
+            <Link href="/" className={linksunderline.linkstyle}  >Главная</Link>
             <Link href="/auth" className={linksunderline.linkstyle} >Авторизация</Link>
             <Link href="/reg" className={linksunderline.linkstyle} >Регистрация</Link>
             <Link href="/guests" className={linksunderline.linkstyle} >Доска Задач</Link>
