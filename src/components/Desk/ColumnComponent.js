@@ -5,7 +5,9 @@ import ReactDOM from 'react-dom';
 import InputBase from '@material-ui/core/InputBase';
 import { TextField} from '@material-ui/core';
 import { Button } from '@material-ui/core';
- 
+import TaskField from './TaskField'
+import DeleteIcon from '@material-ui/icons/Delete';
+
 class ColumnComponent extends Component {
   
 constructor(props){
@@ -37,17 +39,18 @@ constructor(props){
                             defaultValue="Имя колонки"
                             inputProps={{ 'aria-label': 'naked' }}
                           />
+                          <Button onClick={this.Destroy} style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
                 <Typography style = {{paddingLeft: "10px", paddingRight: "10px"}} variant="h6"  /* className={regstyles.typostyle} */>Описание:</Typography>
                 <TextField fullWidth style = {{paddingLeft: "0px", paddingRight: "40px"}} id="filled-full-width"   label = "" variant="outlined" multiline defaultValue="Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`," 
                     type="text" />
+                    
                 <Button onClick={this.AddTask} color="primary">+ Добавить задачу</Button>
                 
 
 {/* имя задачи и описание если что делаем через InputBase и TextField */}
+{[...Array(this.state.count)].map(() => <TaskField />)}
 
-                {[...Array(this.state.count)].map(() => <textarea />)}
-                <Button onClick={this.Destroy} style = {{color:"#ff1744"}}>- Удалить задачу</Button>
-                <Button onClick={this.Destroy} style = {{color:"#ff1744"}}>- Удалить колонку</Button>
+                
                 <Button onClick={this.Destroy} color="primary">Сохранить изменения</Button>
                 
               

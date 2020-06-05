@@ -1,12 +1,13 @@
 import './App.css';
-import React, { Component} from 'react';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import React from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+//import LogIn from './index';
 import LogIn from './components/LogIn.jsx';
 import Reg from './components/Reg.jsx';
-import Guest from './components/Desk/Guest'
-import Body from './components/Body'
-import GuestDesk from './components/Desk/GuestDesk'
-import { Navbar, Nav} from 'react-bootstrap';
+import Guest from './components/Desk/Guest';
+import Body from './components/Body';
+import GuestDesk from './components/Desk/GuestDesk';
+import { Navbar} from 'react-bootstrap';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import {makeStyles} from '@material-ui/styles';
