@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Button, Typography, Paper, Grid} from '@material-ui/core';
+import {Typography, Paper, Grid} from '@material-ui/core';
 import gogosimon from '../assets/149653.gif';
 import testpic from '../assets/mainpgart.gif';
 import '../App.css';

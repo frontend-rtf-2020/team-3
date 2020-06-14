@@ -1,10 +1,7 @@
 import React from 'react';
-//import Guest from './Desk/Guest'
-//import {Switch, Route} from "react-router-dom"
 import Button from '@material-ui/core/Button';
 import '../App.css';
 import { TextField, Paper, Typography } from '@material-ui/core';
-//import { auto } from '@popperjs/core';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 

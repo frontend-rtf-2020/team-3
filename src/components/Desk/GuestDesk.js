@@ -1,5 +1,4 @@
-import React, { Component, useState}from 'react';
-import ReactDOM from "react-dom";
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -20,34 +19,37 @@ import useStyles from './useStyles';
 import ColumnComponent from './ColumnComponent'
 import InputBase from '@material-ui/core/InputBase';
 //import makeStyles from '@material-ui/styles';
-
-import { Paper,Typography, makeStyles, Box} from '@material-ui/core';
+import { useState } from 'react';
+import { Paper,Typography} from '@material-ui/core';
 
   
-class LogIns extends React.Component{
-  constructor(props) {
-    super(props);
-    //this.AddTask = this.AddTask.bind(this);
-    this.state = {
-      name:'',
-      tags:'',
-      count: 0,
-      description: '',
-      owner:''
-    }
-  }
+function LogIns(props) {
+  // constructor(props) {
+  //   super(props);
+  //   //this.AddTask = this.AddTask.bind(this);
+  //   this.state = {
+  //     name:'',
+  //     tags:'',
+  //     count: 0,
+  //     description: '',
+  //     owner:''
+  //   }
+  // }
 
-  AddTask = () => {
-    this.setState(({ count }) => ({
-      count: count + 1,
-    }));
-  }
+  // AddTask = () => {
+  //   this.setState(({ count }) => ({
+  //     count: count + 1,
+  //   }));
+  // }
 
-  render(){
-
+  
     
+    const [count, setCount] = useState(0);
+const [id, setId] = useState(1);
 
-    const { classes } = this.props;
+
+
+    const classes  = {props};
     const sr = {paddingRight: 30, fontSize: 20,color: "white",};
   
     return(
@@ -57,7 +59,7 @@ class LogIns extends React.Component{
               <AppBar position="static" className={classes.appbarstyle}>
                 <Toolbar className={classes.appbarstyle} >   
           
-                  <Link href="/" className={this.props.classes.linkstyle} style = {sr}>Главная</Link>
+                  <Link href="/" className={props.classes.linkstyle} style = {sr}>Главная</Link>
                   <Link href="/guests" className={classes.useStyles} style = {{paddingRight: 30, fontSize: 20,color: "white",}}>Доска Задач</Link>
                   <Link href="/guestD" className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white",}} >Доска</Link>
                   
@@ -65,8 +67,7 @@ class LogIns extends React.Component{
                   <h3 className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white", }} >UserName</h3>
                   <Link href="/" className={classes.linkstyle} style = {{paddingRight: 30, fontSize: 20,color: "white", }} >Выход</Link>
                 </Toolbar>
-              </AppBar>
-       
+              </AppBar>  
       
       
           <div>
@@ -212,8 +213,9 @@ class LogIns extends React.Component{
                   
                     <Grid container spacing={0}>
                        <Grid item xs={12}>
-                        <Button className={classes.paper}variant="outlined" color="primary" onClick={this.AddTask}>+ Добавить колонку</Button>
-                        {[...Array(this.state.count)].map(() => <ColumnComponent />)}
+                        <Button className={classes.paper}variant="outlined" color="primary" onClick={() => setCount(count + 1)}>+ Добавить колонку</Button>
+                        
+                        {[...Array(count)].map(() => <ColumnComponent id="1"/>)}
                       </Grid>
                       {/* <Grid item xs={3}>
                         <Paper className={classes.paper}>
@@ -255,7 +257,7 @@ class LogIns extends React.Component{
         
         </div>
     );
-  }
+  
 }
 
 export default withStyles(useStyles)(LogIns);

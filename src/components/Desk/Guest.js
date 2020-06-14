@@ -1,16 +1,12 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import '../../App.css';
-import { Paper,makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Link from '@material-ui/core/Link';
-import { TextField } from '@material-ui/core';
-import GuestDesk from './GuestDesk';
-import GuestField from './DeskField'
 import Grid from '@material-ui/core/Grid';
 import DeskField from './DeskField';
 
@@ -20,7 +16,9 @@ export default class LogIns extends React.Component{
     super(props);
     this.state={
       count:0
+    
     }
+    
   }
   
     AddTask = () => {
@@ -30,6 +28,7 @@ export default class LogIns extends React.Component{
     }
 
   render(){
+
     const useStyles = makeStyles({
       linkstyle:{
         underline: "none",
@@ -42,8 +41,11 @@ export default class LogIns extends React.Component{
         
       },
     });
+
+    //auth = false;
     return(
               <React.Fragment>
+
         <div className="justifyelts" style = {{paddingRight: 30}}>
               <AppBar position="static" /* className={linksunderline.appbarstyle} */>
                   <Toolbar /* className={linksunderline.appbarstyle }*/>   

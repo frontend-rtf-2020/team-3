@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
-import { Nav} from 'react-bootstrap';
 import Button from '@material-ui/core/Button';
+
 export class Guest extends Component{
 
   constructor(props) {

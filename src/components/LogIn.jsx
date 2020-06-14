@@ -1,6 +1,6 @@
 
 import Button from '@material-ui/core/Button';
-import React, { Component } from 'react';
+import React from 'react';
 
 //import Guest from './Desk/Guest'
 //import {Switch, Route} from "react-router-dom"
