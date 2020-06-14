@@ -8,7 +8,7 @@ import React from 'react';
 import '../App.css';
 import { TextField, Paper, Typography } from '@material-ui/core';
 //import { auto } from '@popperjs/core';
-import { /* makeStyles, */ createMuiTheme } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
 
 export default class LogIns extends React.Component{
@@ -35,7 +35,7 @@ export default class LogIns extends React.Component{
 
 LogIn(props){}
 render(){
-  /* const useStyles = makeStyles({
+  const useStyles = makeStyles({
     tocenterstyle:{
       display: "flex",
       width: 100
@@ -66,7 +66,7 @@ render(){
       borderRadius: 25,
     }
 
-  }); */
+  });
 
   const theme = createMuiTheme({
     palette: {
