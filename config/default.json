@@ -1,0 +1,5 @@
+{
+  "port": 5000,
+  "mongoURI": "mongodb+srv://Serega:12345@cluster0-vkcls.azure.mongodb.net/ourApp?retryWrites=true&w=majority",
+  "jwtSecret": "secret key"
+}
