@@ -10,7 +10,7 @@
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "localserverdev": "npm install express mongoose && npm install -D nodemon concurrently && npm i config && npm i bcryptjs && npm i jsonwebtoken",
-    "localreactdev": "npx create-react-app --prefix client && npm install materialize-css@next --prefix client"
+    "localreactdev": "cd client && npx create-react-app && npm install materialize-css@next"
   },
   "keywords": [
     "auth",
