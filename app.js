@@ -7,6 +7,9 @@ const app = express();
 
 app.use(express.json({ extended: true }));
 app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/tables", require("./routes/tables.routes"));
+app.use("/api/table", require("./routes/tables.routes"));
+
 //!!
 app.use(express.static(path.join(__dirname, "client/build")));
 app.get("*", (req, res) => {
