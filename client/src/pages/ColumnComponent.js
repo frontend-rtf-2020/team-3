@@ -45,20 +45,32 @@ const dragOver = e => {
 
       >
             <Grid /* item xs={3} */ style = {{ paddingTop: "10px"}}>
-              <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0}}>
-                <InputBase style = {{paddingLeft: "10px", paddingTop: "10px", paddingRight: "10px", paddingBottom: "10px"}}
+              <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0, boxShadow: "0 0 0px"}}>
+                <div style={{paddingLeft:"5px"}}>
+                <InputBase fullwidth style = {{paddingLeft: "10px", paddingTop: "10px", paddingBottom: "10px", width:'90%'}}
                           // className={classes.margin}
                             defaultValue="Имя колонки"
                             inputProps={{ 'aria-label': 'naked' }}
                           />
-                  <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
-                <Typography style = {{paddingLeft: "10px", paddingRight: "10px"}} variant="h6"  /* className={regstyles.typostyle} */>Описание:</Typography>
-                <TextField fullWidth style = {{paddingLeft: "0px", paddingRight: "40px"}} id="filled-full-width"   label = "" variant="outlined" multiline defaultValue="Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`," 
-                    type="text" />
+                <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
+                <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} >Изменить</Button>
+                </div>
+                <div style={{paddingLeft:"10px",paddingRight:"10px"}}>
+                  <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 0px"}}>
+                    <Typography style = {{paddingLeft: "10px", paddingRight: "10px"}} variant="h6"  /* className={regstyles.typostyle} */>Описание:</Typography>
+                    <TextField fullWidth style = {{paddingLeft: "0px", paddingRight: "40px"}} id="filled-full-width"   label = "" variant="outlined" multiline defaultValue="Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`," 
+                        type="text" />
+                  </Paper>  
+                
+                </div>
+                
                     
-                <Button onClick={() => setCount(count + 1)} color="primary">Добавить задачу</Button>
+                <div style = {{paddingTop: "10px",paddingLeft:"5px", elevation: 12, boxShadow: 0}}>
+                
+                </div>
+                
 
-{/* имя задачи и описание если что делаем через InputBase и TextField */}
+
                 
                 <div                    
                     id = {props.id}
@@ -67,8 +79,13 @@ const dragOver = e => {
                     >
                 <TaskField id="task id" draggable = "true"/>
                 {[...Array(count)].map(() => <TaskField id="task id" draggable = "true" />)}            
+                </div >
+                <div style = {{paddingTop: "5px",paddingLeft:"5px", elevation: 12, boxShadow: 0}}>
+                <Button  onClick={() => setCount(count + 1)} color="primary">Добавить задачу</Button>
+                <Button /*onClick={this.Destroy}*/ backgroundColor="#00e676">Сохранить изменения</Button>
+                
                 </div>
-                <Button /*onClick={this.Destroy}*/ color="primary">Сохранить изменения</Button>
+                
               </Paper>
             </Grid>
       </div>

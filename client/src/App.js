@@ -18,7 +18,7 @@ function App() {
     >
       <BrowserRouter>
         {isAuthenticated}
-        <div className="container">{routes}</div>;
+        <div>{routes}</div>;
       </BrowserRouter>
     </AuthContext.Provider>
   );

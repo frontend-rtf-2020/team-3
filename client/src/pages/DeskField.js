@@ -29,12 +29,15 @@ class DeskField extends Component {
         
         //const sr = {paddingRight: 30, fontSize: 20,color: "white",};
         return (
-          <div >
+          <div style = {{ backgroundColor:"#fafafa"}} >
             <Grid /* item xs={3} */ style = {{ paddingTop: "10px"}}>
+              
               <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0}}>
                 <InputBase style = {{paddingLeft: "10px", paddingTop: "10px", paddingRight: "10px", paddingBottom: "10px"}}
                           // className={classes.margin}
                             defaultValue="Имя доски"
+                            fullWidth
+                            multiline
                             inputProps={{ 'aria-label': 'naked' }}
                           />
                 <Typography style = {{paddingLeft: "10px", paddingRight: "10px"}} variant="h6"  /* className={regstyles.typostyle} */>Описание:</Typography>
@@ -43,7 +46,7 @@ class DeskField extends Component {
                 {/* <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}} onClick={this.MoveTo()} color="primary" >Открыть доску</Button> */}
                 <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}}>
                   <Router>
-                    <Link href="/guestD" style={{ textDecoration: 'none' }}> Редактировать доску </Link>
+                    <Link href="/guestD" style={{ textDecoration: 'none', paddingLeft:"10px" }}> Редактировать доску </Link>
                     <Switch>
                       <Route path="/guestD" component={GuestDesk} /> 
                     </Switch>
