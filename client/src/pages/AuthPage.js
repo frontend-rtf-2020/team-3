@@ -31,6 +31,35 @@ export const AuthPage = () => {
   const loginHandler = async () => {
     try {
       const data = await request("/api/auth/login", "POST", { ...form });
+
+      /*const data1 = await request(
+          "/api/tables/add",
+          "post",
+          {owner: data.userId, name: "TestName", description: "Description"});*/
+
+
+      const tables = await request(
+          "/api/tables",
+          "POST",
+          { id: data.userId });
+
+      const table = tables[0];
+
+      /*const data3 = await request(
+          "/api/table",
+          "POST",
+          { tableId: tables[0].id });*/
+
+      /*const data4 = await request(
+          "/api/table/addColumn",
+          "POST",
+          { tableId: tables[0].id, name: "name", description: "desc" });*/
+
+      const data5 = await request(
+          "/api/table/addTask",
+          "POST",
+          { tableId: table.id, columnNumber:0, name: "name", description: "desc", "position": table.columns.length});
+
       auth.login(data.token, data.userId);
     } catch (error) {}
   };
