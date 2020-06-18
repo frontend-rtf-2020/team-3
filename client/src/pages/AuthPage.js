@@ -42,10 +42,9 @@ export const AuthPage = () => {
   return (
     <div className="row">
       <Typography component="div" style={{ backgroundColor: '#fafafa', height: '100vh' }}>
-      <div   > 
+      <div> 
         <div className="flx2" >
           <Paper  elevation = {3} /* className={regstyles.roundtry} */ style = {{borderRadius: 25, backgroundColor: '#f4ff81', borderBottom: "40px"}} variant = "elevation" >
-              
               <div className="flx4" style = {{display: "flex"}}>
                 <div >
                   <form style = {{padding: "40px"}} className="flx3" >
@@ -73,10 +72,8 @@ export const AuthPage = () => {
                 />
                     </p>
                     <div style = {{paddingTop: "10%"}}>
-                        <Button onClick={loginHandler}
-                style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Вход</Button>
+                        <Button onClick={loginHandler} style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Вход</Button>
                         <Button onClick={registerHandler} style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Регистрация</Button>
-                        
                     </div>
                     
                   </form>
