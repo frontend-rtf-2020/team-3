@@ -26,7 +26,7 @@ import { Paper, Typography } from "@material-ui/core";
 import { useAuth } from "../hooks/auth.hook";
 import Guest from "./Guest";
 import Body from "./Body";
-import GuestDesk from "./GuestDesk";
+import {GuestDesk} from "./GuestDesk";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 export function CreatePage(props) {
@@ -109,7 +109,9 @@ export function CreatePage(props) {
       <Switch>
         <Route exact path="/main" component={Body} />
         <Route path="/guests" component={Guest} />
-        <Route path="/guestD" component={GuestDesk} />
+        <Route path="/guestD">
+          <GuestDesk />
+        </Route>
       </Switch>
       
     </div>
