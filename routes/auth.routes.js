@@ -24,14 +24,14 @@ router.post(
         });
       }
       const { email, password } = req.body;
-
+console.log(req.body);
       const candidate = await User.findOne({ email: email });
       if (candidate) {
         return res.status(400).json({ message: "This user already exist" });
       }
       const hashedPassword = await bcrypt.hash(password, 12);
 
-      const user = new User({ email, password: hashedPassword });
+      const user = new User({ name: "name", email: email, password: hashedPassword, tables: [] });
       await user.save();
 
       res.status(201).json({ message: "New user has been created" });

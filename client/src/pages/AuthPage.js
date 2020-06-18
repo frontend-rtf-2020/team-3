@@ -75,7 +75,7 @@ export const AuthPage = () => {
                     <div style = {{paddingTop: "10%"}}>
                         <Button onClick={loginHandler}
                 style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Вход</Button>
-                        <Button  style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Регистрация</Button>
+                        <Button onClick={registerHandler} style = {{marginRight: "3%"}} /* className={regstyles.buttonstyle} */variant="outlined" color="primary">Регистрация</Button>
                         
                     </div>
                     
