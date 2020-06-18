@@ -25,12 +25,10 @@ import InputBase from "@material-ui/core/InputBase";
 import { useState } from "react";
 
 import { useAuth } from "../hooks/auth.hook";
-import GuestDesk from "./GuestDesk";
-import Body from "./Body";
 import TextField from '@material-ui/core/TextField';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-export function CreatePage(props) {
+export function GuestDesk(props) {
   
   const classes = { props };
   const sr = { paddingRight: 30, fontSize: 20, color: "white" };
@@ -313,7 +311,7 @@ export function CreatePage(props) {
   );
 }
 
-export default withStyles(useStyles)(CreatePage);
+export default withStyles(useStyles)(GuestDesk);
 
 /*constructor(props){
     super(props);
