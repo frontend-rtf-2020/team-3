@@ -45,32 +45,18 @@ export default class LogIns extends React.Component{
 
     //auth = false;
     return(
-              <React.Fragment>
-
-        <div className="justifyelts" style = {{paddingRight: 30}}>
-              
-                
-        </div>
-       {/*  <div className="justifyelts">
-        <Paper  elevation = {0} height = "100px" width = "100px">
-          <Typography>
-          <Button style = {{alignItems: 'center'}}  href="/" variant="contained">Добавить доску</Button>
-              </Typography>
-              </Paper>
-        </div> */}
-
-<div style = {{paddingLeft:"20px",paddingRight:"20px",paddingTop:"20px"}}>
-              <TextField
-                    id="outlined-full-width"
-                    label="Задать имя доски"
-                    
-                    placeholder="Имя доски"
-                    fullWidth
-                    multiline
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+      <React.Fragment>
+        <div style = {{paddingLeft:"20px",paddingRight:"20px",paddingTop:"20px"}}>
+          <TextField
+            id="outlined-full-width"
+            label="Задать имя доски"
+            placeholder="Имя доски"
+            fullWidth
+            multiline
+            margin="normal"
+            InputLabelProps={{
+            shrink: true,
+            }}
                     variant="outlined"
                   />
                 
@@ -90,7 +76,7 @@ export default class LogIns extends React.Component{
               </div>
               <div style={{paddingLeft:"20px", paddingTop:"10px"}}>
               <Button  variant="outlined" color="primary" onClick={this.AddTask}>+ Добавить доску</Button>
-              </div>
+          </div>
               
 
         <CssBaseline />

@@ -41,19 +41,6 @@ const MenuProps = {
   }
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder"
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -64,15 +51,25 @@ function getStyles(name, personName, theme) {
 }
 
 function TaskField(props) {
-  
-    // constructor(props){
-    //   super(props);
-    //   this.state={
-    //     count:0
-    //   }
-    // }  
     
-    const [count, setCount] = useState(0);
+/* 
+const [name, setName] = useState("");
+
+const [description, setDescription] = useState(""); */
+
+const [task, taskChange] = useState(props.task);
+
+const deleteHandler = props.deleteHandler;
+
+const changeHandler = (event) => {
+  taskChange({
+    ...task, [event.target.id]:event.target.value
+  });
+}
+
+const addHandler = async () =>{
+  console.log(task);
+}
 
 const dragStart = e => {
   const target = e.target;
@@ -84,9 +81,11 @@ const dragStart = e => {
   }, 0)
 }
 
-// const dragOver = e =>{
-//     e.stopPropagnation();
-// }
+
+const names = [
+
+];
+
 const classes = useStyles();
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
@@ -95,16 +94,9 @@ const classes = useStyles();
     setPersonName(event.target.value);
   };
 
-  const handleChangeMultiple = event => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setPersonName(value);
-  };
+  const onchange = event =>{
+  props.onChange(event.target.value)
+  }
   return(
 
   <div
@@ -116,34 +108,34 @@ const classes = useStyles();
    
   <div  style = {{paddingTop: "5px",paddingLeft:"10px",paddingRight:"10px"}}>
     <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "5px",paddingLeft:"10px", elevation: 12, boxShadow: "0px 0px "}}>
-                  <div style={{width:"100%", display:"inline"}}>
+      <div style={{paddingRight:"10px"}}>
                   <TextField
-                    id="outlined-full-width"
+                    id="name"
                     label="Изменить имя"
-                    style = {{width:"96%"}}
+                    fullWidth
                     placeholder="Имя задачи"
-                    
-                    multiline
                     margin="normal"
                     InputLabelProps={{
                       shrink: true,
                     }}
+                    value={task.name}
                     variant="outlined"
+                    onChange={changeHandler}
                   />
                   
-                  <Button onClick={() => setCount(count + 1)} style={{marginTop:"20px"}} color="primary"><DeleteIcon /></Button>
+                 
                   
-                  
-                  </div>
+      </div>
 
-                  <div style={{paddingRight:"20px"}}>
+                  <div style={{paddingRight:"10px"}}>
                   <TextField
-                    id="outlined-full-width"
+                    id="description"
                     label="Задать описание"
-                    
+                    onChange={changeHandler}
                     placeholder="Описание задачи"
                     fullWidth
                     multiline
+                    value={task.description}
                     margin="normal"
                     InputLabelProps={{
                       shrink: true,
@@ -158,11 +150,13 @@ const classes = useStyles();
                   
                             <FormControl className={classes.formControl}  style = {{width:"80%"}}>
                   <InputLabel id="demo-mutiple-chip-label">Ответственный</InputLabel>
+                  
                   <Select
                     labelId="demo-mutiple-chip-label"
                     id="demo-mutiple-chip"
                     multiple
                     outlined
+                    value={task.owner}
                     value={personName}
                     onChange={handleChange}
                     input={<Input id="select-multiple-chip" />}
@@ -175,6 +169,7 @@ const classes = useStyles();
                     )}
                     MenuProps={MenuProps}
                   >
+                    
                     {names.map(name => (
                       <MenuItem
                         key={name}
@@ -186,6 +181,8 @@ const classes = useStyles();
                     ))}
                   </Select>
                 </FormControl>
+                <Button onClick={addHandler} style={{marginTop:"20px"}} color="primary">Сохранить изменения</Button>
+                <Button onClick={()=>{}} style={{marginTop:"20px"}} color="primary"><DeleteIcon /></Button>
                 
                 
                   </div>

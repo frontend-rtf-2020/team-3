@@ -31,6 +31,41 @@ import TextField from '@material-ui/core/TextField';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export function CreatePage(props) {
+  
+  const classes = { props };
+  const sr = { paddingRight: 30, fontSize: 20, color: "white" };
+
+  /* const { token, login, logout, userId } = useAuth(); */
+  const [column, setColumn] = useState({name:"",description:"",tasks:[]});
+  const [desk, setDesk] = useState({name:"name",description:"description",users:[{name:"vasia",id:""},
+  {name:"kolya",id:""}],
+  columns:[],
+  filters:[{name:"vasia"},{name:"kolya"}]});
+
+  const changeHandler = (event) => {
+    setDesk({
+      ...desk, [event.target.id]:event.target.value
+    })
+  }
+
+  const columnChangeHandler = (event) => {
+    setColumn({
+      ...column, [event.target.id]:event.target.value
+    })
+  }
+
+  const addColumn = (event) => {
+    if(column.name === ""){
+      
+    }
+    else{
+      desk.columns.push(column)
+      setColumn({name:"",description:"",tasks:[]})
+    }
+    
+
+  }
+
   const history = useHistory();
   const auth = useContext(AuthContext);
   const logoutHandler = (event) => {
@@ -38,28 +73,7 @@ export function CreatePage(props) {
     auth.logout();
     history.push("/");
   };
-  // constructor(props) {
-  //   super(props);
-  //   //this.AddTask = this.AddTask.bind(this);
-  //   this.state = {
-  //     name:'',
-  //     tags:'',
-  //     count: 0,
-  //     description: '',
-  //     owner:''
-  //   }
-  // }
-  // AddTask = () => {
-  //   this.setState(({ count }) => ({
-  //     count: count + 1,
-  //   }));
-  // }
-  const { token, login, logout, userId } = useAuth();
-  const [count, setCount] = useState(0);
-  const [id, setId] = useState(1);
-
-  const classes = { props };
-  const sr = { paddingRight: 30, fontSize: 20, color: "white" };
+    
 
   return (
     <div>
@@ -132,8 +146,7 @@ export function CreatePage(props) {
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
               <div className={classes.column}>
-                <Chip label="Участник 1" onDelete={() => {}} />
-                <Chip label="Участник 2" onDelete={() => {}} />
+                {desk.users.map((user)=><Chip label={user.name} onDelete={() => {}} />)}
                 <InputBase
 
                   style={{
@@ -175,8 +188,7 @@ export function CreatePage(props) {
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
               <div className={classes.column}>
-                <Chip label="Название задачи" onDelete={() => {}} />
-                <Chip label="Участник: Петя" onDelete={() => {}} />
+              {desk.filters.map((filter)=><Chip label={filter.name} onDelete={() => {}} />)}
                 <InputBase
 
                   style={{
@@ -222,9 +234,10 @@ export function CreatePage(props) {
 {/* Имя колонки и описание*/}
 
                   <TextField
-                    id="outlined-full-width"
+                    id="name"
                     label="Задать имя колонки"
-                    
+                    value={column.name}
+                    onChange={columnChangeHandler}
                     placeholder="Имя колонки"
                     fullWidth
                     multiline
@@ -235,9 +248,10 @@ export function CreatePage(props) {
                     variant="outlined"
                   />
                 <TextField
-                  id="outlined-full-width"
+                  id="description"
                   label="Задать описание колонки"
-                 
+                  value={column.description}
+                  onChange={columnChangeHandler}
                   placeholder="Описание колонки"
                   fullWidth
                   multiline
@@ -251,13 +265,13 @@ export function CreatePage(props) {
                       className={classes.paper}
                       variant="outlined"
                       color="primary"
-                      onClick={() => setCount(count + 1)}
+                      onClick={addColumn}
                     >
                       + Добавить колонку
                     </Button>
 
-                    {[...Array(count)].map(() => (
-                      <ColumnComponent id="1" />
+                    {desk.columns.map((column) => (
+                      <ColumnComponent column = {column} />
                     ))}
                   </Grid>
                   {/* <Grid item xs={3}>
