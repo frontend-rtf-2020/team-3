@@ -1,8 +1,11 @@
-import VK, {Auth} from react-vk;
+import React, { Component } from 'react';
+import VK, {Auth} from 'react-vk';
 
-const Login = () => {
+import { Button} from 'react-bootstrap'
+
+const VKRegistration = () => {
     return (
-        <VK apiId={your_api_id}>
+        <VK apiId={7515170} >
           <Auth options={{
                   onAuth: user => {
                     console.log(user);
@@ -11,3 +14,6 @@ const Login = () => {
         </VK>
     )
 };
+
+
+  export default VKRegistration;

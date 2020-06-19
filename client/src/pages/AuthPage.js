@@ -11,6 +11,8 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
+import {VKRegistration} from "./VKauth";
+import VK, {Auth} from 'react-vk';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -68,6 +70,18 @@ export const AuthPage = () => {
       setOpen(true);
     }
   };
+
+  const VKHandler = (event) => {
+ 
+    
+    {/* <VKRegistration /> */}
+
+    /*   desk.columns.push(column)
+      setColumn({name:"",description:"",tasks:[]}) */
+ 
+    
+
+  }
 
   return (
     <div className="row">
@@ -136,13 +150,22 @@ export const AuthPage = () => {
                         Регистрация
                       </Button>
                       <Button
-                        /* onClick={VKHandler} */
+                        onClick={VKHandler}
                         style={{ marginRight: "3%" }}
                         variant="outlined"
                         color="primary"
                       >
                         ВК
                       </Button>
+
+                      <VK apiId={7515170}>
+        <Auth options={{
+                onAuth: user => {
+                  console.log(user);
+                },
+          }}/>
+      </VK>
+
                       <Snackbar
                         open={open}
                         autoHideDuration={6000}
