@@ -16,6 +16,13 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import Select from "@material-ui/core/Select";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from "clsx";
+import Divider from "@material-ui/core/Divider";
  
 function ColumnComponent(props) {
 
@@ -118,23 +125,22 @@ const theme = useTheme();
 const classes = useStyles();
 
     return (
-      <div>
+      <div style={{paddingBottom: "100px"}}>
         <Grid /* item xs={3} */ style = {{ paddingTop: "10px"}}>
-          <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0, boxShadow: "0 0 0px"}}>
-
+          <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingBottom: "20px", boxShadow: "0 0 1px"}}>
             <div style={{paddingLeft:"5px"}}>
               <InputBase 
-              fullwidth style = {{paddingLeft: "10px", paddingTop: "10px", paddingBottom: "10px", width:'90%'}}
-              id = "name"
-              onChange={onColumnChange}
-              value={column.name}
-              inputProps={{ 'aria-label': 'naked' }}/>
-                <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
-                <Button  style = {{color:"#f9a825"}} >Изменить</Button>
+                fullwidth style = {{paddingLeft: "10px", paddingTop: "10px", paddingBottom: "10px", width:'90%'}}
+                id = "name"
+                onChange={onColumnChange}
+                value={column.name}
+                inputProps={{ 'aria-label': 'naked' }}
+              />
+              <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
+              <Button  style = {{color:"#f9a825"}} >Изменить</Button>
             </div>
-
             <div style={{paddingLeft:"10px",paddingRight:"10px"}}>
-              <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 0px"}}>
+              <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 1px 1px grey"}}>
                 <Typography style = {{paddingLeft: "10px", paddingRight: "10px"}} variant="h6"  >Описание:</Typography>
                   <TextField fullWidth style = {{paddingLeft: "0px", paddingRight: "40px"}}
                   onChange={onColumnChange}
@@ -146,106 +152,116 @@ const classes = useStyles();
                   type="text" />
               </Paper>      
             </div>
-            <div id = {props.id} onDrop = {drop} onDragOver = {dragOver}>
-              {column.tasks.map((task) => <TaskField task={task} deleteHandler={deleteTask}  draggable = "true" />)}            
-            </div >
-
+            
+            <div style = {{paddingTop: "5px",paddingLeft:"5px", elevation: 12, boxShadow: 0}}>
+                <Button backgroundColor="primary" onClick={saveButton}>Сохранить изменения</Button>
+            </div>
 
             {/* добавление задачи */}
-
-            <Typography style={{paddingLeft:"20px"}}>
-              Добавить задачу:
-            </Typography>
-
-            <div style={{paddingLeft:"10px", paddingRight:"10px"}}>
-              <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "5px",paddingLeft:"10px", elevation: 12, boxShadow: "0px 0px "}}>
-        <div style={{paddingRight:"10px"}}>
-                    <TextField
-                      id="name"
-                      label="Изменить имя"
-                      fullWidth
-                      placeholder="Имя задачи"
-                      margin="normal"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      
-                      variant="outlined"
-                      
-                    />
-                    
-                  
-                    
-        </div>
-
-                    <div style={{paddingRight:"10px"}}>
-                    <TextField
-                      id="description"
-                      label="Задать описание"
-                      
-                      placeholder="Описание задачи"
-                      fullWidth
-                      multiline
-                      
-                      margin="normal"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="outlined"
-                    />
-          
-                    </div>
-              
-                    
-                    <div style = {{width:"100%", paddingTop:"0px"}} >
-                    
-                              <FormControl className={classes.formControl}  style = {{width:"80%"}}>
-                    <InputLabel id="demo-mutiple-chip-label">Ответственный</InputLabel>
-                    
-                    <Select
-                      labelId="demo-mutiple-chip-label"
-                      id="demo-mutiple-chip"
-                      multiple
-                      outlined
-                      
-                      input={<Input id="select-multiple-chip" />}
-                      renderValue={selected => (
-                        <div className={classes.chips}>
-                          {selected.map(value => (
-                            <Chip key={value} label={value} className={classes.chip} />
-                          ))}
-                        </div>
-                      )}
-                      MenuProps={MenuProps}
-                    >
-                      
-                      {names.map(name => (
+            
+            <div style={{paddingLeft:"10px", paddingRight:"10px", paddingTop:"60px"}}>
+              <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "15px",paddingLeft:"10px", elevation: 12, boxShadow: "0px 0px 1px 1px grey"}}>
+                <Typography style = {{paddingLeft: "0px", paddingRight: "10px", paddingTop: "15px"}} variant="h6"  >Добавить задачу</Typography>
+                <div style={{paddingRight:"10px"}}>
+                  <TextField
+                    id="name"
+                    label="Изменить имя"
+                    fullWidth
+                    placeholder="Имя задачи"
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                  />
+                </div>
+                <div style={{paddingRight:"10px"}}>
+                  <TextField
+                    id="description"
+                    label="Задать описание"
+                    placeholder="Описание задачи"
+                    fullWidth
+                    multiline
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                  />
+                </div>
+                <div style={{paddingTop:"20px"}}>
+                    {/* {desk.filters.map((filter)=> */}
+                <div style={{paddingRight: "10px", paddingTop: "15px", float:"left"}}>
+                            <Chip /* label={filter.name} */ onDelete={() => {}} />
+                          </div>
+                          <div style={{paddingRight: "10px",paddingBottom: "0px", float:"left"}}>
+                            <TextField 
+                              placeholder="Фильтр"
+                              inputProps={{ "aria-label": "naked" }}
+                              variant="standard"
+                              label="Добавить фильтр"
+                              size="small"
+                              width="30%"
+                              />
+                          </div>
+                          <div style={{paddingRight: "10px", paddingTop: "15px",float:"left",}}>
+                            <Button  size="small" color="primary">
+                              Подтвердить
+                            </Button>
+                          </div>
+                </div>
+                
+                <div style = {{display: "block", paddingBottom:"20px"}}>
+                <FormControl style={{width:"100%"}}  >
+                    <InputLabel >Ответственный</InputLabel>
+                      <Select
+                        
+                        id="demo-mutiple-chip"
+                        multiple
+                        style={{width:"100%"}}
+                        
+                        input={<Input id="select-multiple-chip" />}
+                        renderValue={selected => (
+                          <div className={classes.chips}>
+                            {selected.map(value => (
+                              <Chip key={value} label={value} className={classes.chip} />
+                            ))}
+                          </div>
+                        )}
+                        MenuProps={MenuProps}
+                      >
+                        {names.map(name => (
                         <MenuItem
-                          key={name}
-                          value={name}
-                          style={getStyles(name, theme)}
+                            key={name}
+                            value={name}
+                            style={getStyles(name, theme)}
                         >
-                          {name}
+                        {name}
                         </MenuItem>
-                      ))}
-                    </Select>
+                        ))}
+                      </Select>
                   </FormControl>
+                </div>
+
                   
-                  
-                  
-                    </div>
-        {/* <label>Название задачи</label> 
-        <input></input>
-        <label>Описание</label><input></input>
-        <label>Ответственный</label> <input></input> */}
-        
+                 
       </Paper>
+
+
+                  
+            </div>
+              <div style = {{paddingTop: "5px",paddingLeft:"5px", elevation: 12, boxShadow: 0}}>
+                <Button  onClick={addTask} color="primary">Добавить задачу</Button>
+              </div>
+            <div >
+              <Typography style = {{paddingLeft: "20px",paddingTop: "10px"}} variant="h6"  >Задачи:</Typography>
             </div>
 
-            <div style = {{paddingTop: "5px",paddingLeft:"5px", elevation: 12, boxShadow: 0}}>
-              <Button  onClick={addTask} color="primary">Добавить задачу</Button>
-              <Button /*onClick={this.Destroy}*/ backgroundColor="#00e676" onClick={saveButton}>Сохранить изменения</Button>
-            </div>
+            <div style={{paddingTop:"0px"}} id = {props.id} onDrop = {drop} onDragOver = {dragOver}>
+                    {column.tasks.map((task) => <TaskField task={task} deleteHandler={deleteTask}  draggable = "true" />)}            
+                  </div >
+
+            
                 
           </Paper>
         </Grid>

@@ -135,6 +135,14 @@ export const AuthPage = () => {
                       >
                         Регистрация
                       </Button>
+                      <Button
+                        /* onClick={VKHandler} */
+                        style={{ marginRight: "3%" }}
+                        variant="outlined"
+                        color="primary"
+                      >
+                        ВК
+                      </Button>
                       <Snackbar
                         open={open}
                         autoHideDuration={6000}
