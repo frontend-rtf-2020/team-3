@@ -272,6 +272,7 @@ export function GuestDesk(props) {
                       <ColumnComponent column = {column} />
                     ))}
                   </Grid>
+                  
                 </Grid>
               </div>
             </Typography>
@@ -283,3 +284,5 @@ export function GuestDesk(props) {
 }
 
 export default withStyles(useStyles)(GuestDesk);
+
+

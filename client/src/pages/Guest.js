@@ -25,7 +25,6 @@ export function GuestDesk(props) {
       
     },
   })
-
   const [currentDesk, setCurrentDesk] = useState({name:"",description:"",id:"",desksArray:[]});
   const [desk, setDesk] = useState({name:"name",description:"description",
   desks:[]});
@@ -36,17 +35,13 @@ export function GuestDesk(props) {
       ...currentDesk, [event.target.id]:event.target.value
     })
   }
-
   const addDesk = (event) => {
     if(currentDesk.name === ""){
-      
     }
     else{
       desk.desks.push(currentDesk)
       setCurrentDesk({name:"",description:"",id:"",desksArray:[]})
     }
-    
-
   }
 
   return(
@@ -68,16 +63,16 @@ export function GuestDesk(props) {
           />
               
           <TextField
-            id="description"
-            label="Задать описание"
-            value={currentDesk.description}
-            onChange={deskChangeHandler}
-            placeholder="Описание доски"
+           id="description"
+           label="Задать описание"
+           value={currentDesk.description}
+           onChange={deskChangeHandler}
+           placeholder="Описание доски"
             fullWidth
             multiline
             margin="normal"
             InputLabelProps={{
-              shrink: true,
+            shrink: true,
             }}
             variant="outlined"
           />
@@ -177,7 +172,7 @@ export default GuestDesk;
 //             variant="outlined"
 //             />
                 
-//             <TextField
+//<TextField
 //               id="description"
 //               label="Задать описание"
 //               onChange={deskChangeHandler}
@@ -200,28 +195,28 @@ export default GuestDesk;
 //                 + Добавить доску
 //               </Button>
               
-//           </div>
+//           </div>  
               
 
-//         <CssBaseline />
+        //<CssBaseline />
         
         
-        
-//         <Container maxWidth="100%">
+        //         <Container maxWidth="100%">
 //         <Grid container spacing={0} >
 //                        <Grid item xs={12} style = {{}}>
+        
                         
 //                         {[...Array(this.state.count)].map(() => <DeskField />)}
 //                         <div style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}}>
 
-//                         </div>
+                        //</div>
                         
-//                       </Grid>
-//                       </Grid>
+                      //</Grid>
+                     // </Grid>
 
 //         {/* </Grid><Button variant="outlined" color="primary">+Добавить доску</Button>  */}
 //          {/*  <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
-            
+
 //           </Typography> */}
 //         </Container>
 //       </React.Fragment>

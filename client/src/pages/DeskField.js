@@ -9,10 +9,10 @@ import { browserHistory } from 'react-router';
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import Link from '@material-ui/core/Link';
 import { useState } from 'react';
-
 function DeskField(props){
 
   const [desk, setDesk] = useState(props.desk);
+
 
   const onDeskChange = (event) => {
     setDesk({
@@ -24,7 +24,7 @@ function DeskField(props){
     <div style = {{ backgroundColor:"#fafafa"}} >
       <Grid /* item xs={3} */ style = {{ paddingTop: "10px"}}>
         
-        <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0}}>
+      <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0}}>
           <InputBase 
             style = {{paddingLeft: "10px", paddingTop: "10px", paddingRight: "10px", paddingBottom: "10px"}}
             // className={classes.margin}
@@ -58,7 +58,6 @@ function DeskField(props){
               > 
                 Редактировать доску 
               </Link>
-              
               <Switch>
                 <Route 
                   path="/guestD" 
@@ -67,7 +66,6 @@ function DeskField(props){
               </Switch>
             </Router>
           </Button>
-          
           <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}}  disabled color="primary">
             Сохранить изменения
           </Button>
