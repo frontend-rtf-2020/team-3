@@ -10,7 +10,7 @@ const config = require("config");
 router.post(
   "/register",
   [
-    check("email", "Bad email").isEmail(),
+    check("email", "Bad email").normalizeEmail().isEmail(),
     check("password", "Bad password, min length = 6").isLength({ min: 6 }),
   ],
   async (req, res) => {
@@ -24,7 +24,6 @@ router.post(
         });
       }
       const { email, password } = req.body;
-console.log(req.body);
       const candidate = await User.findOne({ email: email });
       if (candidate) {
         return res.status(400).json({ message: "This user already exist" });
@@ -64,6 +63,7 @@ router.post(
       }
 
       const isGood = await bcrypt.compare(password, user.password);
+      console.log(isGood);
       if (!isGood) {
         return res.status(400).json({ message: "Bad password" });
       }
