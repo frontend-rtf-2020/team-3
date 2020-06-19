@@ -57,5 +57,5 @@ export const useRoutes = (isAuthentificated = false) => {
       </Route>
       <Redirect to="/" />
     </Switch>
-  );
-};
+  )
+}

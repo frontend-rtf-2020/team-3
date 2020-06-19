@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button } from '@material-ui/core';
+import { Button,Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useState } from 'react';
 import { Paper} from '@material-ui/core';
@@ -11,6 +11,13 @@ import Select from "@material-ui/core/Select";
 import Input from "@material-ui/core/Input";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from "clsx";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -106,100 +113,128 @@ const classes = useStyles();
   //onDragOver={dragOver}
   >
    
-  <div  style = {{paddingTop: "5px",paddingLeft:"10px",paddingRight:"10px"}}>
-    <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "5px",paddingLeft:"10px", elevation: 12, boxShadow: "0px 0px "}}>
+  <div  style = {{paddingTop: "15px",paddingLeft:"10px",paddingRight:"10px"}}>
+ 
+    <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "15px",paddingLeft:"10px", elevation: 12, boxShadow: "0px 0px 1px 1px grey"}}>
       <div style={{paddingRight:"10px"}}>
-                  <TextField
-                    id="name"
-                    label="Изменить имя"
-                    fullWidth
-                    placeholder="Имя задачи"
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    value={task.name}
-                    variant="outlined"
-                    onChange={changeHandler}
-                  />
-                  
-                 
-                  
+        <TextField
+          id="name"
+          label="Изменить имя"
+          fullWidth
+          placeholder="Имя задачи"
+          margin="normal"
+          InputLabelProps={{
+            shrink: true,}}
+          value={task.name}
+          variant="outlined"
+          onChange={changeHandler}
+        />            
+      </div>
+      <div style={{paddingRight:"10px"}}>
+        <TextField
+          id="description"
+          label="Задать описание"
+          onChange={changeHandler}
+          placeholder="Описание задачи"
+          fullWidth
+          multiline
+          value={task.description}
+          margin="normal"
+          InputLabelProps={{
+          shrink: true,}}
+          variant="outlined"
+        />
       </div>
 
-                  <div style={{paddingRight:"10px"}}>
-                  <TextField
-                    id="description"
-                    label="Задать описание"
-                    onChange={changeHandler}
-                    placeholder="Описание задачи"
-                    fullWidth
-                    multiline
-                    value={task.description}
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-        
-                  </div>
-            
-                   
-                  <div style = {{width:"100%", paddingTop:"0px"}} >
-                  
-                            <FormControl className={classes.formControl}  style = {{width:"80%"}}>
-                  <InputLabel id="demo-mutiple-chip-label">Ответственный</InputLabel>
-                  
-                  <Select
-                    labelId="demo-mutiple-chip-label"
-                    id="demo-mutiple-chip"
-                    multiple
-                    outlined
-                    value={task.owner}
-                    value={personName}
-                    onChange={handleChange}
-                    input={<Input id="select-multiple-chip" />}
-                    renderValue={selected => (
-                      <div className={classes.chips}>
-                        {selected.map(value => (
-                          <Chip key={value} label={value} className={classes.chip} />
-                        ))}
+
+
+      <div className={classes.root1} style={{paddingRight:"10px",paddingBottom:"10px",paddingTop:"10px",color:"#fafafa"}}>
+                  <ExpansionPanel className={classes.root1} style={{ borderTopLeftRadius:"0px", borderTopRightRadius:"0px", boxShadow:" 0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
+                    <ExpansionPanelSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1c-content"
+                      id="panel1c-header"
+                    >
+                      <div className={classes.column}>
+                        <Typography className={classes.heading}>Фильтры</Typography>
                       </div>
-                    )}
-                    MenuProps={MenuProps}
-                  >
-                    
-                    {names.map(name => (
-                      <MenuItem
-                        key={name}
-                        value={name}
-                        style={getStyles(name, personName, theme)}
-                      >
-                        {name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <Button onClick={addHandler} style={{marginTop:"20px"}} color="primary">Сохранить изменения</Button>
-                <Button onClick={()=>{}} style={{marginTop:"20px"}} color="primary"><DeleteIcon /></Button>
-                
-                
-                  </div>
-      {/* <label>Название задачи</label> 
-      <input></input>
-      <label>Описание</label><input></input>
-      <label>Ответственный</label> <input></input> */}
-      
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails className={classes.details} style={{width:"100%%"}} >
+                      <div className={classes.column} />
+                          <div className={classes.column} >
+                            <div fullWidth style={{float:"right"}}>
+                              {/* {desk.filters.map((filter)=> */}
+                              <div style={{paddingRight: "10px", paddingTop: "15px", float:"left"}}>
+                                <Chip /* label={filter.name} */ onDelete={() => {}} />
+                              </div>
+                              <div style={{paddingRight: "10px",paddingBottom: "0px", float:"left"}}>
+                                <TextField 
+                                  placeholder="Участник"
+                                  inputProps={{ "aria-label": "naked" }}
+                                  variant="standard"
+                                  label="Добавить фильтр"
+                                  size="small"
+                                  width="30%"
+                                  />
+                              </div>
+                              <div style={{paddingRight: "10px", paddingTop: "15px",float:"right",}}>
+                                <Button  size="small" color="primary">
+                                  Подтвердить
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                      <div className={clsx(classes.column, classes.helper)}></div>
+                    </ExpansionPanelDetails>
+                    <Divider />
+                  </ExpansionPanel>
+                </div>      
+
+
+
+
+
+
+        <div style = {{width:"100%", paddingTop:"0px"}} >
+          <FormControl className={classes.formControl}  style = {{width:"80%"}}>
+            <InputLabel id="demo-mutiple-chip-label">Ответственный</InputLabel>
+              <Select
+                labelId="demo-mutiple-chip-label"
+                id="demo-mutiple-chip"
+                multiple
+                outlined
+                value={task.owner}
+                value={personName}
+                onChange={handleChange}
+                input={<Input id="select-multiple-chip" />}
+                renderValue={selected => (
+                <div className={classes.chips}>
+                  {selected.map(value => (
+                    <Chip key={value} label={value} className={classes.chip} />
+                  ))}
+                </div>)}
+                  MenuProps={MenuProps}
+                >
+                {names.map(name => (
+                <MenuItem
+                  key={name}
+                  value={name}
+                  style={getStyles(name, personName, theme)}
+                >
+                {name}
+                </MenuItem>))}
+              </Select>
+          </FormControl>
+        <Button onClick={addHandler} style={{marginTop:"20px"}} color="primary">Сохранить изменения</Button>
+        <Button onClick={()=>{}} style={{marginTop:"20px"}} color="primary"><DeleteIcon /></Button>
+        </div>
     </Paper>
     
   </div>
 
 </div>
 
-          )
-      
-
+)
 }
 
 export default TaskField;

@@ -74,14 +74,14 @@ export function CreatePage(props) {
             className={classes.useStyles}
             style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
           >
-            Доска Задач
+            Список досок
           </Link>
           <Link
             href="/guestD"
             className={classes.linkstyle}
             style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
           >
-            Доска
+            Доска задач
           </Link>
 
           <h4
@@ -118,7 +118,7 @@ export function CreatePage(props) {
   );
 }
 
-export default withStyles(useStyles)(CreatePage);
+export default withStyles(useStyles)(CreatePage)
 
 /*constructor(props){
     super(props);
