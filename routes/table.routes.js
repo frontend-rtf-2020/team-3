@@ -56,11 +56,12 @@ router.post(
     [
         check("tableId", "").exists(),
         check("name", "").exists(),
-        check("description", "").exists(),
-        check("position", "").exists()
+        check("description", "").exists()
     ],
     async (req, res) =>{
         try {
+
+            console.log(req.body);
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({
@@ -68,10 +69,9 @@ router.post(
                     message: "Bad data",
                 });
             }
-            const { tableId, name, description, position } = req.body;
+            const { tableId, name, description } = req.body;
 
             const column = {
-                position: position,
                 name: name,
                 description: description,
                 tasks: []
@@ -79,7 +79,8 @@ router.post(
 
             Table.updateOne(
                 {_id: tableId},
-                {$push: {columns: column }});
+                {$push: {columns: column }},
+                (err, data) => { });
 
             return res.status(201).json({ message: "Колонка добавлена" });
         } catch (error) {

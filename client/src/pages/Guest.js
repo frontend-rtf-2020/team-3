@@ -11,6 +11,10 @@ import Grid from '@material-ui/core/Grid';
 import DeskField from './DeskField';
 import TextField from '@material-ui/core/TextField';
 import { useState } from "react";
+import { useHttp } from "../hooks/http.hook";
+import { useAuth } from "../hooks/auth.hook";
+
+
 
 export function GuestDesk(props) {
   const useStyles = makeStyles({
@@ -24,29 +28,58 @@ export function GuestDesk(props) {
       elevation: 0,
       
     },
-  })
-  const [currentDesk, setCurrentDesk] = useState({name:"",description:"",id:"",desksArray:[]});
-  const [desk, setDesk] = useState({name:"name",description:"description",
-  desks:[]});
+  });
 
+  const { loading, request, error, clearError } = useHttp();
+  const { token, login, logout, userId } = useAuth();
+
+  const [currentDesk, setCurrentDesk] = useState({name:"",description:"",id:""});
+  const [desks, setDesks] = useState([]);
+
+  const loadDesks = async () => {
+    setDesks([]);
+    try {
+      const tables =
+          await request("/api/tables", "POST",
+              {id: userId});
+      setDesks(tables);
+    } catch (error) {
+
+    }
+  }
+
+  const addDeskDB = async (name, description) => {
+    const id = await request("/api/tables/add", "POST",
+        {owner: userId, name: name, description: description});
+    return id;
+  }
 
   const deskChangeHandler = (event) => {
     setCurrentDesk({
       ...currentDesk, [event.target.id]:event.target.value
     })
   }
+
   const addDesk = (event) => {
     if(currentDesk.name === ""){
     }
     else{
-      desk.desks.push(currentDesk)
-      setCurrentDesk({name:"",description:"",id:"",desksArray:[]})
+      currentDesk.id = addDeskDB(currentDesk.name, currentDesk.description);
+      desks.push(currentDesk)
+      setCurrentDesk({name:"",description:"",id:""})
     }
   }
 
   return(
     <React.Fragment>
       <div style = {{paddingLeft:"20px",paddingRight:"20px",paddingTop:"20px"}}>
+        <Button
+            variant="outlined"
+            color="primary"
+            onClick={loadDesks}
+        >
+          load
+        </Button>
         <TextField
           id="name"
           label="Задать имя доски"
@@ -86,16 +119,10 @@ export function GuestDesk(props) {
               + Добавить доску
             </Button>
 
-            {desk.desks.map((e) => (
-                      <DeskField desk = {e} />
-                    ))}
-            
+            {desks.map((desk) => ( <DeskField desk = {desk} /> ))}
         </div>
-            
 
       <CssBaseline />
-      
-      
       
       <Container maxWidth="100%">
       <Grid container spacing={0} >

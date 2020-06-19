@@ -47,6 +47,7 @@ export const AuthPage = () => {
   useEffect(() => {
     message(error);
   }, [error, message, clearError]);
+
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };

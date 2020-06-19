@@ -61,19 +61,20 @@ router.post(
                     columns: [],
                     tags: []
                 });
+
             const answer = await table.save();
 
             if (!answer) {
                 return res.status(400).json({ message: "Таблица не создана" });
             }
 
-            const answer2 = await User.update({_id: owner}, {
+            await User.update({_id: owner}, {
                 $push: {
                     tables: { id: answer._id, name: name, description: description}
                 }
             });
 
-            res.status(201).json({ message: "Таблица добавлена" });
+            res.send(answer._id);
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
         }

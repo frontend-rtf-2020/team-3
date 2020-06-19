@@ -60,7 +60,7 @@ function DeskField(props){
               </Link>
               <Switch>
                 <Route 
-                  path="/guestD" 
+                  path="/guestD"
                   component={(id) => <GuestDesk id={id} />} 
                 /> 
               </Switch>

@@ -32,29 +32,43 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import {useHttp} from "../hooks/http.hook";
 
 export function GuestDesk(props) {
   
   const classes = { props };
   const sr = {  fontSize: 20, color: "white" };
 
-  /* const { token, login, logout, userId } = useAuth(); */
-  const [column, setColumn] = useState({name:"",description:"",tasks:[]});
-  const [desk, setDesk] = useState({name:"name",description:"description",users:[{name:"vasia",id:""},
-  {name:"kolya",id:""}],
-  columns:[],
-  filters:[{name:"vasia"},{name:"kolya"}]});
+  const { loading, request, error, clearError } = useHttp();
+  const { token, login, logout, userId } = useAuth();
 
-  const changeHandler = (event) => {
-    setDesk({
-      ...desk, [event.target.id]:event.target.value
-    })
+  const baseDesk = {
+    name:"",
+    description:"",
+    users:[],
+    columns:[],
+    tags:[]};
+
+  const [column, setColumn] = useState({name:"",description:"",tasks:[]});
+  const [deskId, setId] = useState("5eec627aa68fae04643e769d");
+  const [desk, setDesk] = useState(baseDesk);
+
+  const loadDesk = async () => {
+    setDesk(baseDesk);
+    try {
+      const table =
+          await request("/api/table", "POST",
+              {tableId: deskId});
+      console.log(deskId,table);
+      setDesk(table);
+    } catch (error) {
+
+    }
   }
 
-  const columnChangeHandler = (event) => {
-    setColumn({
-      ...column, [event.target.id]:event.target.value
-    })
+  const addColumnDb = async (name, description) => {
+    await request("/api/table/addColumn", "POST",
+        {tableId: deskId, name: name, description: description});
   }
 
   const addColumn = (event) => {
@@ -62,11 +76,16 @@ export function GuestDesk(props) {
       
     }
     else{
+      addColumnDb(column.name, column.description);
       desk.columns.push(column)
       setColumn({name:"",description:"",tasks:[]})
     }
-    
+  }
 
+  const columnChangeHandler = (event) => {
+    setColumn({
+      ...column, [event.target.id]:event.target.value
+    })
   }
 
   const [expanded, setExpanded] = React.useState(false);
@@ -87,6 +106,13 @@ export function GuestDesk(props) {
 
   return (
     <div >
+      <Button
+          variant="outlined"
+          color="primary"
+          onClick={loadDesk}
+      >
+        load
+      </Button>
       <div>
         <div className={classes.root1}   >
           <ExpansionPanel defaultExpanded onChange={handleExpand('panel1')}  className={classes.root1} style={{ borderRadius:"0px", boxShadow:"0px 0px 0px" }}>
@@ -115,7 +141,7 @@ export function GuestDesk(props) {
                     
                   }}
                   // className={classes.margin}
-                  defaultValue="Cras mattis"
+                  value={desk.description}
                   inputProps={{ "aria-label": "naked" }}
                 />
                 
@@ -190,11 +216,11 @@ export function GuestDesk(props) {
               <div className={classes.column} />
                   <div className={classes.column} >
                     <div fullWidth style={{float:"right"}}>
-                      {desk.filters.map((filter)=>
+                      {desk.tags.map((filter)=>
                       <div style={{paddingRight: "10px", paddingTop: "15px", float:"left"}}>
                         <Chip label={filter.name} onDelete={() => {}} />
                       </div>)}
-                      <div style={{paddingRight: "10px",paddingBottom: "20px",paddingBottom: "0px", float:"left"}}>
+                      <div style={{paddingRight: "10px",paddingBottom: "20px", float:"left"}}>
                         <FormControl className={classes.formControl}>
                           <InputLabel id="demo-simple-select-label">Фильтр</InputLabel>
                           <Select
