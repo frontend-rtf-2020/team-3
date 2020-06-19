@@ -27,16 +27,11 @@ import { useState } from "react";
 import { useAuth } from "../hooks/auth.hook";
 import TextField from '@material-ui/core/TextField';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 export function GuestDesk(props) {
   
   const classes = { props };
-  const sr = {  fontSize: 20, color: "white" };
+  const sr = { paddingRight: 30, fontSize: 20, color: "white" };
 
   /* const { token, login, logout, userId } = useAuth(); */
   const [column, setColumn] = useState({name:"",description:"",tasks:[]});
@@ -69,13 +64,6 @@ export function GuestDesk(props) {
 
   }
 
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpand = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-
-
   const history = useHistory();
   const auth = useContext(AuthContext);
   const logoutHandler = (event) => {
@@ -86,10 +74,15 @@ export function GuestDesk(props) {
     
 
   return (
-    <div >
+    <div>
+      {/*хедер на замену*/}
+
+      
+
       <div>
+ 
         <div className={classes.root1}   >
-          <ExpansionPanel defaultExpanded onChange={handleExpand('panel1')}  className={classes.root1} style={{ borderRadius:"0px", boxShadow:"0px 0px 0px" }}>
+          <ExpansionPanel defaultExpanded className={classes.root1} style={{ borderRadius:"0px", boxShadow:"0px 0px 0px" }}>
             <ExpansionPanelSummary 
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1c-content"
@@ -115,7 +108,10 @@ export function GuestDesk(props) {
                     
                   }}
                   // className={classes.margin}
-                  defaultValue="Cras mattis"
+                  defaultValue="Cras mattis consectetur purus sit amet fermentum.
+                            Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+                            Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+                            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,"
                   inputProps={{ "aria-label": "naked" }}
                 />
                 
@@ -126,6 +122,7 @@ export function GuestDesk(props) {
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
+              <Button size="small">Изменить</Button>
               <Button size="small" color="primary">
                 Сохранить
               </Button>
@@ -134,7 +131,7 @@ export function GuestDesk(props) {
         </div>
 
         <div className={classes.root1} >
-          <ExpansionPanel  className={classes.root1}  style={{ borderRadius:"0px", boxShadow:"0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
+          <ExpansionPanel defaultExpanded className={classes.root1}  style={{ borderRadius:"0px", boxShadow:"0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1c-content"
@@ -146,37 +143,37 @@ export function GuestDesk(props) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
-                <div className={classes.column} >
-                  <div fullWidth style={{float:"right"}}>
-                    {desk.users.map((user)=>
-                      <div style={{paddingRight: "10px", paddingTop: "15px", float:"left"}}>
-                        <Chip label={user.name}  onDelete={() => {}} />
-                      </div>)}
-                      <div style={{paddingRight: "10px",paddingBottom: "0px", float:"left"}}>
-                        <TextField 
-                          placeholder="Email"
-                          inputProps={{ "aria-label": "naked" }}
-                          variant="standard"
-                          label="Добавить участника"
-                          size="small"
-                          width="30%"
-                          />
-                      </div>
-                      <div style={{paddingRight: "10px", paddingTop: "15px",float:"right",}}>
-                        <Button  size="small" color="primary">
-                          Подтвердить
-                        </Button>
-                      </div>
-                  </div>
-                </div>
-              <div className={clsx(classes.column, classes.helper)}></div>
+              <div className={classes.column}>
+                {desk.users.map((user)=><Chip label={user.name} onDelete={() => {}} />)}
+                <InputBase
+
+                  style={{
+                    paddingLeft: "10px",
+                    paddingTop: "10px",
+                    paddingRight: "10px",
+                    paddingBottom: "10px",
+                  }}
+                  // className={classes.margin}
+                  defaultValue="Добавление участника"
+                  inputProps={{ "aria-label": "naked" }}
+                />
+              </div>
+              <div className={clsx(classes.column, classes.helper)}>
+                
+              </div>
             </ExpansionPanelDetails>
             <Divider />
+            <ExpansionPanelActions>
+              <Button size="small">Изменить</Button>
+              <Button size="small" color="primary">
+                Применить
+              </Button>
+            </ExpansionPanelActions>
           </ExpansionPanel>
         </div>
 
         <div className={classes.root1}>
-          <ExpansionPanel className={classes.root1} style={{ borderTopLeftRadius:"0px", borderTopRightRadius:"0px", boxShadow:" 0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
+          <ExpansionPanel defaultExpanded className={classes.root1} style={{ borderTopLeftRadius:"0px", borderTopRightRadius:"0px", boxShadow:" 0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1c-content"
@@ -186,65 +183,60 @@ export function GuestDesk(props) {
                 <Typography className={classes.heading}>Фильтры</Typography>
               </div>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.details} style={{width:"100%%"}} >
+            <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
-                  <div className={classes.column} >
-                    <div fullWidth style={{float:"right"}}>
-                      {desk.filters.map((filter)=>
-                      <div style={{paddingRight: "10px", paddingTop: "15px", float:"left"}}>
-                        <Chip label={filter.name} onDelete={() => {}} />
-                      </div>)}
-                      <div style={{paddingRight: "10px",paddingBottom: "20px",paddingBottom: "0px", float:"left"}}>
-                        <FormControl className={classes.formControl}>
-                          <InputLabel id="demo-simple-select-label">Фильтр</InputLabel>
-                          <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            style={{paddingRight: "80px"}}
-                          >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </div>
-                      <div style={{paddingRight: "10px", paddingTop: "15px",float:"right",}}>
-                        <Button  size="small" color="primary">
-                          Подтвердить
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-              <div className={clsx(classes.column, classes.helper)}></div>
+              <div className={classes.column}>
+              {desk.filters.map((filter)=><Chip label={filter.name} onDelete={() => {}} />)}
+                <InputBase
+
+                  style={{
+                    paddingLeft: "10px",
+                    paddingTop: "10px",
+                    paddingRight: "10px",
+                    paddingBottom: "10px",
+                    
+                  }}
+                  // className={classes.margin}
+                  defaultValue="Добавление фильтра"
+                  inputProps={{ "aria-label": "naked" }}
+                />
+              </div>
+              <div className={clsx(classes.column, classes.helper)}>
+                
+              </div>
             </ExpansionPanelDetails>
             <Divider />
+            <ExpansionPanelActions>
+              <Button size="small">Изменить</Button>
+              <Button size="small" color="primary">
+                Применить
+              </Button>
+            </ExpansionPanelActions>
           </ExpansionPanel>
         </div>
       </div>
 
       {/*страшная конструкция*/}
-      <Paper elevation="0" style={{backgroundColor:"#fafafa"}}>
-        <Typography className="marg1" style={{backgroundColor:"#fafafa"}}>
+      <Paper elevation="0">
+        <Typography className="marg1">
           <Container maxWidth="xl">
             <Typography
               component="div"
               style={{ backgroundColor: "#ffffff", height: "100vh" }}
             >
-              <div className={classes.root} style={{backgroundColor:"#fafafa"}}>
+              <div className={classes.root}>
                 <Grid container spacing={0}>
                   <Grid item xs={12}>
 
 
 {/* Имя колонки и описание*/}
-            <div >
-              <Typography style = {{paddingLeft: "10px",paddingTop: "10px"}} variant="h6"  >Добавление колонки</Typography>
-            </div>
+
                   <TextField
                     id="name"
-                    label="Имя колонки"
+                    label="Задать имя колонки"
                     value={column.name}
                     onChange={columnChangeHandler}
-                    placeholder="(не должно быть пустым)"
+                    placeholder="Имя колонки"
                     fullWidth
                     multiline
                     margin="normal"
@@ -255,10 +247,10 @@ export function GuestDesk(props) {
                   />
                 <TextField
                   id="description"
-                  label="Описание колонки"
+                  label="Задать описание колонки"
                   value={column.description}
                   onChange={columnChangeHandler}
-                  placeholder="(не должно быть пустым)"
+                  placeholder="Описание колонки"
                   fullWidth
                   multiline
                   margin="normal"
@@ -280,6 +272,35 @@ export function GuestDesk(props) {
                       <ColumnComponent column = {column} />
                     ))}
                   </Grid>
+                  {/* <Grid item xs={3}>
+                        <Paper className={classes.paper}>
+                          <Typography><h3>Task Name</h3>
+                            <button onClick={this.AddTask}>+Добавить задачу</button>
+                            {[...Array(this.state.count)].map(() => <textarea />)}
+                          </Typography>
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={3}>
+                        <Paper className={classes.paper}>
+                          <Typography><h3>Task Name</h3>
+                            <button >+Добавить задачу</button>
+                          </Typography>
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={3}>
+                        <Paper className={classes.paper}>
+                          <Typography><h3>Task Name</h3>
+                            <button >+Добавить задачу</button>
+                          </Typography>
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={3}>
+                        <Paper className={classes.paper}>
+                          <Typography><h3>Task Name</h3>
+                            <button >+Добавить задачу</button>
+                          </Typography>
+                        </Paper>
+                      </Grid> */}
                 </Grid>
               </div>
             </Typography>
@@ -292,3 +313,189 @@ export function GuestDesk(props) {
 
 export default withStyles(useStyles)(GuestDesk);
 
+/*constructor(props){
+    super(props);
+    this.AddTask = this.AddTask.bind(this); 
+    this.AddBtn = this.AddBtn.bind(this); 
+}*/
+/*AddTask(){
+return (
+  <textarea>
+    
+  </textarea>
+)
+}*/
+
+//попытка сделать хедер без теней
+/* function ElevationScroll(props) {
+  return React.cloneElement({
+    elevation: 0,
+  });
+} */
+/* 
+export default function DeskName(){
+  const linksunderline = useStyles();
+  const styles2 = useStyles2();
+    const classes1 = useStyles3();
+    return(
+  <div>
+{/*хедер на замену*/
+/*        
+        <AppBar position="static" className={linksunderline.appbarstyle}>
+          <Toolbar className={linksunderline.appbarstyle}>   
+    
+            <Link href="/" className={linksunderline.linkstyle} >Главная</Link>
+            <Link href="/guests" className={linksunderline.linkstyle} >Доска Задач</Link>
+            <Link href="/guestD" className={linksunderline.linkstyle} >Доска</Link>
+            
+            <h4  className={linksunderline.linkstyle}  >DeskName</h4>
+            <h3 className={linksunderline.linkstyle} >UserName</h3>
+            <Link href="/" className={linksunderline.linkstyle} >Выход</Link>
+          </Toolbar>
+        </AppBar>
+ 
+
+
+
+
+    <div>
+     
+
+      <div className={classes1.root}>
+      <ExpansionPanel defaultExpanded className={classes1.root}>
+        <ExpansionPanelSummary
+       
+          aria-controls="panel1c-content"
+          id="panel1c-header"
+        >
+          <div className={classes1.column}>
+            <Typography className={classes1.heading}>Описание доски</Typography>
+          </div>
+        </ExpansionPanelSummary>
+        <ExpansionPanelDetails className={classes1.details}>
+          <div className={classes1.column} />
+          <div className={classes1.column}>
+            <Typography>Cras mattis consectetur purus sit amet fermentum.
+Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,</Typography>
+            
+          </div>
+          <div className={clsx(classes1.column, classes1.helper)}>
+            <Typography variant="caption">
+              Здесь будет описание доски
+              <br />
+              {/* <a href="#secondary-heading-and-columns" className={classes1.link}>
+                Learn more
+              </a> */
+/*  </Typography>
+          </div>
+        </ExpansionPanelDetails>
+        <Divider />
+        <ExpansionPanelActions>
+          <Button size="small">Отмена</Button>
+          <Button size="small" color="primary">
+            Сохранить
+          </Button>
+        </ExpansionPanelActions>
+      </ExpansionPanel>
+    </div>
+
+ */
+{
+  /* <div className={classes1.root}>
+      <ExpansionPanel defaultExpanded className={classes1.root}>
+        <ExpansionPanelSummary
+       
+          aria-controls="panel1c-content"
+          id="panel1c-header"
+        >
+          <div className={classes1.column}>
+            <Typography className={classes1.heading}>Фильтры</Typography>
+          </div> */
+}
+/*  </ExpansionPanelSummary>
+        <ExpansionPanelDetails className={classes1.details}>
+          <div className={classes1.column} />
+            <div className={classes1.column}>
+            <Chip label="Название задачи" onDelete={() => {}} />
+            <Chip label="Участник: Петя" onDelete={() => {}} />
+              
+            </div>
+          <div className={clsx(classes1.column, classes1.helper)}>
+            <Typography variant="caption">
+              Примененные фильтры
+              {/* <a href="#secondary-heading-and-columns" className={classes1.link}>
+                Learn more
+              </a> */
+/*  </Typography>
+          </div>
+        </ExpansionPanelDetails>
+        <Divider />
+        <ExpansionPanelActions>
+          <Button size="small">Отмена</Button>
+          <Button size="small" color="primary">
+            Применить
+          </Button>
+        </ExpansionPanelActions>
+      </ExpansionPanel>
+    </div>
+
+    </div> */
+
+{
+  /*страшная конструкция*/
+}
+/*   <Paper elevation = "0">
+      
+      <Typography className="marg1">
+        <Container maxWidth="xl"  >
+          <Typography component="div" style={{ backgroundColor: '#ffffff', height: '100vh' }}>
+            <div className={styles2.root}>
+            <Button className={styles2.paper}variant="outlined" color="primary">+Добавить колонку</Button>
+              <Grid container spacing={0}>
+                 <Grid item xs={12}>
+                  <Button className={styles2.paper}variant="outlined" color="primary">+Добавить колонку</Button>
+                </Grid>
+                <Grid item xs={3}>
+                  <Paper className={styles2.paper}>
+                    <Typography><h3>Task Name</h3>
+                      <button >+Добавить задачу</button>
+                    </Typography>
+                  </Paper>
+                </Grid>
+                <Grid item xs={3}>
+                  <Paper className={styles2.paper}>
+                    <Typography><h3>Task Name</h3>
+                      <button >+Добавить задачу</button>
+                    </Typography>
+                  </Paper>
+                </Grid>
+                <Grid item xs={3}>
+                  <Paper className={styles2.paper}>
+                    <Typography><h3>Task Name</h3>
+                      <button >+Добавить задачу</button>
+                    </Typography>
+                  </Paper>
+                </Grid>
+                <Grid item xs={3}>
+                  <Paper className={styles2.paper}>
+                    <Typography><h3>Task Name</h3>
+                      <button >+Добавить задачу</button>
+                    </Typography>
+                  </Paper>
+                </Grid>
+              </Grid>
+            </div>
+          </Typography>
+        </Container>
+          
+      </Typography>
+    </Paper>
+   
+/*    
+  </div>
+    );
+  }
+  
+ */
