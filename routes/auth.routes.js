@@ -63,6 +63,7 @@ router.post(
       }
 
       const isGood = await bcrypt.compare(password, user.password);
+      console.log(isGood);
       if (!isGood) {
         return res.status(400).json({ message: "Bad password" });
       }
