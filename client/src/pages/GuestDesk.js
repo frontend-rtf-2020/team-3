@@ -291,4 +291,3 @@ export function GuestDesk(props) {
 }
 
 export default withStyles(useStyles)(GuestDesk);
-

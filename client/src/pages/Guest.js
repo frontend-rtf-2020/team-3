@@ -10,97 +10,221 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import DeskField from './DeskField';
 import TextField from '@material-ui/core/TextField';
+import { useState } from "react";
 
-export default class LogIns extends React.Component{
+export function GuestDesk(props) {
+  const useStyles = makeStyles({
+    linkstyle:{
+      underline: "none",
+      color: "white",
+      paddingRight: 30,
+      fontSize: 20
+    },
+    appbarstyle:{
+      elevation: 0,
+      
+    },
+  })
 
-  constructor(props){
-    super(props);
-    this.state={
-      count:0
-    
-    }
-    
+  const [currentDesk, setCurrentDesk] = useState({name:"",description:"",id:"",desksArray:[]});
+  const [desk, setDesk] = useState({name:"name",description:"description",
+  desks:[]});
+
+
+  const deskChangeHandler = (event) => {
+    setCurrentDesk({
+      ...currentDesk, [event.target.id]:event.target.value
+    })
   }
-  
-    AddTask = () => {
-      this.setState(({ count }) => ({
-        count: count + 1,
-      }));
+
+  const addDesk = (event) => {
+    if(currentDesk.name === ""){
+      
     }
+    else{
+      desk.desks.push(currentDesk)
+      setCurrentDesk({name:"",description:"",id:"",desksArray:[]})
+    }
+    
 
-  render(){
+  }
 
-    const useStyles = makeStyles({
-      linkstyle:{
-        underline: "none",
-        color: "white",
-        paddingRight: 30,
-        fontSize: 20
-      },
-      appbarstyle:{
-        elevation: 0,
-        
-      },
-    });
-
-    //auth = false;
-    return(
-      <React.Fragment>
-        <div style = {{paddingLeft:"20px",paddingRight:"20px",paddingTop:"20px"}}>
+  return(
+    <React.Fragment>
+      <div style = {{paddingLeft:"20px",paddingRight:"20px",paddingTop:"20px"}}>
+        <TextField
+          id="name"
+          label="Задать имя доски"
+          value={currentDesk.name}
+          onChange={deskChangeHandler}
+          placeholder="Имя доски"
+          fullWidth
+          multiline
+          margin="normal"
+          InputLabelProps={{
+          shrink: true,
+          }}
+          variant="outlined"
+          />
+              
           <TextField
-            id="outlined-full-width"
-            label="Задать имя доски"
-            placeholder="Имя доски"
+            id="description"
+            label="Задать описание"
+            value={currentDesk.description}
+            onChange={deskChangeHandler}
+            placeholder="Описание доски"
             fullWidth
             multiline
             margin="normal"
             InputLabelProps={{
-            shrink: true,
+              shrink: true,
             }}
-                    variant="outlined"
-                  />
+            variant="outlined"
+          />
+            </div>
+            <div style={{paddingLeft:"20px", paddingTop:"10px"}}>
+            <Button  
+              variant="outlined" 
+              color="primary" 
+              onClick={addDesk}
+            >
+              + Добавить доску
+            </Button>
+
+            {desk.desks.map((e) => (
+                      <DeskField desk = {e} />
+                    ))}
+            
+        </div>
+            
+
+      <CssBaseline />
+      
+      
+      
+      <Container maxWidth="100%">
+      <Grid container spacing={0} >
+                     <Grid item xs={12} style = {{}}>
+                      
+                      {/* {[...Array(this.state.count)].map(() => <DeskField />)} */}
+                      <div style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}}>
+
+                      </div>
+                      
+                    </Grid>
+                    </Grid>
+
+      {/* </Grid><Button variant="outlined" color="primary">+Добавить доску</Button>  */}
+       {/*  <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
+          
+        </Typography> */}
+      </Container>
+    </React.Fragment>
+  );
+
+}
+export default GuestDesk;
+
+
+// export default class LogIns extends React.Component{
+
+//   constructor(props){
+//     super(props);
+//     this.state={
+//       count:0
+    
+//     }
+    
+//   }
+  
+//     AddTask = () => {
+//       this.setState(({ count }) => ({
+//         count: count + 1,
+//       }));
+//     }
+
+//   render(){
+
+//     const useStyles = makeStyles({
+//       linkstyle:{
+//         underline: "none",
+//         color: "white",
+//         paddingRight: 30,
+//         fontSize: 20
+//       },
+//       appbarstyle:{
+//         elevation: 0,
+        
+//       },
+//     });
+
+//     //auth = false;
+//     return(
+//       <React.Fragment>
+//         <div style = {{paddingLeft:"20px",paddingRight:"20px",paddingTop:"20px"}}>
+//           <TextField
+//             id="name"
+//             label="Задать имя доски"
+//             value={desk.name}
+//             onChange={deskChangeHandler}
+//             placeholder="Имя доски"
+//             fullWidth
+//             multiline
+//             margin="normal"
+//             InputLabelProps={{
+//             shrink: true,
+//             }}
+//             variant="outlined"
+//             />
                 
-                  <TextField
-                    id="outlined-full-width"
-                    label="Задать описание"
-                    
-                    placeholder="Описание доски"
-                    fullWidth
-                    multiline
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                  />
-              </div>
-              <div style={{paddingLeft:"20px", paddingTop:"10px"}}>
-              <Button  variant="outlined" color="primary" onClick={this.AddTask}>+ Добавить доску</Button>
-          </div>
+//             <TextField
+//               id="description"
+//               label="Задать описание"
+//               onChange={deskChangeHandler}
+//               placeholder="Описание доски"
+//               fullWidth
+//               multiline
+//               margin="normal"
+//               InputLabelProps={{
+//                 shrink: true,
+//               }}
+//               variant="outlined"
+//             />
+//               </div>
+//               <div style={{paddingLeft:"20px", paddingTop:"10px"}}>
+//               <Button  
+//                 variant="outlined" 
+//                 color="primary" 
+//                 onClick={addDesk}
+//               >
+//                 + Добавить доску
+//               </Button>
+              
+//           </div>
               
 
-        <CssBaseline />
+//         <CssBaseline />
         
         
         
-        <Container maxWidth="100%">
-        <Grid container spacing={0} >
-                       <Grid item xs={12} style = {{}}>
+//         <Container maxWidth="100%">
+//         <Grid container spacing={0} >
+//                        <Grid item xs={12} style = {{}}>
                         
-                        {[...Array(this.state.count)].map(() => <DeskField />)}
-                        <div style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}}>
+//                         {[...Array(this.state.count)].map(() => <DeskField />)}
+//                         <div style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}}>
 
-                        </div>
+//                         </div>
                         
-                      </Grid>
-                      </Grid>
+//                       </Grid>
+//                       </Grid>
 
-        {/* </Grid><Button variant="outlined" color="primary">+Добавить доску</Button>  */}
-         {/*  <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
+//         {/* </Grid><Button variant="outlined" color="primary">+Добавить доску</Button>  */}
+//          {/*  <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
             
-          </Typography> */}
-        </Container>
-      </React.Fragment>
-    );
-  }
-}
+//           </Typography> */}
+//         </Container>
+//       </React.Fragment>
+//     );
+//   }
+// }
