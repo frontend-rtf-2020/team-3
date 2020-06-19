@@ -9,21 +9,96 @@ import TaskField from './TaskField'
 //import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useState, useEffect } from 'react';
-
-
+import Chip from "@material-ui/core/Chip";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Input from "@material-ui/core/Input";
+import Select from "@material-ui/core/Select";
  
 function ColumnComponent(props) {
-  
-// constructor(props){
-//   super(props);
-//   this.state={
-//     count:0
-//   }
-// }
 
+  const useStyles = makeStyles(theme => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+      maxWidth: 300
+    },
+    chips: {
+      display: "flex",
+      flexWrap: "wrap"
+    },
+    chip: {
+      
+    },
+    noLabel: {
+      marginTop: theme.spacing(3)
+    }
+  }));
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250
+      }
+    }
+  };
+
+  function getStyles(name, personName, theme) {
+    return {
+      fontWeight:
+        personName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium
+    };
+  }
+  
+  const names = [
+
+  ];
+
+const [column, setColumn] = useState(props.column);
 const [count, setCount] = useState(0);
 const [id, setId] = useState(1);
 
+const onColumnChange = (event) => {
+  setColumn({
+    ...column, [event.target.id]:event.target.value
+  })
+}
+
+const saveButton = async () => {
+  console.log(column);
+}
+
+const addTask = (event) => {
+  column.tasks.push({
+    name:"123",
+    description:"321",
+    owner: undefined,
+    id:count
+  });
+  console.log(column.tasks);
+  setCount(count+1)
+}
+
+
+
+const deleteTask = (event) => {
+  for (let i = 0; i < column.task.length; i++) {
+    let obj = column.task[i];
+    if (obj.id === event.id) {
+        column.tasks.splice(i, 1);
+        break;
+    }
+}
+}
+
+//dnd
 const drop = e =>{
   e.preventDefault();
   const task_id = e.dataTransfer.getData('task_id');
@@ -39,52 +114,143 @@ const dragOver = e => {
   e.preventDefault();
 }
 
-    //const sr = {paddingRight: 30, fontSize: 20,color: "white",};
+const theme = useTheme();
+const classes = useStyles();
+
     return (
-      <div 
+      <div>
+        <Grid /* item xs={3} */ style = {{ paddingTop: "10px"}}>
+          <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0, boxShadow: "0 0 0px"}}>
 
-      >
-            <Grid /* item xs={3} */ style = {{ paddingTop: "10px"}}>
-              <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingTop: 0}}>
-                <InputBase style = {{paddingLeft: "10px", paddingTop: "10px", paddingRight: "10px", paddingBottom: "10px"}}
-                          // className={classes.margin}
-                            defaultValue="Имя колонки"
-                            inputProps={{ 'aria-label': 'naked' }}
-                          />
-                  <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
-                <Typography style = {{paddingLeft: "10px", paddingRight: "10px"}} variant="h6"  /* className={regstyles.typostyle} */>Описание:</Typography>
-                <TextField fullWidth style = {{paddingLeft: "0px", paddingRight: "40px"}} id="filled-full-width"   label = "" variant="outlined" multiline defaultValue="Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`," 
-                    type="text" />
+            <div style={{paddingLeft:"5px"}}>
+              <InputBase 
+              fullwidth style = {{paddingLeft: "10px", paddingTop: "10px", paddingBottom: "10px", width:'90%'}}
+              id = "name"
+              onChange={onColumnChange}
+              value={column.name}
+              inputProps={{ 'aria-label': 'naked' }}/>
+                <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
+                <Button  style = {{color:"#f9a825"}} >Изменить</Button>
+            </div>
+
+            <div style={{paddingLeft:"10px",paddingRight:"10px"}}>
+              <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 0px"}}>
+                <Typography style = {{paddingLeft: "10px", paddingRight: "10px"}} variant="h6"  >Описание:</Typography>
+                  <TextField fullWidth style = {{paddingLeft: "0px", paddingRight: "40px"}}
+                  onChange={onColumnChange}
+                  id="description"
+                  label = ""
+                  variant="outlined"
+                  value={column.description}
+                  multiline
+                  type="text" />
+              </Paper>      
+            </div>
+            <div id = {props.id} onDrop = {drop} onDragOver = {dragOver}>
+              {column.tasks.map((task) => <TaskField task={task} deleteHandler={deleteTask}  draggable = "true" />)}            
+            </div >
+
+
+            {/* добавление задачи */}
+
+            <Typography style={{paddingLeft:"20px"}}>
+              Добавить задачу:
+            </Typography>
+
+            <div style={{paddingLeft:"10px", paddingRight:"10px"}}>
+              <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "5px",paddingLeft:"10px", elevation: 12, boxShadow: "0px 0px "}}>
+        <div style={{paddingRight:"10px"}}>
+                    <TextField
+                      id="name"
+                      label="Изменить имя"
+                      fullWidth
+                      placeholder="Имя задачи"
+                      margin="normal"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      
+                      variant="outlined"
+                      
+                    />
                     
-                <Button onClick={() => setCount(count + 1)} color="primary">Добавить задачу</Button>
+                  
+                    
+        </div>
 
-{/* имя задачи и описание если что делаем через InputBase и TextField */}
-                
-                <div                    
-                    id = {props.id}
-                    onDrop = {drop}
-                    onDragOver = {dragOver}
+                    <div style={{paddingRight:"10px"}}>
+                    <TextField
+                      id="description"
+                      label="Задать описание"
+                      
+                      placeholder="Описание задачи"
+                      fullWidth
+                      multiline
+                      
+                      margin="normal"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="outlined"
+                    />
+          
+                    </div>
+              
+                    
+                    <div style = {{width:"100%", paddingTop:"0px"}} >
+                    
+                              <FormControl className={classes.formControl}  style = {{width:"80%"}}>
+                    <InputLabel id="demo-mutiple-chip-label">Ответственный</InputLabel>
+                    
+                    <Select
+                      labelId="demo-mutiple-chip-label"
+                      id="demo-mutiple-chip"
+                      multiple
+                      outlined
+                      
+                      input={<Input id="select-multiple-chip" />}
+                      renderValue={selected => (
+                        <div className={classes.chips}>
+                          {selected.map(value => (
+                            <Chip key={value} label={value} className={classes.chip} />
+                          ))}
+                        </div>
+                      )}
+                      MenuProps={MenuProps}
                     >
-                <TaskField id="task id" draggable = "true"/>
-                {[...Array(count)].map(() => <TaskField id="task id" draggable = "true" />)}            
-                </div>
-                <Button /*onClick={this.Destroy}*/ color="primary">Сохранить изменения</Button>
-              </Paper>
-            </Grid>
+                      
+                      {names.map(name => (
+                        <MenuItem
+                          key={name}
+                          value={name}
+                          style={getStyles(name, theme)}
+                        >
+                          {name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  
+                  
+                  
+                    </div>
+        {/* <label>Название задачи</label> 
+        <input></input>
+        <label>Описание</label><input></input>
+        <label>Ответственный</label> <input></input> */}
+        
+      </Paper>
+            </div>
+
+            <div style = {{paddingTop: "5px",paddingLeft:"5px", elevation: 12, boxShadow: 0}}>
+              <Button  onClick={addTask} color="primary">Добавить задачу</Button>
+              <Button /*onClick={this.Destroy}*/ backgroundColor="#00e676" onClick={saveButton}>Сохранить изменения</Button>
+            </div>
+                
+          </Paper>
+        </Grid>
       </div>
-
-
-        /* <Grid item xs={3}>
-        <Paper >
-          <Typography><h3>Task Name</h3>
-            <button onClick={this.AddTask}>+Добавить задачу</button>
-            {[...Array(this.state.count)].map(() => <textarea />)}
-            <button onClick={this.Destroy}>-</button>
-          </Typography>
-        </Paper>
-      </Grid> */
     )
-  
 }
  
 export default ColumnComponent; 

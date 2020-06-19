@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Paper, Typography } from "@material-ui/core";
+import {Switch, NavLink, useHistory, Route } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import "../../App.css";
+//import "../../App.css";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -20,90 +23,72 @@ import ColumnComponent from "./ColumnComponent";
 import InputBase from "@material-ui/core/InputBase";
 //import makeStyles from '@material-ui/styles';
 import { useState } from "react";
-import { Paper, Typography } from "@material-ui/core";
-const User = require("../../../models/User");
+
 import { useAuth } from "../hooks/auth.hook";
-function LogIns(props) {
-  // constructor(props) {
-  //   super(props);
-  //   //this.AddTask = this.AddTask.bind(this);
-  //   this.state = {
-  //     name:'',
-  //     tags:'',
-  //     count: 0,
-  //     description: '',
-  //     owner:''
-  //   }
-  // }
+import TextField from '@material-ui/core/TextField';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-  // AddTask = () => {
-  //   this.setState(({ count }) => ({
-  //     count: count + 1,
-  //   }));
-  // }
-
-  const [count, setCount] = useState(0);
-  const [id, setId] = useState(1);
-
+export function GuestDesk(props) {
+  
   const classes = { props };
   const sr = { paddingRight: 30, fontSize: 20, color: "white" };
+
+  /* const { token, login, logout, userId } = useAuth(); */
+  const [column, setColumn] = useState({name:"",description:"",tasks:[]});
+  const [desk, setDesk] = useState({name:"name",description:"description",users:[{name:"vasia",id:""},
+  {name:"kolya",id:""}],
+  columns:[],
+  filters:[{name:"vasia"},{name:"kolya"}]});
+
+  const changeHandler = (event) => {
+    setDesk({
+      ...desk, [event.target.id]:event.target.value
+    })
+  }
+
+  const columnChangeHandler = (event) => {
+    setColumn({
+      ...column, [event.target.id]:event.target.value
+    })
+  }
+
+  const addColumn = (event) => {
+    if(column.name === ""){
+      
+    }
+    else{
+      desk.columns.push(column)
+      setColumn({name:"",description:"",tasks:[]})
+    }
+    
+
+  }
+
+  const history = useHistory();
+  const auth = useContext(AuthContext);
+  const logoutHandler = (event) => {
+    event.preventDefault();
+    auth.logout();
+    history.push("/");
+  };
+    
 
   return (
     <div>
       {/*хедер на замену*/}
 
-      <AppBar position="static" className={classes.appbarstyle}>
-        <Toolbar className={classes.appbarstyle}>
-          <Link href="/" className={props.classes.linkstyle} style={sr}>
-            Главнаяdsadsadsa
-          </Link>
-
-          <Link
-            href="/guests"
-            className={classes.useStyles}
-            style={{ paddingRight: 30, fontSize: 20, color: "white" }}
-          >
-            Доска Задач
-          </Link>
-          <Link
-            href="/guestD"
-            className={classes.linkstyle}
-            style={{ paddingRight: 30, fontSize: 20, color: "white" }}
-          >
-            Доска
-          </Link>
-
-          <h4
-            className={classes.linkstyle}
-            style={{ paddingRight: 30, fontSize: 20, color: "white" }}
-          >
-            DeskName
-          </h4>
-          <h3
-            className={classes.linkstyle}
-            style={{ paddingRight: 30, fontSize: 20, color: "white" }}
-          >
-            dsadsad
-          </h3>
-          <Link
-            href="/"
-            className={classes.linkstyle}
-            style={{ paddingRight: 30, fontSize: 20, color: "white" }}
-          >
-            Выход
-          </Link>
-        </Toolbar>
-      </AppBar>
+      
 
       <div>
-        {/*стыбженный код c раскрывающимся описанием */}
-        <div className={classes.root1}>
-          <ExpansionPanel defaultExpanded className={classes.root1}>
-            <ExpansionPanelSummary
+ 
+        <div className={classes.root1}   >
+          <ExpansionPanel defaultExpanded className={classes.root1} style={{ borderRadius:"0px", boxShadow:"0px 0px 0px" }}>
+            <ExpansionPanelSummary 
+              expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1c-content"
               id="panel1c-header"
             >
-              <div className={classes.column}>
+              <div className={classes.column}> 
                 <Typography className={classes.heading}>
                   Описание доски
                 </Typography>
@@ -111,8 +96,8 @@ function LogIns(props) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
-              <div>
-                <InputBase
+              <div style={{width:"100%"}} >
+                <InputBase 
                   fullWidth
                   multiline
                   style={{
@@ -120,6 +105,7 @@ function LogIns(props) {
                     paddingTop: "10px",
                     paddingRight: "10px",
                     paddingBottom: "10px",
+                    
                   }}
                   // className={classes.margin}
                   defaultValue="Cras mattis consectetur purus sit amet fermentum.
@@ -128,26 +114,15 @@ function LogIns(props) {
                             Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,"
                   inputProps={{ "aria-label": "naked" }}
                 />
-                <Typography>
-                  Cras mattis consectetur purus sit amet fermentum. Cras justo
-                  odio, dapibus ac facilisis in, egestas eget quam. Morbi leo
-                  risus, porta ac consectetur ac, vestibulum at eros. Praesent
-                  commodo cursus magna, vel scelerisque nisl consectetur et.`,
-                </Typography>
+                
               </div>
-              <div className={clsx(classes.column, classes.helper)}>
-                <Typography variant="caption">
-                  Здесь будет описание доски
-                  <br />
-                  {/* <a href="#secondary-heading-and-columns" className={classes1.link}>
-                      Learn more
-                    </a> */}
-                </Typography>
+              <div className={clsx(classes.column, classes.helper)} >
+                
               </div>
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button size="small">Отмена</Button>
+              <Button size="small">Изменить</Button>
               <Button size="small" color="primary">
                 Сохранить
               </Button>
@@ -155,9 +130,10 @@ function LogIns(props) {
           </ExpansionPanel>
         </div>
 
-        <div className={classes.root1}>
-          <ExpansionPanel defaultExpanded className={classes.root1}>
+        <div className={classes.root1} >
+          <ExpansionPanel defaultExpanded className={classes.root1}  style={{ borderRadius:"0px", boxShadow:"0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
             <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1c-content"
               id="panel1c-header"
             >
@@ -168,21 +144,27 @@ function LogIns(props) {
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
               <div className={classes.column}>
-                <Chip label="Участник 1" onDelete={() => {}} />
-                <Chip label="Участник 2" onDelete={() => {}} />
+                {desk.users.map((user)=><Chip label={user.name} onDelete={() => {}} />)}
+                <InputBase
+
+                  style={{
+                    paddingLeft: "10px",
+                    paddingTop: "10px",
+                    paddingRight: "10px",
+                    paddingBottom: "10px",
+                  }}
+                  // className={classes.margin}
+                  defaultValue="Добавление участника"
+                  inputProps={{ "aria-label": "naked" }}
+                />
               </div>
               <div className={clsx(classes.column, classes.helper)}>
-                <Typography variant="caption">
-                  Примененные фильтры
-                  {/* <a href="#secondary-heading-and-columns" className={classes1.link}>
-                      Learn more
-                    </a> */}
-                </Typography>
+                
               </div>
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button size="small">Отмена</Button>
+              <Button size="small">Изменить</Button>
               <Button size="small" color="primary">
                 Применить
               </Button>
@@ -191,8 +173,9 @@ function LogIns(props) {
         </div>
 
         <div className={classes.root1}>
-          <ExpansionPanel defaultExpanded className={classes.root1}>
+          <ExpansionPanel defaultExpanded className={classes.root1} style={{ borderTopLeftRadius:"0px", borderTopRightRadius:"0px", boxShadow:" 0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
             <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1c-content"
               id="panel1c-header"
             >
@@ -203,21 +186,28 @@ function LogIns(props) {
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
               <div className={classes.column}>
-                <Chip label="Название задачи" onDelete={() => {}} />
-                <Chip label="Участник: Петя" onDelete={() => {}} />
+              {desk.filters.map((filter)=><Chip label={filter.name} onDelete={() => {}} />)}
+                <InputBase
+
+                  style={{
+                    paddingLeft: "10px",
+                    paddingTop: "10px",
+                    paddingRight: "10px",
+                    paddingBottom: "10px",
+                    
+                  }}
+                  // className={classes.margin}
+                  defaultValue="Добавление фильтра"
+                  inputProps={{ "aria-label": "naked" }}
+                />
               </div>
               <div className={clsx(classes.column, classes.helper)}>
-                <Typography variant="caption">
-                  Примененные фильтры
-                  {/* <a href="#secondary-heading-and-columns" className={classes1.link}>
-                      Learn more
-                    </a> */}
-                </Typography>
+                
               </div>
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button size="small">Отмена</Button>
+              <Button size="small">Изменить</Button>
               <Button size="small" color="primary">
                 Применить
               </Button>
@@ -237,17 +227,49 @@ function LogIns(props) {
               <div className={classes.root}>
                 <Grid container spacing={0}>
                   <Grid item xs={12}>
+
+
+{/* Имя колонки и описание*/}
+
+                  <TextField
+                    id="name"
+                    label="Задать имя колонки"
+                    value={column.name}
+                    onChange={columnChangeHandler}
+                    placeholder="Имя колонки"
+                    fullWidth
+                    multiline
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
+                  />
+                <TextField
+                  id="description"
+                  label="Задать описание колонки"
+                  value={column.description}
+                  onChange={columnChangeHandler}
+                  placeholder="Описание колонки"
+                  fullWidth
+                  multiline
+                  margin="normal"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="outlined"
+                />
                     <Button
                       className={classes.paper}
                       variant="outlined"
                       color="primary"
-                      onClick={() => setCount(count + 1)}
+                      onClick={addColumn}
                     >
                       + Добавить колонку
                     </Button>
 
-                    {[...Array(count)].map(() => (
-                      <ColumnComponent id="1" />
+                    {desk.columns.map((column) => (
+                      <ColumnComponent column = {column} />
                     ))}
                   </Grid>
                   {/* <Grid item xs={3}>
@@ -289,7 +311,7 @@ function LogIns(props) {
   );
 }
 
-export default withStyles(useStyles)(LogIns);
+export default withStyles(useStyles)(GuestDesk);
 
 /*constructor(props){
     super(props);

@@ -1,5 +1,5 @@
 import React from "react";
-import "materialize-css";
+
 import { useRoutes } from "./routes";
 import { BrowserRouter } from "react-router-dom";
 import { useAuth } from "./hooks/auth.hook";
@@ -18,7 +18,7 @@ function App() {
     >
       <BrowserRouter>
         {isAuthenticated}
-        <div className="container">{routes}</div>;
+        <div>{routes}</div>;
       </BrowserRouter>
     </AuthContext.Provider>
   );
