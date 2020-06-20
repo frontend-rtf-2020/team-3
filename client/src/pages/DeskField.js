@@ -23,16 +23,16 @@ function DeskField(props) {
   };
 
   return (
-    <div style={{ backgroundColor: "#fafafa" }}>
-      <Grid /* item xs={3} */ style={{ paddingTop: "10px" }}>
+    <div style={{}}>
+      <Grid /* item xs={3} */ style={{ paddingTop: "20px", paddingRight:"20px"}}>
         <Paper
-          style={{ borderRadius: 5, backgroundColor: "#eeeeee", paddingTop: 0 }}
+          style={{ borderRadius: 15, backgroundColor: "#eeeeee", paddingRight:"0px"}}
         >
           <InputBase
             style={{
               paddingLeft: "10px",
               paddingTop: "10px",
-              paddingRight: "10px",
+              
               paddingBottom: "10px",
               color: "black",
               fontSize: "25px",
@@ -58,8 +58,8 @@ function DeskField(props) {
             style={{
               paddingLeft: "10px",
               paddingTop: "10px",
-              paddingRight: "10px",
-              paddingBottom: "10px",
+              paddingRight: "20px",
+              
               color: "black",
             }}
           >
@@ -69,7 +69,7 @@ function DeskField(props) {
                 backgroundColor: "#eeeeee",
                 paddingLeft: "10px",
                 paddingTop: "10px",
-                paddingRight: "10px",
+                paddingRight: "40px",
                 paddingBottom: "10px",
                 boxShadow: "0px 0px 1px 1px grey",
               }}
@@ -95,12 +95,14 @@ function DeskField(props) {
           </div>
 
           {/* <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}} onClick={this.MoveTo()} color="primary" >Открыть доску</Button> */}
-          <Button
-            style={{
+          <div style={{
               paddingLeft: "10px",
               paddingTop: "20px",
-              paddingRight: "10px",
-            }}
+              paddingRight: "30px",
+              float:"left"
+            }}>
+              <Button
+            
             onClick={() => {
               dropDesk(desk.id, desk.name);
             }}
@@ -108,7 +110,7 @@ function DeskField(props) {
             <Router>
               <Link
                 href="/guestD"
-                style={{ textDecoration: "none", paddingLeft: "10px" }}
+                style={{ textDecoration: "none",}}
               >
                 Редактировать доску
               </Link>
@@ -120,6 +122,18 @@ function DeskField(props) {
               </Switch>
             </Router>
           </Button>
+          </div >
+          <div style={{
+              paddingLeft: "0px",
+              paddingTop: "20px",
+              paddingRight: "30px",
+              flex:"left"
+            }}>
+            <Button style={{color:"orange"}}>
+            Прекратить использовать доску
+          </Button>
+          </div>
+          
         </Paper>
       </Grid>
     </div>

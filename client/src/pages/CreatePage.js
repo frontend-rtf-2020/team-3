@@ -74,7 +74,7 @@ export function CreatePage(props) {
     <div>
       {/*хедер на замену*/}
 
-      <AppBar position="static" className={classes.appbarstyle}>
+      <AppBar position="static" className={classes.appbarstyle} style={{boxShadow:"0px 0px 0px 0px"}}>
         <Toolbar className={classes.appbarstyle}>
           <Link href="/main" style={sr}>
             Главная
