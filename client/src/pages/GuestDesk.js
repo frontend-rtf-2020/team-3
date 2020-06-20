@@ -64,7 +64,7 @@ export function GuestDesk(props) {
   const [expanded, setExpanded] = useState(false);
 
   const loadDesk = async () => {
-    if(!deskId) return;
+    if (!deskId) return;
     console.log(deskId);
     try {
       const table = await request("/api/table", "POST", { tableId: deskId });
@@ -94,7 +94,7 @@ export function GuestDesk(props) {
     changeDeskInfoDb(desk.name, desk.description);
     setDesk(desk);
     console.log(desk);
-  }
+  };
 
   const changeDeskInfoDb = (name, description) => {
     request("/api/table/updateTable", "POST", {
@@ -102,7 +102,7 @@ export function GuestDesk(props) {
       name: name,
       description: description,
     });
-  }
+  };
 
   const columnChangeHandler = (event) => {
     setColumn({
@@ -143,43 +143,43 @@ export function GuestDesk(props) {
               <div className={classes.column} />
               <div style={{ width: "100%" }}>
                 <TextField
-                    name="name"
-                    label = "Имя доски"
-                    defaultValue = {desk.name}
-                    onChange={(event) => {desk.name = event.target.value} }
-                    fullWidth
-                    multiline
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
+                  name="name"
+                  label="Имя доски"
+                  defaultValue={desk.name}
+                  onChange={(event) => {
+                    desk.name = event.target.value;
+                  }}
+                  fullWidth
+                  multiline
+                  margin="normal"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="outlined"
                 />
               </div>
               <div style={{ width: "100%" }}>
                 <TextField
-                    name = "description"
-                    label = "Описание"
-                    defaultValue = {desk.description}
-                    onChange={(event) => {desk.description = event.target.value} }
-                    fullWidth
-                    multiline
-                    margin="normal"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
+                  name="description"
+                  label="Описание"
+                  defaultValue={desk.description}
+                  onChange={(event) => {
+                    desk.description = event.target.value;
+                  }}
+                  fullWidth
+                  multiline
+                  margin="normal"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="outlined"
                 />
               </div>
               <div className={clsx(classes.column, classes.helper)}></div>
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button
-                  size="small"
-                  color="primary"
-                  onClick={changeDeskInfo}
-              >
+              <Button size="small" color="primary" onClick={changeDeskInfo}>
                 Сохранить
               </Button>
             </ExpansionPanelActions>
