@@ -17,6 +17,7 @@ import { useAuth } from "./hooks/auth.hook";
 import { AuthContext } from "./context/AuthContext";
 import { useHistory } from "react-router-dom";
 import Guest from './pages/Guest'
+import TheMain from './pages/themain'
 
 const useStyles = makeStyles({
   linkstyle:{
@@ -53,7 +54,8 @@ export const useRoutes = (isAuthentificated = false) => {
   return (
     <Switch>
       <Route path="/">
-        <AuthPage />
+        <TheMain />
+        {/* <AuthPage /> */}
       </Route>
       <Redirect to="/" />
     </Switch>
