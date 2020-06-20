@@ -95,7 +95,7 @@ export function GuestDesk(props) {
             shrink: true,
           }}
           variant="outlined"
-          disabled
+          
         />
 
         <TextField

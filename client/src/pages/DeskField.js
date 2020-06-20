@@ -35,7 +35,8 @@ function DeskField(props) {
               paddingTop: "10px",
               paddingRight: "10px",
               paddingBottom: "10px",
-              color: "black"
+              color: "black",
+              fontSize: "25px"
             }}
             // className={classes.margin}
             id="name"
