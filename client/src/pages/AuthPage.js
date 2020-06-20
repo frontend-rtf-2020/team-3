@@ -15,6 +15,7 @@ import { VKRegistration } from "./VKauth";
 import VK, { Auth } from "react-vk";
 import { regpage } from "./regpage.js";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useAuth } from "../hooks/auth.hook";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -37,7 +38,7 @@ export const AuthPage = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [help, setHelp] = useState("");
-
+  const { login, logout, getName, setName, token, userId } = useAuth();
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -80,6 +81,8 @@ export const AuthPage = () => {
   const loginHandler = async () => {
     try {
       const data = await request("/api/auth/login", "POST", { ...form });
+      console.log(data.name);
+      setName(data.name);
       auth.login(data.token, data.userId);
     } catch (error) {
       setOpen(true);

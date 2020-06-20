@@ -34,6 +34,7 @@ import { DeskContext } from "../context/DeskContext";
 export function CreatePage(props) {
   const history = useHistory();
   const { dropDesk, upDesk, deleteDesk, DeskId } = useDesk();
+  const { login, logout, getName, setName, token, userId } = useAuth();
   const auth = useContext(AuthContext);
   const Desk = useContext(DeskContext);
   const logoutHandler = (event) => {
@@ -58,7 +59,6 @@ export function CreatePage(props) {
   //     count: count + 1,
   //   }));
   // }
-  const { token, login, logout, userId } = useAuth();
   const [count, setCount] = useState(0);
   const [id, setId] = useState(1);
 
@@ -120,7 +120,7 @@ export function CreatePage(props) {
               fontFamily: "Roboto",
             }}
           >
-            {userId}
+            {getName()}
           </h3>
           <Link
             href="/"

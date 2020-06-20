@@ -12,6 +12,7 @@ router.post(
   [
     check("email", "Bad email").normalizeEmail().isEmail(),
     check("password", "Bad password, min length = 6").isLength({ min: 6 }),
+    check("myName").isLength({ min: 1 }),
   ],
   async (req, res) => {
     try {
@@ -22,14 +23,19 @@ router.post(
           message: "Bad data",
         });
       }
-      const { email, password } = req.body;
+      const { email, password, myName } = req.body;
       const candidate = await User.findOne({ email: email });
       if (candidate) {
         return res.status(400).json({ message: "This user already exist" });
       }
-      const hashedPassword = await bcrypt.hash(password, 12);
 
-      const user = new User({ name: "name", email: email, password: hashedPassword, tables: [] });
+      const hashedPassword = await bcrypt.hash(password, 12);
+      const user = new User({
+        name: myName || "name",
+        email: email,
+        password: hashedPassword,
+        tables: [],
+      });
       await user.save();
 
       res.status(201).json({ message: "New user has been created" });
@@ -69,7 +75,7 @@ router.post(
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
         expiresIn: "1h",
       });
-      res.json({ token, userId: user.id });
+      res.json({ token, userId: user.id, name: user.name });
     } catch (error) {
       res.status(500).json({ message: "Something went wrong" });
     }
