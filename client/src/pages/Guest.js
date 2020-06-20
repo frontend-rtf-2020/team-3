@@ -30,6 +30,8 @@ export function GuestDesk(props) {
   const { loading, request, error, clearError } = useHttp();
   const { token, login, logout, userId } = useAuth();
 
+  const [refresh, setRefresh] = useState();
+
   const defaultDesk = {
     name: "",
     description: "",
@@ -59,7 +61,10 @@ export function GuestDesk(props) {
   const addDesk = async (event) => {
     if (currentDesk.name === "") {
     } else {
-      currentDesk.id = await addDeskDB(currentDesk.name, currentDesk.description);
+      currentDesk.id = await addDeskDB(
+        currentDesk.name,
+        currentDesk.description
+      );
       desks.push(currentDesk);
       setCurrentDesk({
         name: "",
@@ -67,6 +72,7 @@ export function GuestDesk(props) {
         id: "",
       });
     }
+    setRefresh();
   };
 
   return (
