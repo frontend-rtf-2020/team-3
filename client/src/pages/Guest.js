@@ -142,14 +142,9 @@ export function GuestDesk(props) {
                 paddingTop: "20px",
                 paddingRight: "10px",
               }}
-            ></div>
+            />
           </Grid>
         </Grid>
-
-        {/* </Grid><Button variant="outlined" color="primary">+Добавить доску</Button>  */}
-        {/*  <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }}>
-
-        </Typography> */}
       </Container>
     </React.Fragment>
   );

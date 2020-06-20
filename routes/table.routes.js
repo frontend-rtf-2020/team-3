@@ -94,7 +94,8 @@ router.post(
         check("tableId", "").exists(),
         check("column", "").exists(),
         check("name", "").exists(),
-        check("description", "").exists()
+        check("description", "").exists(),
+        check("owner", "").exists()
     ],
     async (req, res) =>{
         try {
@@ -105,12 +106,12 @@ router.post(
                     message: "Bad data",
                 });
             }
-            const { tableId, column, name, description } = req.body;
+            const { tableId, column, name, description, owner } = req.body;
 
             const task = {
                 name: name,
                 description: description,
-                owner: undefined
+                owner: new objectId(owner)
             }
 
             Table.updateOne(
@@ -271,6 +272,7 @@ router.post(
         check("task", "").exists(),
         check("name", "").exists(),
         check("description", "").exists(),
+        check("owner", "").exists(),
 
     ],
     async (req, res) =>{
@@ -282,13 +284,19 @@ router.post(
                     message: "Bad data",
                 });
             }
-            const { tableId, column, task, name, description} = req.body;
+            const { tableId, column, task, name, description, owner} = req.body;
 
-            await Table.updateOne(
+            const newTask = {
+                name: name,
+                description: description,
+                tags: [],
+                owner: new objectId(owner)
+            }
+
+            Table.updateOne(
                 { _id: tableId},
-                { $set: {
-                    ["columns." + column + ".tasks." + task + ".name"]: name,
-                    ["columns." + column + ".tasks." + task + ".description"]: description}});
+                { $set: { ["columns." + column + ".tasks." + task ]: newTask}},
+                (err, data) => {});
 
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });

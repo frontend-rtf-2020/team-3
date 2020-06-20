@@ -5,7 +5,6 @@ import { AuthContext } from "../context/AuthContext";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-//import "../../App.css";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -14,16 +13,13 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Divider from "@material-ui/core/Divider";
-//import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Chip from "@material-ui/core/Chip";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import useStyles from "./useStyles";
 import ColumnComponent from "./ColumnComponent";
 import InputBase from "@material-ui/core/InputBase";
-//import makeStyles from '@material-ui/styles';
 import { useState } from "react";
-
 import { useAuth } from "../hooks/auth.hook";
 import TextField from "@material-ui/core/TextField";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -46,15 +42,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 
-
-
-
 export function GuestDesk(props) {
-  const classes = {props};
-  const sr = {fontSize: 20, color: "white"};
-  const {dropDesk, upDesk, DeskId} = useDesk();
-  const {loading, request, error, clearError} = useHttp();
-  const {token, login, logout, userId} = useAuth();
+  const classes = { props };
+  const { request } = useHttp();
+  const { userId } = useAuth();
   const Desk = useContext(DeskContext);
 
   const baseDesk = {
@@ -63,7 +54,7 @@ export function GuestDesk(props) {
     description: "",
     users: [],
     columns: [],
-    tags: [],
+    tags: []
   };
 
   const [column, setColumn] = useState({
@@ -75,20 +66,28 @@ export function GuestDesk(props) {
   const [deskId, setId] = useState(Desk.upDesk().deskId);
   const [desk, setDesk] = useState(baseDesk);
   const [expanded, setExpanded] = useState(false);
+  const [some, setSome] = useState(false);
+  const [columns, setColumns] = useState([]);
 
   let newUser = "";
 
+  const update = () => {
+    setSome(!some);
+  }
+
   const loadDesk = async () => {
+
     if (!deskId) return;
     try {
       const table = await request("/api/table", "POST", {tableId: deskId});
       setDesk(table);
+      setColumns(table.columns);
     } catch (error) {
     }
   };
 
-  const addColumnDb = async (name, description) => {
-    await request("/api/table/addColumn", "POST", {
+  const addColumnDb = (name, description) => {
+    request("/api/table/addColumn", "POST", {
       tableId: deskId,
       name: name,
       description: description,
@@ -99,7 +98,7 @@ export function GuestDesk(props) {
     if (column.name === "") {
     } else {
       addColumnDb(column.name, column.description);
-      desk.columns.push(column);
+      columns.push(column);
       setColumn({name: "", description: "", tasks: []});
     }
   };
@@ -116,22 +115,13 @@ export function GuestDesk(props) {
         const user = await request("/api/table/addUser",
             "post",
             {tableId: deskId, email: newUser});
-        console.log(user);
         if (user) {
           desk.users.push(user);
-          loadDesk();
+          update();
         }
       } catch (error) {
       }
     }
-  }
-
-  const generate = (element) => {
-    return desk.users.map(value =>
-        React.cloneElement(element, {
-          key: value.name
-        })
-    );
   }
 
   const removeUserDb = (id) => {
@@ -164,20 +154,44 @@ export function GuestDesk(props) {
     });
   };
 
-  const columnChangeHandler = (event) => {
-    setColumn({
-      ...column,
-      [event.target.id]: event.target.value,
+  const deleteColumnDb = (position) => {
+    request("/api/table/deleteColumn", "POST", {
+      tableId: deskId,
+      column: position
     });
-  };
+  }
+
+  const deleteColumn = async (columnToRemove) => {
+      setColumns(columns.filter((column) => column != columnToRemove));
+  }
+
+  const generateColumns = () =>
+  {
+    return columns.map((column, i) =>
+        <ColumnComponent
+            deskId={deskId}
+            column={column}
+            users={desk.users}
+            index={i}
+            key={column}
+            delete={() => deleteColumn(column) }/>
+    );
+  }
 
   const handleExpand = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const generate = (element) => {
+    return desk.users.map(value =>
+        React.cloneElement(element, {
+          key: value.name
+        })
+    );
+  }
+
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
- 
 
   return (
     <div>
@@ -205,7 +219,7 @@ export function GuestDesk(props) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
-              <div style={{ width: "100%" }}>
+              <div style={{ width: "50%", paddingRight: "5px", paddingLeft: "5px" }}>
                 <TextField
                   name="name"
                   label="Имя доски"
@@ -222,7 +236,7 @@ export function GuestDesk(props) {
                   variant="outlined"
                 />
               </div>
-              <div style={{ width: "100%" }}>
+              <div style={{ width: "50%", paddingRight: "5px", paddingLeft: "5px" }}>
                 <TextField
                   name="description"
                   label="Описание"
@@ -269,23 +283,22 @@ export function GuestDesk(props) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
-              <div className={classes.column}>
-                <div fullWidth style={{ float: "right" }}>
-                <div className={classes.demo} style={{float:"left", paddingRight:"50px"}}>
-                    <List dense={dense}>
-                      {desk.users.map((user) =>
-                        <ListItem>
-                          <ListItemText
-                            primary={user.name}
-                          />
-                          <ListItemSecondaryAction onClick={()=>{removeUser(user.id)}}>
-                            <IconButton edge="center" aria-label="delete">
-                              <CloseIcon />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      )}
-                    </List>
+              <div className={classes.column} >
+                <div className={classes.demo} style={{float:"left", paddingRight:"5px"}}>
+                  <List dense={dense}>
+                    { desk.users.map((user) =>
+                      <ListItem>
+                        <ListItemText
+                          primary={user.name}
+                        />
+                        <ListItemSecondaryAction onClick={()=>{removeUser(user.id)}}>
+                          <IconButton edge="center" aria-label="delete" style={{padding: "5px"}}>
+                            <CloseIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    )}
+                  </List>
                  </div>
                   <div
                     style={{
@@ -297,7 +310,7 @@ export function GuestDesk(props) {
                     <TextField
                       placeholder="Email"
                       inputProps={{ "aria-label": "naked" }}
-                      defaultValue="test@mail.ru"
+                      defaultValue=""
                       variant="standard"
                       label="Добавить участника"
                       onChange={(event) => {newUser = event.target.value}}
@@ -316,7 +329,7 @@ export function GuestDesk(props) {
                       Подтвердить
                     </Button>
                   </div>
-                </div>
+
               </div>
               <div className={clsx(classes.column, classes.helper)}></div>
             </ExpansionPanelDetails>
@@ -435,8 +448,8 @@ export function GuestDesk(props) {
                     <TextField
                       id="name"
                       label="Имя колонки"
-                      value={column.name}
-                      onChange={columnChangeHandler}
+                      defaultValue={column.name}
+                      onChange={(event) => {column.name = event.target.value}}
                       placeholder="(не должно быть пустым)"
                       fullWidth
                       multiline
@@ -449,8 +462,8 @@ export function GuestDesk(props) {
                     <TextField
                       id="description"
                       label="Описание колонки"
-                      value={column.description}
-                      onChange={columnChangeHandler}
+                      defaultValue={column.description}
+                      onChange={(event) => {column.description = event.target.value}}
                       placeholder="(не должно быть пустым)"
                       fullWidth
                       multiline
@@ -469,9 +482,10 @@ export function GuestDesk(props) {
                       + Добавить колонку
                     </Button>
 
-                    {desk.columns.map((column) => (
-                      <ColumnComponent column={column} users={desk.users} />
-                    ))}
+                    {
+                      generateColumns()
+                    }
+
                   </Grid>
                 </Grid>
               </div>

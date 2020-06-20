@@ -21,11 +21,10 @@ function DeskField(props) {
     });
   };
 
-  console.log("DeskField.js", desk.id, desk.name);
   return (
     <div style={{}}>
       <Grid
-        /* item xs={3} */ style={{ paddingTop: "20px", paddingRight: "20px" }}
+        style={{ paddingTop: "20px", paddingRight: "20px" }}
       >
         <Paper
           style={{
@@ -38,12 +37,10 @@ function DeskField(props) {
             style={{
               paddingLeft: "10px",
               paddingTop: "10px",
-
               paddingBottom: "10px",
               color: "black",
               fontSize: "25px",
             }}
-            // className={classes.margin}
             id="name"
             onChange={onDeskChange}
             value={desk.name}
@@ -55,7 +52,7 @@ function DeskField(props) {
 
           <Typography
             style={{ paddingLeft: "10px", paddingRight: "10px" }}
-            variant="h6" /* className={regstyles.typostyle} */
+            variant="h6"
           >
             Описание:
           </Typography>
@@ -71,7 +68,7 @@ function DeskField(props) {
           >
             <Paper
               style={{
-                color: "eeeeee",
+                color: "#eeeeee",
                 backgroundColor: "#eeeeee",
                 paddingLeft: "10px",
                 paddingTop: "10px",
@@ -88,7 +85,6 @@ function DeskField(props) {
                   paddingBottom: "10px",
                   color: "black",
                 }}
-                // className={classes.margin}
                 id="name"
                 onChange={onDeskChange}
                 value={desk.description}
@@ -100,7 +96,6 @@ function DeskField(props) {
             </Paper>
           </div>
 
-          {/* <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}} onClick={this.MoveTo()} color="primary" >Открыть доску</Button> */}
           <div
             style={{
               paddingLeft: "10px",
