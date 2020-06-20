@@ -89,11 +89,12 @@ function ColumnComponent(props) {
         <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingBottom: "20px", boxShadow: "0 0 1px"}}>
           <div style={{padding: "10px"}}>
             <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 1px 1px grey"}}>
-              <Typography style = {{paddingLeft: "10px", paddingRight: "10px", fontSize: "25px"}} >
+              <Typography style = {{paddingLeft: "10px", paddingDown: "15px", fontSize: "25px"}} >
                 Название колонки
               </Typography>
 
-              <TextField fullWidth style = {{paddingLeft: "0px", paddingRight: "40px"}}
+              <TextField fullWidth
+                style = {{paddingLeft: "5px", paddingUp: "15px", paddingDown: "15px", paddingRight: "5px"}}
                 onChange={onColumnChange}
                 name="name"
                 variant="outlined"
@@ -101,11 +102,11 @@ function ColumnComponent(props) {
                 multiline
                 type="text" />
 
-              <Typography style = {{padding: "10px", fontSize: "20px"}} >
+              <Typography style = {{paddingLeft: "10px", paddingUp: "15px", paddingDown: "15px", fontSize: "20px"}} >
                 Описание колонки
               </Typography>
 
-              <TextField fullWidth style = {{paddingRight: "40px"}}
+              <TextField fullWidth style = {{paddingLeft: "5px", paddingUp: "15px"}}
                 onChange={onColumnChange}
                 name="description"
                 variant="outlined"
@@ -130,7 +131,7 @@ function ColumnComponent(props) {
               elevation: 12,
               boxShadow: "0px 0px 1px 1px grey"
             }}>
-              <Typography style = {{paddingLeft: "0px", paddingRight: "10px", paddingTop: "15px"}} variant="h6">
+              <Typography style = {{paddingLeft: "5px", paddingRight: "10px"}} variant="h6">
                 Добавить задачу
               </Typography>
               <div style={{paddingRight:"10px"}}>

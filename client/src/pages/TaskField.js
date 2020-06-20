@@ -92,8 +92,8 @@ function TaskField(props) {
 
   return(
     <div>
-      <div style = {{paddingTop: "15px",paddingLeft:"10px",paddingRight:"10px"}}>
-        <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "15px",
+      <div style = {{paddingTop: "15px",paddingLeft:"10px",paddingRight:"10px", paddingBottom: "10px"}}>
+        <Paper style = {{borderRadius: 3, backgroundColor: '#fafafa', paddingTop: "2px",
           paddingLeft:"10px", elevation: 12, boxShadow: "0px 0px 1px 1px grey"}}>
           <div style={{paddingRight:"10px"}}>
             <TextField
