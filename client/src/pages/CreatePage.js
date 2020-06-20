@@ -74,15 +74,15 @@ export function CreatePage(props) {
             className={classes.useStyles}
             style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
           >
-            Доска Задач
+            Список досок
           </Link>
-          <Link
+{/*           <Link
             href="/guestD"
             className={classes.linkstyle}
             style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
           >
             Доска
-          </Link>
+          </Link> */}
 
           <h4
             className={classes.linkstyle}

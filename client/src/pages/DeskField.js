@@ -35,15 +35,18 @@ function DeskField(props) {
               paddingTop: "10px",
               paddingRight: "10px",
               paddingBottom: "10px",
+              color: "black"
             }}
             // className={classes.margin}
             id="name"
             onChange={onDeskChange}
             value={desk.name}
             fullWidth
+            disabled
             multiline
             inputProps={{ "aria-label": "naked" }}
           />
+
 
           <Typography
             style={{ paddingLeft: "10px", paddingRight: "10px" }}
@@ -51,18 +54,45 @@ function DeskField(props) {
           >
             Описание:
           </Typography>
-
-          <TextField
-            fullWidth
-            style={{ paddingLeft: "10px", paddingRight: "10px" }}
-            id="description"
-            onChange={onDeskChange}
-            label=""
-            variant="outlined"
-            value={desk.description}
-            multiline
-            type="text"
-          />
+          
+          <div style={{
+                paddingLeft: "10px",
+                paddingTop: "10px",
+                paddingRight: "10px",
+                paddingBottom: "10px",
+                color: "black",
+                
+              }} >
+          <Paper style={{
+                              
+                color: "eeeeee",
+                backgroundColor: "#eeeeee",
+                paddingLeft: "10px",
+                paddingTop: "10px",
+                paddingRight: "10px",
+                paddingBottom: "10px",
+                boxShadow: "0px 0px 1px 1px grey"
+              }}  >
+            <InputBase
+              style={{
+                paddingLeft: "10px",
+                paddingTop: "10px",
+                paddingRight: "10px",
+                paddingBottom: "10px",
+                color: "black"
+              }}
+              // className={classes.margin}
+              id="name"
+              onChange={onDeskChange}
+              value={desk.description}
+              fullWidth
+              disabled
+              multiline
+              inputProps={{ "aria-label": "naked" }}
+            />
+          </Paper>
+          </div>
+          
 
           {/* <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}} onClick={this.MoveTo()} color="primary" >Открыть доску</Button> */}
           <Button

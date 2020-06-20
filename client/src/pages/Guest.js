@@ -80,7 +80,7 @@ export function GuestDesk(props) {
         }}
       >
         <Button variant="outlined" color="primary" onClick={loadDesks}>
-          load
+          Загрузить доски
         </Button>
         <TextField
           id="name"
@@ -95,6 +95,7 @@ export function GuestDesk(props) {
             shrink: true,
           }}
           variant="outlined"
+          disabled
         />
 
         <TextField

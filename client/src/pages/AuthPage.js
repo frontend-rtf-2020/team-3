@@ -163,22 +163,14 @@ export const AuthPage = () => {
                       >
                         Регистрация
                       </Button>
-                      <Button
-                        onClick={VKHandler}
-                        style={{ marginRight: "3%" }}
-                        variant="outlined"
-                        color="primary"
-                      >
-                        ВК
-                      </Button>
 
                       <VK apiId={7515170}>
-        <Auth options={{
-                onAuth: user => {
-                    vkAuth(user)
-                },
-          }}/>
-      </VK>
+                          <Auth options={{
+                                onAuth: user => {
+                                    vkAuth(user)
+                                },
+                          }}/>
+                      </VK>
 
                       <Snackbar
                         open={open}
