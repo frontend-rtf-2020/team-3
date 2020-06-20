@@ -1,19 +1,28 @@
 import { useState, useCallback } from "react";
 const storageDesk = "Desk";
 export const useDesk = () => {
-  let [deskId, setDeskId] = useState(null);
+  let [deskId, setDeskId] = useState("");
 
-  const dropDesk = useCallback((id) => {
-    localStorage.setItem(storageDesk, JSON.stringify({ deskId: id }));
-    deskId = JSON.stringify(id);
-    console.log("desk.hook", id);
+  const dropDesk = useCallback((id, name) => {
+    localStorage.setItem(
+      storageDesk,
+      JSON.stringify({ deskId: id, deskName: name })
+    );
+    setDeskId(JSON.stringify(id));
   }, []);
 
   const upDesk = useCallback(() => {
     const data = JSON.parse(localStorage.getItem(storageDesk));
-    console.log("upDesk", data.deskId);
-    return data.deskId;
+    console.log(data);
+    return data;
   }, []);
 
-  return { dropDesk, upDesk, deskId };
+  const deleteDesk = useCallback(() => {
+    localStorage.setItem(
+      storageDesk,
+      JSON.stringify({ deskId: undefined, deskName: "" })
+    );
+  }, []);
+
+  return { dropDesk, upDesk, deleteDesk, deskId };
 };

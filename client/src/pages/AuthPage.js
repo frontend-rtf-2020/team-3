@@ -49,14 +49,14 @@ export const AuthPage = () => {
   const vkAuth = async (user) => {
 
       console.log(user);
-      // try {
-      //     const data = await request("/api/auth/register", "POST", { ...form });
-      //     setHelp(data.message);
-      //     setOpen(true);
-      //     message(data.message);
-      // } catch (error) {
-      //     setOpen(true);
-      // }
+          // try {
+          //     const data = await request("/api/auth/register", "POST", { ...form });
+          //     setHelp(data.message);
+          //     setOpen(true);
+          //     message(data.message);
+          // } catch (error) {
+          //     setOpen(true);
+          // }
   }
 
   useEffect(() => {

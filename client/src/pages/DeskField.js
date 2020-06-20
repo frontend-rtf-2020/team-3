@@ -15,7 +15,6 @@ function DeskField(props) {
   const [desk, setDesk] = useState(props.desk);
   const { dropDesk, upDesk, deskId } = useDesk();
 
-
   const onDeskChange = (event) => {
     setDesk({
       ...desk,
@@ -36,7 +35,7 @@ function DeskField(props) {
               paddingRight: "10px",
               paddingBottom: "10px",
               color: "black",
-              fontSize: "25px"
+              fontSize: "25px",
             }}
             // className={classes.margin}
             id="name"
@@ -48,52 +47,52 @@ function DeskField(props) {
             inputProps={{ "aria-label": "naked" }}
           />
 
-
           <Typography
             style={{ paddingLeft: "10px", paddingRight: "10px" }}
             variant="h6" /* className={regstyles.typostyle} */
           >
             Описание:
           </Typography>
-          
-          <div style={{
-                paddingLeft: "10px",
-                paddingTop: "10px",
-                paddingRight: "10px",
-                paddingBottom: "10px",
-                color: "black",
-                
-              }} >
-          <Paper style={{
-                              
+
+          <div
+            style={{
+              paddingLeft: "10px",
+              paddingTop: "10px",
+              paddingRight: "10px",
+              paddingBottom: "10px",
+              color: "black",
+            }}
+          >
+            <Paper
+              style={{
                 color: "eeeeee",
                 backgroundColor: "#eeeeee",
                 paddingLeft: "10px",
                 paddingTop: "10px",
                 paddingRight: "10px",
                 paddingBottom: "10px",
-                boxShadow: "0px 0px 1px 1px grey"
-              }}  >
-            <InputBase
-              style={{
-                paddingLeft: "10px",
-                paddingTop: "10px",
-                paddingRight: "10px",
-                paddingBottom: "10px",
-                color: "black"
+                boxShadow: "0px 0px 1px 1px grey",
               }}
-              // className={classes.margin}
-              id="name"
-              onChange={onDeskChange}
-              value={desk.description}
-              fullWidth
-              disabled
-              multiline
-              inputProps={{ "aria-label": "naked" }}
-            />
-          </Paper>
+            >
+              <InputBase
+                style={{
+                  paddingLeft: "10px",
+                  paddingTop: "10px",
+                  paddingRight: "10px",
+                  paddingBottom: "10px",
+                  color: "black",
+                }}
+                // className={classes.margin}
+                id="name"
+                onChange={onDeskChange}
+                value={desk.description}
+                fullWidth
+                disabled
+                multiline
+                inputProps={{ "aria-label": "naked" }}
+              />
+            </Paper>
           </div>
-          
 
           {/* <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}} onClick={this.MoveTo()} color="primary" >Открыть доску</Button> */}
           <Button
@@ -102,7 +101,9 @@ function DeskField(props) {
               paddingTop: "20px",
               paddingRight: "10px",
             }}
-            onClick={() => {dropDesk(desk.id)}}
+            onClick={() => {
+              dropDesk(desk.id, desk.name);
+            }}
           >
             <Router>
               <Link
