@@ -15,6 +15,7 @@ function DeskField(props) {
   const [desk, setDesk] = useState(props.desk);
   const { dropDesk, upDesk, deskId } = useDesk();
 
+  dropDesk(desk.id);
   const onDeskChange = (event) => {
     setDesk({
       ...desk,
@@ -81,7 +82,7 @@ function DeskField(props) {
               <Switch>
                 <Route
                   path="/guestD"
-                  component={(id) => <GuestDesk id={dropDesk(id)} />}
+                  component={(id) => <GuestDesk id={id} />}
                 />
               </Switch>
             </Router>
