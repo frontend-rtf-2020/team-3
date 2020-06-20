@@ -88,17 +88,6 @@ function DeskField(props) {
               </Switch>
             </Router>
           </Button>
-          <Button
-            style={{
-              paddingLeft: "10px",
-              paddingTop: "20px",
-              paddingRight: "10px",
-            }}
-            disabled
-            color="primary"
-          >
-            Сохранить изменения
-          </Button>
         </Paper>
       </Grid>
     </div>

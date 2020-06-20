@@ -44,6 +44,19 @@ export const AuthPage = () => {
     clearError();
   };
 
+  const vkAuth = async (user) => {
+
+      console.log(user);
+      // try {
+      //     const data = await request("/api/auth/register", "POST", { ...form });
+      //     setHelp(data.message);
+      //     setOpen(true);
+      //     message(data.message);
+      // } catch (error) {
+      //     setOpen(true);
+      // }
+  }
+
   useEffect(() => {
     message(error);
   }, [error, message, clearError]);
@@ -162,7 +175,7 @@ export const AuthPage = () => {
                       <VK apiId={7515170}>
         <Auth options={{
                 onAuth: user => {
-                  console.log(user);
+                    vkAuth(user)
                 },
           }}/>
       </VK>

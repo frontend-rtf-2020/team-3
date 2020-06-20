@@ -63,6 +63,7 @@ export function GuestDesk(props) {
 
   const loadDesk = async () => {
     setDesk(baseDesk);
+    if(!deskId) return;
     try {
       const table = await request("/api/table", "POST", { tableId: deskId });
       console.log(deskId, table);
@@ -128,14 +129,14 @@ export function GuestDesk(props) {
             >
               <div className={classes.column}>
                 <Typography className={classes.heading}>
-                  Описание доски
+                  Информация о доске
                 </Typography>
               </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
               <div style={{ width: "100%" }}>
-                <InputBase
+                <TextField
                   fullWidth
                   multiline
                   style={{
@@ -145,8 +146,23 @@ export function GuestDesk(props) {
                     paddingBottom: "10px",
                   }}
                   // className={classes.margin}
-                  value={desk.description + " " + desk._id}
+                  value={desk.name + " " + desk._id}
                   inputProps={{ "aria-label": "naked" }}
+                />
+              </div>
+              <div style={{ width: "100%" }}>
+                <TextField
+                    fullWidth
+                    multiline
+                    style={{
+                      paddingLeft: "10px",
+                      paddingTop: "10px",
+                      paddingRight: "10px",
+                      paddingBottom: "10px",
+                    }}
+                    // className={classes.margin}
+                    value={desk.description}
+                    inputProps={{ "aria-label": "naked" }}
                 />
               </div>
               <div className={clsx(classes.column, classes.helper)}></div>
