@@ -90,6 +90,10 @@ export function GuestDesk(props) {
     }
   };
 
+  const removeUser = (event) => {
+
+  }
+
   const changeDeskInfo = () => {
     changeDeskInfoDb(desk.name, desk.description);
     setDesk(desk);
@@ -217,6 +221,7 @@ export function GuestDesk(props) {
                     >
                       <Chip label={user.name} onDelete={() => {}} />
                     </div>
+
                   ))}
                   <div
                     style={{

@@ -56,10 +56,10 @@ export function GuestDesk(props) {
     return id;
   };
 
-  const addDesk = (event) => {
+  const addDesk = async (event) => {
     if (currentDesk.name === "") {
     } else {
-      currentDesk.id = addDeskDB(currentDesk.name, currentDesk.description);
+      currentDesk.id = await addDeskDB(currentDesk.name, currentDesk.description);
       desks.push(currentDesk);
       setCurrentDesk({
         name: "",
