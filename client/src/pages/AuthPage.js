@@ -37,7 +37,7 @@ export const AuthPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [help, setHelp] = useState("");
+  const [help, setHelp] = useState("Зарегистрируйся пожожста!");
   const {
     login,
     logout,
@@ -66,7 +66,7 @@ export const AuthPage = () => {
         auth.login(data.token, data.userId);
         console.log(user.hash);
       } else {
-        console.log("зарегайся");
+        setOpen(true);
       }
     } catch {
       setOpen(true);
@@ -114,12 +114,7 @@ export const AuthPage = () => {
                 <div className="flx4" style={{ display: "flex" }}>
                   <div>
                     <form style={{ padding: "40px" }} className="flx3">
-                      
-                      <Typography
-                        variant="h6"
-                      >
-                        Авторизация
-                      </Typography>
+                      <Typography variant="h6">Авторизация</Typography>
                       <p style={{ paddingBottom: "1%" }}>
                         {" "}
                         <input
