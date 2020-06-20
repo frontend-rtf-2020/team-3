@@ -13,8 +13,6 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import {VKRegistration} from "./VKauth";
 import VK, {Auth} from 'react-vk';
-import {regpage} from "./regpage.js";
-import { Switch, Route, Redirect } from "react-router-dom";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -29,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AuthPage = () => {
+export const Regpage = () => {
   const auth = useContext(AuthContext);
   const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
@@ -49,14 +47,14 @@ export const AuthPage = () => {
   const vkAuth = async (user) => {
 
       console.log(user);
-          // try {
-          //     const data = await request("/api/auth/register", "POST", { ...form });
-          //     setHelp(data.message);
-          //     setOpen(true);
-          //     message(data.message);
-          // } catch (error) {
-          //     setOpen(true);
-          // }
+      // try {
+      //     const data = await request("/api/auth/register", "POST", { ...form });
+      //     setHelp(data.message);
+      //     setOpen(true);
+      //     message(data.message);
+      // } catch (error) {
+      //     setOpen(true);
+      // }
   }
 
   useEffect(() => {
@@ -87,21 +85,8 @@ export const AuthPage = () => {
     }
   };
 
-  const VKHandler = (event) => {
- 
-    
-    {/* <VKRegistration /> */}
-
-    /*   desk.columns.push(column)
-      setColumn({name:"",description:"",tasks:[]}) */
- 
-    
-
-  }
-
   return (
-    <div>
-      <div className="row">
+    <div className="row">
       <Typography
         component="div"
         style={{ backgroundColor: "#fafafa", height: "100vh" }}
@@ -140,6 +125,17 @@ export const AuthPage = () => {
                       />
                     </p>
                     <p style={{ paddingBottom: "1%" }}>
+                      {" "}
+                      <input
+                        placeholder="Введите Имя"
+                        id="name"
+                        type="text"
+                        
+                        className="yellow-input"
+                        onChange={changeHandler}
+                      />
+                    </p>
+                    <p style={{ paddingBottom: "1%" }}>
                       <input
                         placeholder="Введите пароль"
                         id="password"
@@ -150,40 +146,15 @@ export const AuthPage = () => {
                       />
                     </p>
                     <div style={{ paddingTop: "10%" }}>
+                      
                       <Button
-                        onClick={loginHandler}
+                        onClick={registerHandler}
                         style={{ marginRight: "3%" }}
                         /* className={regstyles.buttonstyle} */ variant="outlined"
                         color="primary"
                       >
-                        Вход
-                      </Button>
-                     {/*  <Button
-                        onClick={registerHandler}
-                        style={{ marginRight: "3%" }}
-                        variant="outlined"
-                        color="primary"
-                      >
                         Регистрация
-                      </Button> */}
-
-                      <Button
-                      href="./regpage"
-                      variant="outlined"
-                      color="primary"
-                      >
-                        Зарегистрироваться
-                    
                       </Button>
-                      
-
-                      <VK apiId={7515170}>
-                          <Auth options={{
-                                onAuth: user => {
-                                    vkAuth(user)
-                                },
-                          }}/>
-                      </VK>
 
                       <Snackbar
                         open={open}
@@ -241,10 +212,5 @@ export const AuthPage = () => {
         </div>
       </Typography>
     </div>
-    <div>
-      
-    </div>
-    </div>
-    
   );
 };
