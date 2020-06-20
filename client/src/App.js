@@ -7,7 +7,16 @@ import { AuthContext } from "./context/AuthContext";
 import { DeskContext } from "./context/DeskContext";
 import { useDesk } from "./hooks/desk.hook";
 function App() {
-  const { token, login, logout, getName, setName, userId } = useAuth();
+  const {
+    token,
+    login,
+    logout,
+    getName,
+    setName,
+    setHash,
+    getHash,
+    userId,
+  } = useAuth();
   const { dropDesk, upDesk, deskId } = useDesk();
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated);
@@ -20,6 +29,8 @@ function App() {
         logout,
         getName,
         setName,
+        setHash,
+        getHash,
         userId,
         isAuthenticated,
       }}

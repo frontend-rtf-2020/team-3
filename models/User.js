@@ -5,7 +5,7 @@ const user = new Schema({
   password: { type: String, required: true },
   tables: { type: Array, required: true },
   name: { type: String },
-  vkHash: { type: String },
+  hash: { type: String },
 });
 
 module.exports = model("User", user);

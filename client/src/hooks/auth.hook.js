@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 const storageName = "userData";
 const nameStorage = "";
+const hashStorage = "";
 export const useAuth = () => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
@@ -37,5 +38,22 @@ export const useAuth = () => {
     }
   }, [login]);
 
-  return { login, logout, getName, setName, token, userId };
+  const getHash = useCallback(() => {
+    const data = JSON.parse(localStorage.getItem(hashStorage));
+    return data.hash || "";
+  }, []);
+  const setHash = useCallback((ourHash) => {
+    localStorage.setItem(hashStorage, JSON.stringify({ hash: ourHash }));
+  }, []);
+
+  return {
+    login,
+    logout,
+    getName,
+    setName,
+    getHash,
+    setHash,
+    token,
+    userId,
+  };
 };

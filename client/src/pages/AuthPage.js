@@ -38,7 +38,16 @@ export const AuthPage = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [help, setHelp] = useState("");
-  const { login, logout, getName, setName, token, userId } = useAuth();
+  const {
+    login,
+    logout,
+    getName,
+    setName,
+    setHash,
+    getHash,
+    token,
+    userId,
+  } = useAuth();
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -48,15 +57,20 @@ export const AuthPage = () => {
   };
 
   const vkAuth = async (user) => {
-    console.log(user.hash);
-    // try {
-    //     const data = await request("/api/auth/register", "POST", { ...form });
-    //     setHelp(data.message);
-    //     setOpen(true);
-    //     message(data.message);
-    // } catch (error) {
-    //     setOpen(true);
-    // }
+    try {
+      setHash(user.hash);
+      console.log(user);
+      const data = await request("/api/auth/vklogin", "POST", { ...user });
+      if (data.isExist) {
+        setName(data.name);
+        auth.login(data.token, data.userId);
+        console.log(user.hash);
+      } else {
+        console.log("зарегайся");
+      }
+    } catch {
+      setOpen(true);
+    }
   };
 
   useEffect(() => {
@@ -64,18 +78,8 @@ export const AuthPage = () => {
   }, [error, message, clearError]);
 
   const changeHandler = (event) => {
+    console.log(form);
     setForm({ ...form, [event.target.name]: event.target.value });
-  };
-
-  const registerHandler = async () => {
-    try {
-      const data = await request("/api/auth/register", "POST", { ...form });
-      setHelp(data.message);
-      setOpen(true);
-      message(data.message);
-    } catch (error) {
-      setOpen(true);
-    }
   };
 
   const loginHandler = async () => {
@@ -87,15 +91,6 @@ export const AuthPage = () => {
     } catch (error) {
       setOpen(true);
     }
-  };
-
-  const VKHandler = (event) => {
-    {
-      /* <VKRegistration /> */
-    }
-
-    /*   desk.columns.push(column)
-      setColumn({name:"",description:"",tasks:[]}) */
   };
 
   return (
@@ -166,11 +161,7 @@ export const AuthPage = () => {
                         Регистрация
                       </Button> */}
 
-                        <Button
-                          href="./regpage"
-                          variant="outlined"
-                          color="primary"
-                        >
+                        <Button variant="outlined" color="primary">
                           Зарегистрироваться
                         </Button>
 

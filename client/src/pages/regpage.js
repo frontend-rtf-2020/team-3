@@ -13,6 +13,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import { VKRegistration } from "./VKauth";
 import VK, { Auth } from "react-vk";
+import { useAuth } from "../hooks/auth.hook";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Regpage = () => {
   const auth = useContext(AuthContext);
+  const { token, login, logout, getHash, setHash, userId } = useAuth();
   const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({ email: "", password: "" });
@@ -61,7 +63,13 @@ export const Regpage = () => {
   }, [error, message, clearError]);
 
   const changeHandler = (event) => {
-    setForm({ ...form, [event.target.name]: event.target.value });
+    console.log(getHash());
+
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+      hash: getHash(),
+    });
   };
 
   const registerHandler = async () => {
@@ -70,15 +78,6 @@ export const Regpage = () => {
       setHelp(data.message);
       setOpen(true);
       message(data.message);
-    } catch (error) {
-      setOpen(true);
-    }
-  };
-
-  const loginHandler = async () => {
-    try {
-      const data = await request("/api/auth/login", "POST", { ...form });
-      auth.login(data.token, data.userId);
     } catch (error) {
       setOpen(true);
     }
