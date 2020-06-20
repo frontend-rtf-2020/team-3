@@ -35,6 +35,25 @@ import Select from "@material-ui/core/Select";
 import { useHttp } from "../hooks/http.hook";
 import { useDesk } from "../hooks/desk.hook";
 import { DeskContext } from "../context/DeskContext";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CloseIcon from "@material-ui/icons/Close";
+import { makeStyles } from "@material-ui/core/styles";
+
+function generate(element) {
+  return [0, 1, 2].map(value =>
+    React.cloneElement(element, {
+      key: value
+    })
+  );
+}
+
 
 export function GuestDesk(props) {
   const classes = { props };
@@ -143,6 +162,10 @@ export function GuestDesk(props) {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const [dense, setDense] = React.useState(false);
+  const [secondary, setSecondary] = React.useState(false);
+ 
+
   return (
     <div>
       <Button variant="outlined" color="primary" onClick={loadDesk}>
@@ -235,12 +258,23 @@ export function GuestDesk(props) {
               <div className={classes.column} />
               <div className={classes.column}>
                 <div fullWidth style={{ float: "right" }}>
-
-                  {desk.users.map((user) => (
-                    <div style={{paddingRight: "10px",paddingTop: "15px",float: "left",}}>
-                      <Chip label={user.name} data={user.id} onDelete={removeUser} />
-                    </div>
-                  ))}
+                <div className={classes.demo} style={{float:"left", paddingRight:"50px"}}>
+                    <List dense={dense}>
+                      {generate(
+                        <ListItem>
+                          <ListItemText
+                            primary="Single-line item"
+                            secondary={secondary ? "Secondary text" : null}
+                          />
+                          <ListItemSecondaryAction>
+                            <IconButton edge="center" aria-label="delete">
+                              <CloseIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      )}
+                    </List>
+                 </div>
                   <div
                     style={{
                       paddingRight: "10px",
@@ -303,17 +337,24 @@ export function GuestDesk(props) {
               <div className={classes.column} />
               <div className={classes.column}>
                 <div fullWidth style={{ float: "right" }}>
-                  {desk.tags.map((filter) => (
-                    <div
-                      style={{
-                        paddingRight: "10px",
-                        paddingTop: "15px",
-                        float: "left",
-                      }}
-                    >
-                      <Chip label={filter.name} onDelete={() => {}} />
-                    </div>
-                  ))}
+                
+                <div className={classes.demo} style={{float:"left", paddingRight:"50px"}}>
+                    <List dense={dense}>
+                      {generate(
+                        <ListItem>
+                          <ListItemText
+                            primary="Single-line item"
+                            secondary={secondary ? "Secondary text" : null}
+                          />
+                          <ListItemSecondaryAction >
+                            <IconButton edge="center" aria-label="delete"  >
+                              <CloseIcon />
+                            </IconButton>
+                          </ListItemSecondaryAction>
+                        </ListItem>
+                      )}
+                    </List>
+                 </div>
                   <div
                     style={{
                       paddingRight: "10px",
