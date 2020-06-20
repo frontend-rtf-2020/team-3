@@ -4,7 +4,7 @@ import { useMessage } from "../hooks/message.hook";
 import { AuthContext } from "../context/AuthContext";
 import "../App.css";
 import { TextField, Paper, Typography } from "@material-ui/core";
-import { /* makeStyles, */ createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 import surf from "../assets/3d2.gif";
 import Button from "@material-ui/core/Button";
@@ -104,7 +104,7 @@ export const AuthPage = () => {
             <div className="flx2">
               <Paper
                 elevation={3}
-                /* className={regstyles.roundtry} */ style={{
+                style={{
                   borderRadius: 25,
                   backgroundColor: "#f4ff81",
                   borderBottom: "40px",
@@ -114,11 +114,9 @@ export const AuthPage = () => {
                 <div className="flx4" style={{ display: "flex" }}>
                   <div>
                     <form style={{ padding: "40px" }} className="flx3">
-                      {/* <p className = "divvv"  ><label className = "inputs" > Логин: <input type="text" name="login" value={this.state.login}  onChange={this.onChangeLogin}/></label></p>
-                    <p className = "divvv" > <label className = "inputs" > Email: <input type="text" name="email" value={this.state.email}  onChange={this.onChangeEmail}/></label></p>
-                    <p className = "divvv" ><label className = "inputs" > Пароль: <input type="password" name="password" value={this.state.password} onChange={this.onChangePassword}/></label></p>  */}
+                      
                       <Typography
-                        variant="h6" /* className={regstyles.typostyle} */
+                        variant="h6"
                       >
                         Авторизация
                       </Typography>
@@ -147,22 +145,10 @@ export const AuthPage = () => {
                         <Button
                           onClick={loginHandler}
                           style={{ marginRight: "3%" }}
-                          /* className={regstyles.buttonstyle} */ variant="outlined"
+                          variant="outlined"
                           color="primary"
                         >
                           Вход
-                        </Button>
-                        {/*  <Button
-                        onClick={registerHandler}
-                        style={{ marginRight: "3%" }}
-                        variant="outlined"
-                        color="primary"
-                      >
-                        Регистрация
-                      </Button> */}
-
-                        <Button variant="outlined" color="primary">
-                          Зарегистрироваться
                         </Button>
 
                         <VK apiId={7515170}>
@@ -220,11 +206,6 @@ export const AuthPage = () => {
                       </Paper>
                     </form>
                   </div>
-                  {/* <div>
-                  <Paper className={regstyles.paperimgstyle} elevation = {12}>
-                    <Typography></Typography>
-                  </Paper>
-                </div> */}
                 </div>
               </Paper>
             </div>
