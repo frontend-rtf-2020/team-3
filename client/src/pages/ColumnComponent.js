@@ -63,19 +63,29 @@ function ColumnComponent(props) {
           : theme.typography.fontWeightMedium
     };
   }
-  
-  const names = [
-
-  ];
+  console.log(props.users);
+  const users = ['Oliver Hansen',
+    'Van Henry',
+    'April Tucker',
+    'Ralph Hubbard',
+    'Omar Alexander',
+    'Carlos Abbott',
+    'Miriam Wagner',
+    'Bradley Wilkerson',
+    'Virginia Andrews',
+    'Kelly Snyder',];//props.users;
 
 const [column, setColumn] = useState(props.column);
 const [count, setCount] = useState(0);
-const [id, setId] = useState(1);
 
 const onColumnChange = (event) => {
   setColumn({
     ...column, [event.target.id]:event.target.value
   })
+}
+
+const deleteColumn = () => {
+
 }
 
 const saveButton = async () => {
@@ -136,7 +146,7 @@ const classes = useStyles();
                 value={column.name}
                 inputProps={{ 'aria-label': 'naked' }}
               />
-              <Button /*onClick={this.Destroy}*/ style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
+              <Button onClick={deleteColumn} style = {{color:"#f9a825"}} ><DeleteIcon /></Button>
               <Button  style = {{color:"#f9a825"}} >Изменить</Button>
             </div>
             <div style={{paddingLeft:"10px",paddingRight:"10px"}}>
@@ -213,33 +223,19 @@ const classes = useStyles();
                 
                 <div style = {{display: "block", paddingBottom:"20px"}}>
                 <FormControl style={{width:"100%"}}  >
-                    <InputLabel >Ответственный</InputLabel>
-                      <Select
-                        
-                        id="demo-mutiple-chip"
-                        multiple
-                        style={{width:"100%"}}
-                        
-                        input={<Input id="select-multiple-chip" />}
-                        renderValue={selected => (
-                          <div className={classes.chips}>
-                            {selected.map(value => (
-                              <Chip key={value} label={value} className={classes.chip} />
-                            ))}
-                          </div>
-                        )}
-                        MenuProps={MenuProps}
-                      >
-                        {names.map(name => (
-                        <MenuItem
-                            key={name}
-                            value={name}
-                            style={getStyles(name, theme)}
-                        >
-                        {name}
+                  <InputLabel >Ответственный</InputLabel>
+                  <Select
+                      labelId="demo-mutiple-name-label"
+                      id="demo-mutiple-name"
+                      onChange={() => {}}
+                      input={<Input />}
+                  >
+                    {users.map((user) => (
+                        <MenuItem key={user} value={user}>
+                          {user}
                         </MenuItem>
-                        ))}
-                      </Select>
+                    ))}
+                  </Select>
                   </FormControl>
                 </div>
 

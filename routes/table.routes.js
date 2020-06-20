@@ -320,7 +320,7 @@ router.post(
 
             await User.updateOne(
                 {_id: userId},
-                {$pull: {tables: {id: tableId}}});
+                {$pull: {tables: {id: new objectId(tableId)}}});
 
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });

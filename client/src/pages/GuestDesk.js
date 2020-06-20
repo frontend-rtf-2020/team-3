@@ -46,21 +46,15 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 
-function generate(element) {
-  return [0, 1, 2].map(value =>
-    React.cloneElement(element, {
-      key: value
-    })
-  );
-}
+
 
 
 export function GuestDesk(props) {
-  const classes = { props };
-  const sr = { fontSize: 20, color: "white" };
-  const { dropDesk, upDesk, DeskId } = useDesk();
-  const { loading, request, error, clearError } = useHttp();
-  const { token, login, logout, userId } = useAuth();
+  const classes = {props};
+  const sr = {fontSize: 20, color: "white"};
+  const {dropDesk, upDesk, DeskId} = useDesk();
+  const {loading, request, error, clearError} = useHttp();
+  const {token, login, logout, userId} = useAuth();
   const Desk = useContext(DeskContext);
 
   const baseDesk = {
@@ -87,9 +81,10 @@ export function GuestDesk(props) {
   const loadDesk = async () => {
     if (!deskId) return;
     try {
-      const table = await request("/api/table", "POST", { tableId: deskId });
+      const table = await request("/api/table", "POST", {tableId: deskId});
       setDesk(table);
-    } catch (error) {}
+    } catch (error) {
+    }
   };
 
   const addColumnDb = async (name, description) => {
@@ -105,38 +100,56 @@ export function GuestDesk(props) {
     } else {
       addColumnDb(column.name, column.description);
       desk.columns.push(column);
-      setColumn({ name: "", description: "", tasks: [] });
+      setColumn({name: "", description: "", tasks: []});
     }
   };
 
   const addUser = async (event) => {
 
-    const user = await request("/api/table/addUser",
-        "post",
-        {tableId: deskId, email: newUser});
-    console.log(user);
-    if(user){
-      desk.users.push(user);
-      loadDesk();
+    if (newUser !== "") {
+      for (let i = 0; i < desk.users.length; i++) {
+        if (desk.users[i].email === newUser) {
+          return;
+        }
+      }
+      try {
+        const user = await request("/api/table/addUser",
+            "post",
+            {tableId: deskId, email: newUser});
+        console.log(user);
+        if (user) {
+          desk.users.push(user);
+          loadDesk();
+        }
+      } catch (error) {
+      }
     }
   }
 
-  const removeUser = (event) => {
-    console.log("wat", event.target);
-    if(event.target.name != userId)
+  const generate = (element) => {
+    return desk.users.map(value =>
+        React.cloneElement(element, {
+          key: value.name
+        })
+    );
+  }
+
+  const removeUserDb = (id) => {
+    request("/api/table/removeUser",
+        "post",
+        {tableId: deskId, userId: id});
+  }
+
+  const removeUser = (id) => {
+    if(id != userId)
     {
       setDesk({
-        ...desk,
-        users: desk.users.filter(( user )  => {
-          //console.log(user, user.id, event.target.id, user.id != event.target.id)
-          return user.id != event.target.id
-        })
+      ...desk,
+      users: desk.users.filter(( user )  => user.id != id )
       });
+      removeUserDb(id);
     }
-    //console.log(desk.users);
   }
-
-
 
   const changeDeskInfo = () => {
     changeDeskInfoDb(desk.name, desk.description);
@@ -260,13 +273,12 @@ export function GuestDesk(props) {
                 <div fullWidth style={{ float: "right" }}>
                 <div className={classes.demo} style={{float:"left", paddingRight:"50px"}}>
                     <List dense={dense}>
-                      {generate(
+                      {desk.users.map((user) =>
                         <ListItem>
                           <ListItemText
-                            primary="Single-line item"
-                            secondary={secondary ? "Secondary text" : null}
+                            primary={user.name}
                           />
-                          <ListItemSecondaryAction>
+                          <ListItemSecondaryAction onClick={()=>{removeUser(user.id)}}>
                             <IconButton edge="center" aria-label="delete">
                               <CloseIcon />
                             </IconButton>
@@ -458,7 +470,7 @@ export function GuestDesk(props) {
                     </Button>
 
                     {desk.columns.map((column) => (
-                      <ColumnComponent column={column} />
+                      <ColumnComponent column={column} users={desk.users} />
                     ))}
                   </Grid>
                 </Grid>
