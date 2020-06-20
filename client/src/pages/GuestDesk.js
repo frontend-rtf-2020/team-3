@@ -43,6 +43,7 @@ export function GuestDesk(props) {
   const { loading, request, error, clearError } = useHttp();
   const { token, login, logout, userId } = useAuth();
   const Desk = useContext(DeskContext);
+
   const baseDesk = {
     _id: "",
     name: "",
@@ -60,10 +61,11 @@ export function GuestDesk(props) {
 
   const [deskId, setId] = useState(Desk.upDesk().deskId);
   const [desk, setDesk] = useState(baseDesk);
+  const [expanded, setExpanded] = useState(false);
 
   const loadDesk = async () => {
-    setDesk(baseDesk);
-    if (!deskId) return;
+    if(!deskId) return;
+    console.log(deskId);
     try {
       const table = await request("/api/table", "POST", { tableId: deskId });
       console.log(deskId, table);
@@ -88,6 +90,20 @@ export function GuestDesk(props) {
     }
   };
 
+  const changeDeskInfo = () => {
+    changeDeskInfoDb(desk.name, desk.description);
+    setDesk(desk);
+    console.log(desk);
+  }
+
+  const changeDeskInfoDb = (name, description) => {
+    request("/api/table/updateTable", "POST", {
+      tableId: deskId,
+      name: name,
+      description: description,
+    });
+  }
+
   const columnChangeHandler = (event) => {
     setColumn({
       ...column,
@@ -95,18 +111,8 @@ export function GuestDesk(props) {
     });
   };
 
-  const [expanded, setExpanded] = React.useState(false);
-
   const handleExpand = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
-  };
-
-  const history = useHistory();
-  const auth = useContext(AuthContext);
-  const logoutHandler = (event) => {
-    event.preventDefault();
-    auth.logout();
-    history.push("/");
   };
 
   return (
@@ -137,39 +143,43 @@ export function GuestDesk(props) {
               <div className={classes.column} />
               <div style={{ width: "100%" }}>
                 <TextField
-                  fullWidth
-                  multiline
-                  style={{
-                    paddingLeft: "10px",
-                    paddingTop: "10px",
-                    paddingRight: "10px",
-                    paddingBottom: "10px",
-                  }}
-                  // className={classes.margin}
-                  value={desk.name + " " + desk._id}
-                  inputProps={{ "aria-label": "naked" }}
+                    name="name"
+                    label = "Имя доски"
+                    defaultValue = {desk.name}
+                    onChange={(event) => {desk.name = event.target.value} }
+                    fullWidth
+                    multiline
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
                 />
               </div>
               <div style={{ width: "100%" }}>
                 <TextField
-                  fullWidth
-                  multiline
-                  style={{
-                    paddingLeft: "10px",
-                    paddingTop: "10px",
-                    paddingRight: "10px",
-                    paddingBottom: "10px",
-                  }}
-                  // className={classes.margin}
-                  value={desk.description}
-                  inputProps={{ "aria-label": "naked" }}
+                    name = "description"
+                    label = "Описание"
+                    defaultValue = {desk.description}
+                    onChange={(event) => {desk.description = event.target.value} }
+                    fullWidth
+                    multiline
+                    margin="normal"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    variant="outlined"
                 />
               </div>
               <div className={clsx(classes.column, classes.helper)}></div>
             </ExpansionPanelDetails>
             <Divider />
             <ExpansionPanelActions>
-              <Button size="small" color="primary">
+              <Button
+                  size="small"
+                  color="primary"
+                  onClick={changeDeskInfo}
+              >
                 Сохранить
               </Button>
             </ExpansionPanelActions>
