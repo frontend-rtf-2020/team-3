@@ -11,8 +11,8 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import {VKRegistration} from "./VKauth";
-import VK, {Auth} from 'react-vk';
+import { VKRegistration } from "./VKauth";
+import VK, { Auth } from "react-vk";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -45,17 +45,16 @@ export const AuthPage = () => {
   };
 
   const vkAuth = async (user) => {
-
-      console.log(user);
-      // try {
-      //     const data = await request("/api/auth/register", "POST", { ...form });
-      //     setHelp(data.message);
-      //     setOpen(true);
-      //     message(data.message);
-      // } catch (error) {
-      //     setOpen(true);
-      // }
-  }
+    console.log(user);
+    // try {
+    //     const data = await request("/api/auth/register", "POST", { ...form });
+    //     setHelp(data.message);
+    //     setOpen(true);
+    //     message(data.message);
+    // } catch (error) {
+    //     setOpen(true);
+    // }
+  };
 
   useEffect(() => {
     message(error);
@@ -86,16 +85,13 @@ export const AuthPage = () => {
   };
 
   const VKHandler = (event) => {
- 
-    
-    {/* <VKRegistration /> */}
+    {
+      /* <VKRegistration /> */
+    }
 
     /*   desk.columns.push(column)
       setColumn({name:"",description:"",tasks:[]}) */
- 
-    
-
-  }
+  };
 
   return (
     <div className="row">
@@ -165,11 +161,13 @@ export const AuthPage = () => {
                       </Button>
 
                       <VK apiId={7515170}>
-                          <Auth options={{
-                                onAuth: user => {
-                                    vkAuth(user)
-                                },
-                          }}/>
+                        <Auth
+                          options={{
+                            onAuth: (user) => {
+                              vkAuth(user);
+                            },
+                          }}
+                        />
                       </VK>
 
                       <Snackbar
