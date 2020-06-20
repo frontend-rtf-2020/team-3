@@ -14,7 +14,6 @@ import { useDesk } from "../hooks/desk.hook";
 function DeskField(props) {
   const [desk, setDesk] = useState(props.desk);
   const { dropDesk, upDesk, deskId } = useDesk();
-
   const onDeskChange = (event) => {
     setDesk({
       ...desk,
@@ -22,17 +21,24 @@ function DeskField(props) {
     });
   };
 
+  console.log("DeskField.js", desk.id, desk.name);
   return (
     <div style={{}}>
-      <Grid /* item xs={3} */ style={{ paddingTop: "20px", paddingRight:"20px"}}>
+      <Grid
+        /* item xs={3} */ style={{ paddingTop: "20px", paddingRight: "20px" }}
+      >
         <Paper
-          style={{ borderRadius: 15, backgroundColor: "#eeeeee", paddingRight:"0px"}}
+          style={{
+            borderRadius: 15,
+            backgroundColor: "#eeeeee",
+            paddingRight: "0px",
+          }}
         >
           <InputBase
             style={{
               paddingLeft: "10px",
               paddingTop: "10px",
-              
+
               paddingBottom: "10px",
               color: "black",
               fontSize: "25px",
@@ -59,7 +65,7 @@ function DeskField(props) {
               paddingLeft: "10px",
               paddingTop: "10px",
               paddingRight: "20px",
-              
+
               color: "black",
             }}
           >
@@ -95,45 +101,45 @@ function DeskField(props) {
           </div>
 
           {/* <Button style = {{paddingLeft: "10px", paddingTop: "20px", paddingRight: "10px"}} onClick={this.MoveTo()} color="primary" >Открыть доску</Button> */}
-          <div style={{
+          <div
+            style={{
               paddingLeft: "10px",
               paddingTop: "20px",
               paddingRight: "30px",
-              float:"left"
-            }}>
-              <Button
-            
-            onClick={() => {
-              dropDesk(desk.id, desk.name);
+              float: "left",
             }}
           >
-            <Router>
-              <Link
-                href="/guestD"
-                style={{ textDecoration: "none",}}
-              >
-                Редактировать доску
-              </Link>
-              <Switch>
-                <Route
-                  path="/guestD"
-                  component={(id) => <GuestDesk id={id} />}
-                />
-              </Switch>
-            </Router>
-          </Button>
-          </div >
-          <div style={{
+            <Button
+              onClick={() => {
+                console.log("DeskField.js", desk.id, desk.name);
+                dropDesk(desk.id, desk.name);
+              }}
+            >
+              <Router>
+                <Link href="/guestD" style={{ textDecoration: "none" }}>
+                  Редактировать доску
+                </Link>
+                <Switch>
+                  <Route
+                    path="/guestD"
+                    component={(id) => <GuestDesk id={id} />}
+                  />
+                </Switch>
+              </Router>
+            </Button>
+          </div>
+          <div
+            style={{
               paddingLeft: "0px",
               paddingTop: "20px",
               paddingRight: "30px",
-              flex:"left"
-            }}>
-            <Button style={{color:"orange"}}>
-            Прекратить использовать доску
-          </Button>
+              flex: "left",
+            }}
+          >
+            <Button style={{ color: "orange" }}>
+              Прекратить использовать доску
+            </Button>
           </div>
-          
         </Paper>
       </Grid>
     </div>

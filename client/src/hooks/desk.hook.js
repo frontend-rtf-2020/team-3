@@ -4,6 +4,7 @@ export const useDesk = () => {
   let [deskId, setDeskId] = useState("");
 
   const dropDesk = useCallback((id, name) => {
+    console.log("dsafsaf2151221", id);
     localStorage.setItem(
       storageDesk,
       JSON.stringify({ deskId: id, deskName: name })
@@ -13,14 +14,14 @@ export const useDesk = () => {
 
   const upDesk = useCallback(() => {
     const data = JSON.parse(localStorage.getItem(storageDesk));
-    console.log(data);
-    return data;
+    console.log("desk.hook.js", data);
+    return data || { deskId: undefined, deskName: "" };
   }, []);
 
   const deleteDesk = useCallback(() => {
     localStorage.setItem(
       storageDesk,
-      JSON.stringify({ deskId: undefined, deskName: "" })
+      JSON.stringify({ deskId: undefined, deskName: " " })
     );
   }, []);
 
