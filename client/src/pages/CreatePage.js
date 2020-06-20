@@ -26,15 +26,20 @@ import { Paper, Typography } from "@material-ui/core";
 import { useAuth } from "../hooks/auth.hook";
 import Guest from "./Guest";
 import Body from "./Body";
-import {GuestDesk} from "./GuestDesk";
+import { GuestDesk } from "./GuestDesk";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useDesk } from "../hooks/desk.hook";
+import { DeskContext } from "../context/DeskContext";
 
 export function CreatePage(props) {
   const history = useHistory();
+  const { dropDesk, upDesk, deleteDesk, DeskId } = useDesk();
   const auth = useContext(AuthContext);
+  const Desk = useContext(DeskContext);
   const logoutHandler = (event) => {
     event.preventDefault();
     auth.logout();
+    deleteDesk();
     history.push("/");
   };
   // constructor(props) {
@@ -58,7 +63,12 @@ export function CreatePage(props) {
   const [id, setId] = useState(1);
 
   const classes = { props };
-  const sr = { paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto" };
+  const sr = {
+    paddingRight: 30,
+    fontSize: 20,
+    color: "white",
+    fontFamily: "Roboto",
+  };
 
   return (
     <div>
@@ -72,11 +82,16 @@ export function CreatePage(props) {
           <Link
             href="/guests"
             className={classes.useStyles}
-            style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
+            style={{
+              paddingRight: 30,
+              fontSize: 20,
+              color: "white",
+              fontFamily: "Roboto",
+            }}
           >
             Список досок
           </Link>
-{/*           <Link
+          {/*           <Link
             href="/guestD"
             className={classes.linkstyle}
             style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
@@ -84,15 +99,26 @@ export function CreatePage(props) {
             Доска
           </Link> */}
 
-          <h4
+          <Link
+            href="/guestD"
             className={classes.linkstyle}
-            style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
+            style={{
+              paddingRight: 30,
+              fontSize: 20,
+              color: "white",
+              fontFamily: "Roboto",
+            }}
           >
-            DeskName
-          </h4>
+            {Desk.upDesk().deskName}
+          </Link>
           <h3
             className={classes.linkstyle}
-            style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
+            style={{
+              paddingRight: 30,
+              fontSize: 20,
+              color: "white",
+              fontFamily: "Roboto",
+            }}
           >
             {userId}
           </h3>
@@ -100,7 +126,12 @@ export function CreatePage(props) {
             href="/"
             className={classes.linkstyle}
             onClick={logoutHandler}
-            style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
+            style={{
+              paddingRight: 30,
+              fontSize: 20,
+              color: "white",
+              fontFamily: "Roboto",
+            }}
           >
             Выход
           </Link>
@@ -113,7 +144,6 @@ export function CreatePage(props) {
           <GuestDesk />
         </Route>
       </Switch>
-      
     </div>
   );
 }
