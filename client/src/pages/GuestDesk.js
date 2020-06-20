@@ -44,6 +44,7 @@ export function GuestDesk(props) {
   const { token, login, logout, userId } = useAuth();
   const Desk = useContext(DeskContext);
   const baseDesk = {
+    _id: "",
     name: "",
     description: "",
     users: [],
@@ -55,9 +56,8 @@ export function GuestDesk(props) {
     name: "",
     description: "",
     tasks: [],
-  });
-  const test = upDesk();
-  console.log("DSDASDASDSAD", Desk.upDesk());
+  })
+
   const [deskId, setId] = useState(Desk.upDesk);
   const [desk, setDesk] = useState(baseDesk);
 
@@ -145,7 +145,7 @@ export function GuestDesk(props) {
                     paddingBottom: "10px",
                   }}
                   // className={classes.margin}
-                  value={desk.description}
+                  value={desk.description + " " + desk._id}
                   inputProps={{ "aria-label": "naked" }}
                 />
               </div>

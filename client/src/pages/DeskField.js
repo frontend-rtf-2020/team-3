@@ -15,7 +15,7 @@ function DeskField(props) {
   const [desk, setDesk] = useState(props.desk);
   const { dropDesk, upDesk, deskId } = useDesk();
 
-  dropDesk(desk.id);
+
   const onDeskChange = (event) => {
     setDesk({
       ...desk,
@@ -71,6 +71,7 @@ function DeskField(props) {
               paddingTop: "20px",
               paddingRight: "10px",
             }}
+            onClick={() => {dropDesk(desk.id)}}
           >
             <Router>
               <Link
