@@ -85,18 +85,6 @@ export const Regpage = () => {
     }
   };
 
-  const VKHandler = (event) => {
- 
-    
-    {/* <VKRegistration /> */}
-
-    /*   desk.columns.push(column)
-      setColumn({name:"",description:"",tasks:[]}) */
- 
-    
-
-  }
-
   return (
     <div className="row">
       <Typography
@@ -167,14 +155,6 @@ export const Regpage = () => {
                       >
                         Регистрация
                       </Button>
-
-                      <VK apiId={7515170}>
-                          <Auth options={{
-                                onAuth: user => {
-                                    vkAuth(user)
-                                },
-                          }}/>
-                      </VK>
 
                       <Snackbar
                         open={open}
