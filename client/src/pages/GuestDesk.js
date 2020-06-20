@@ -63,12 +63,12 @@ export function GuestDesk(props) {
   const [desk, setDesk] = useState(baseDesk);
   const [expanded, setExpanded] = useState(false);
 
+  let newUser = "";
+
   const loadDesk = async () => {
     if (!deskId) return;
-    console.log(deskId);
     try {
       const table = await request("/api/table", "POST", { tableId: deskId });
-      console.log(deskId, table);
       setDesk(table);
     } catch (error) {}
   };
@@ -90,14 +90,38 @@ export function GuestDesk(props) {
     }
   };
 
-  const removeUser = (event) => {
+  const addUser = async (event) => {
 
+    const user = await request("/api/table/addUser",
+        "post",
+        {tableId: deskId, email: newUser});
+    console.log(user);
+    if(user){
+      desk.users.push(user);
+      loadDesk();
+    }
   }
+
+  const removeUser = (event) => {
+    console.log("wat", event.target);
+    if(event.target.name != userId)
+    {
+      setDesk({
+        ...desk,
+        users: desk.users.filter(( user )  => {
+          //console.log(user, user.id, event.target.id, user.id != event.target.id)
+          return user.id != event.target.id
+        })
+      });
+    }
+    //console.log(desk.users);
+  }
+
+
 
   const changeDeskInfo = () => {
     changeDeskInfoDb(desk.name, desk.description);
     setDesk(desk);
-    console.log(desk);
   };
 
   const changeDeskInfoDb = (name, description) => {
@@ -211,17 +235,11 @@ export function GuestDesk(props) {
               <div className={classes.column} />
               <div className={classes.column}>
                 <div fullWidth style={{ float: "right" }}>
-                  {desk.users.map((user) => (
-                    <div
-                      style={{
-                        paddingRight: "10px",
-                        paddingTop: "15px",
-                        float: "left",
-                      }}
-                    >
-                      <Chip label={user.name} onDelete={() => {}} />
-                    </div>
 
+                  {desk.users.map((user) => (
+                    <div style={{paddingRight: "10px",paddingTop: "15px",float: "left",}}>
+                      <Chip label={user.name} data={user.id} onDelete={removeUser} />
+                    </div>
                   ))}
                   <div
                     style={{
@@ -233,8 +251,10 @@ export function GuestDesk(props) {
                     <TextField
                       placeholder="Email"
                       inputProps={{ "aria-label": "naked" }}
+                      defaultValue="test@mail.ru"
                       variant="standard"
                       label="Добавить участника"
+                      onChange={(event) => {newUser = event.target.value}}
                       size="small"
                       width="30%"
                     />
@@ -246,7 +266,7 @@ export function GuestDesk(props) {
                       float: "right",
                     }}
                   >
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" onClick={addUser}>
                       Подтвердить
                     </Button>
                   </div>
