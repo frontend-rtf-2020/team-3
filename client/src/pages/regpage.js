@@ -111,7 +111,7 @@ export const Regpage = () => {
                     <Typography
                       variant="h6" /* className={regstyles.typostyle} */
                     >
-                      Авторизация
+                      Регистрация
                     </Typography>
                     <p style={{ paddingBottom: "1%" }}>
                       {" "}

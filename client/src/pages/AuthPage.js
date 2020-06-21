@@ -69,7 +69,6 @@ export const AuthPage = () => {
         console.log(user.hash);
       } else {
         setOpen(true);
-        return <Redirect to="/reg"></Redirect>;
       }
     } catch {
       setOpen(true);
@@ -91,7 +90,6 @@ export const AuthPage = () => {
       console.log("AuthPage.js", data.name);
       setName(data.name);
       auth.login(data.token, data.userId);
-      return <Redirect to="/"></Redirect>;
     } catch (error) {
       setOpen(true);
     }
@@ -152,7 +150,6 @@ export const AuthPage = () => {
 
                         <VK apiId={7515170}>
                           <Auth
-                            href="/reg"
                             options={{
                               onAuth: (user) => {
                                 vkAuth(user);
