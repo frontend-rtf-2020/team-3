@@ -14,7 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { VKRegistration } from "./VKauth";
 import VK, { Auth } from "react-vk";
 import { regpage } from "./regpage.js";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/auth.hook";
 
 function Alert(props) {
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const AuthPage = () => {
   const auth = useContext(AuthContext);
+  const history = useHistory();
   const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({ email: "", password: "" });
@@ -69,6 +70,8 @@ export const AuthPage = () => {
         console.log(user.hash);
       } else {
         setOpen(true);
+
+        history.push("/reg");
       }
     } catch {
       setOpen(true);
