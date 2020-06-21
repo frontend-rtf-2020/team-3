@@ -219,8 +219,8 @@
     font-family: "Roboto";
     background: white;
     color: white;
-    margin-top: 60px;
-    width: 125px; /*Фиксируем ширину блока*/
+    margin-top: 20px;
+    width: 135px; /*Фиксируем ширину блока*/
     margin-right: 10px;
     text-align: center; /*Центрируем текст по горизонтали*/
    }

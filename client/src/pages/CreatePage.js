@@ -77,7 +77,7 @@ export function CreatePage(props) {
       <AppBar
         position="static"
         className={classes.appbarstyle}
-        style={{ boxShadow: "0px 0px 0px 0px", width:"100vw" }}
+        style={{ boxShadow: "0px 0px 0px 0px"}}
       >
         <Toolbar className={classes.appbarstyle}>
           <Link href="/" style={sr}>

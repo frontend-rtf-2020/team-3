@@ -9,6 +9,7 @@ import gandalf from '../assets/ZSix.gif';
 import testpic from '../assets/mainpgart.gif';
 import '../App.css';
 import Link from '@material-ui/core/Link';
+import Avatar from '@material-ui/core/Avatar';
 
 export class Body extends Component{
 
@@ -35,48 +36,67 @@ export class Body extends Component{
                                 </img>
 
                                 
-                                <div style = {{width:"50%", float:"right", paddingRight:"5%"}}>
+                                <div className="greet" style = {{width:"55%", float:"right", paddingRight:"2.5%"}}>
                                     <Typography variant="h5" style = {{textAlign: "center", paddingTop: "10vh", fontSize: "30px"}} >Добро пожаловать на Magma Desk!</Typography>
                                     <Typography  variant="h2"  style = {{textAlign: "justify", fontSize: "20px", paddingTop: "10vh",textAlign:"center", paddingLeft: "3vw", paddingRight: "3vw"}}>Magma Desk - это платформа, для удобного оформления и слежения за Вашими задачами. Зарегистрируйтесь, авторизуйтесь и создавайте свои Доски и Задачи для Ваших нужд!</Typography>
-                                    <Typography variant="h5" style = {{textAlign: "center", paddingTop: "10vh", fontSize: "30px"}} >Наша команда: </Typography>
+                                    <Typography variant="h5" style = {{textAlign: "center", paddingTop: "10vh", fontSize: "30px"}} 
+                                    >
+                                        Наша команда: </Typography>
+
+                                    <div style ={{ display: 'flex', textAlign:"center"}}>
+                                        <div className="greet">
+                                            <div className="flx6" style={{borderRadius: "25px"}}>
+                                            <img className="greet" style={{height: 90}} src={rick} alt="dance" />
+                                            <Link href="https://github.com/Gerunis" className="greet" target="_blank" style={{fontSize:"14px"}} >
+                                                Русинов Сергей
+                                            </Link>
+                                            </div>
+                                        </div>
+                                    
+
+                                        <div className="greet">
+                                            <div className="flx6" style={{borderRadius: "25px"}}>
+                                                <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={gandalf} alt="dance" />
+                                                <Link href="https://github.com/Maxerdan" className="greet" target="_blank" style={{fontSize:"14px"}} >
+                                                    Соколов Максим
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    
+                                        <div className="greet">
+                                            <div className="flx6" style={{borderRadius: "25px"}}>
+                                            <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={cap} alt="dance" />
+                                            <Link href="https://github.com/LuckyLiar" className="greet" target="_blank" style={{fontSize:"14px"}} >
+                                                Усков Егор
+                                            </Link>
+                                            </div>
+                                        </div>
+
+                                        <div className="greet">
+                                            <div className="flx6" style={{borderRadius: "25px"}}>
+                                            <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={poke} alt="dance" />
+                                            <Link href="https://github.com/needMoreBlood" className="greet" target="_blank" style={{fontSize:"14px"}} >
+                                                Федулова Елена
+                                            </Link>
+                                            </div>
+                                        </div>
+
+                                        <div className="greet">
+                                            <div className="flx6" style={{borderRadius: "25px"}}>
+                                            <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={reap} alt="dance" />
+                                            <Link  href="https://github.com/SeregaGG" className="greet" target="_blank" style={{fontSize:"14px"}} >
+                                                Щербинин Сергей
+                                            </Link>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                        
+                                        
                                 
-                                    <form>
-                            
-                            <div style={{paddingLeft: "5%", paddingRight:"5%"}}>
-                                <div className="flx6" style={{borderRadius: "25px"}}> 
-                                <img className="greet" style={{height: 90}} src={rick} alt="dance" />
-                                    <Link href="https://github.com/Gerunis" target="_blank" style={{fontSize:"15px"}} >
-                                        Русинов Сергей
-                                    </Link>
-                                </div>
-                                <div className="flx6" style={{borderRadius: "25px"}}>
-                                    <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={gandalf} alt="dance" />
-                                    <Link href="https://github.com/Maxerdan"  target="_blank" style={{fontSize:"15px"}} >
-                                        Соколов Максим
-                                    </Link>
-                                </div>
-                                <div className="flx6" style={{borderRadius: "25px"}}>
-                                    <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={cap} alt="dance" />
-                                    <Link href="https://github.com/LuckyLiar"  target="_blank" style={{fontSize:"15px"}} >
-                                        Усков Егор
-                                    </Link>
-                                </div>
-                                <div className="flx6" style={{borderRadius: "25px"}}>
-                                    <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={poke} alt="dance" />
-                                    <Link href="https://github.com/needMoreBlood"  target="_blank" style={{fontSize:"15px"}} >
-                                        Федулова Елена
-                                    </Link>
-                                </div>
-                                <div className="flx6" style={{borderRadius: "25px"}}>
-                                    <img style = {{borderRadius: "30px", height: "90px"}} className="greet"  src={reap} alt="dance" />
-                                    <Link href="https://github.com/SeregaGG" target="_blank" style={{fontSize:"15px"}} >
-                                        Щербинин Сергей
-                                    </Link>
-                                </div>
-                
-                             </div>
-                         
-                        </form>
+                                    
+
+                                    
                                 
                                 </div>
                             </Paper>
