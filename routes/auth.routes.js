@@ -32,7 +32,10 @@ router.post(
       const candidate = await User.findOne({ email });
       console.log(req.body);
       if (candidate) {
+        console.log(candidate.hash);
         const isGood = await bcrypt.compare(password, candidate.password);
+
+        console.log(isGood);
         if (isGood && hash === "") {
           console.log(candidate.hash);
 
