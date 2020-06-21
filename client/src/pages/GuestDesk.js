@@ -447,7 +447,7 @@ export function GuestDesk(props) {
           <Container maxWidth="xl">
             <Typography
               component="div"
-              style={{ backgroundColor: "#ffffff", height: "100vh" }}
+              style={{ backgroundColor: "#fafafa", height: "100vh" }}
             >
               <div
                 className={classes.root}

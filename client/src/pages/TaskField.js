@@ -130,6 +130,7 @@ function TaskField(props) {
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1c-content"
                 id="panel1c-header"
+                style={{backgroundColor: 'rgba(0, 0, 0, .02)',}}
               >
                 <div className={classes.column}>
                   <Typography className={classes.heading}>Фильтры</Typography>
@@ -182,6 +183,42 @@ function TaskField(props) {
             </FormControl>
             <Button onClick={updateTask} style={{marginTop:"20px"}} color="primary">Сохранить изменения</Button>
             <Button onClick={()=>{}} style={{marginTop:"20px"}} color="primary"><DeleteIcon /></Button>
+          </div>
+          <div style={{paddingTop:"10px",paddingRight:"10px",color:"#fafafa", paddingBottom:"10px"}} >
+          <ExpansionPanel className={classes.root1} style={{ borderTopLeftRadius:"0px", borderTopRightRadius:"0px",  boxShadow:" 0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
+              <ExpansionPanelSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1c-content"
+                id="panel1c-header"
+                style={{backgroundColor: 'rgba(0, 0, 0, .02)',}}
+              >
+                <div className={classes.column}>
+                  <Typography className={classes.heading}>Перемещение</Typography>
+                </div>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails className={classes.details} style={{width:"100%%"}} >
+                <div className={classes.column} />
+                  <div className={classes.column} >
+                  <FormControl className={classes.formControl}  style = {{width:"80%"}}>
+                    <InputLabel >Выбрать колонку</InputLabel>
+                      <Select
+                        value={task.owner}
+                        onChange={selectChangeHandler}
+                        input={<Input/>}
+                        >
+                        {users.map( user => (
+                          <MenuItem value={user.id}>
+                            {user.name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                  </FormControl>
+                  <Button onClick={updateTask} style={{marginTop:"20px"}} color="primary">Переместить</Button>
+                  </div>
+                <div className={clsx(classes.column, classes.helper)}></div>
+              </ExpansionPanelDetails>
+              <Divider/>
+            </ExpansionPanel>
           </div>
         </Paper>
       </div>
