@@ -19,14 +19,14 @@ router.post(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        console.log(errors);
+        console.log("Ошибка");
         return res.status(400).json({
           errors: errors.array(),
           message: "Bad data",
         });
       }
 
-      console.log(req.body);
+      console.log("Зашел");
       const { email, password, hash, myName } = req.body;
       console.log(req.body);
       const candidate = await User.findOne({ email });
