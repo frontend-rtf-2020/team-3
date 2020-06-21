@@ -220,7 +220,7 @@
     background: white;
     color: white;
     margin-top: 60px;
-    width: 140px; /*Фиксируем ширину блока*/
+    width: 125px; /*Фиксируем ширину блока*/
     margin-right: 10px;
     text-align: center; /*Центрируем текст по горизонтали*/
    }
