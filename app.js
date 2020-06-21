@@ -1,39 +1,35 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express");
+const config = require("config");
+const path = require("path");
+const mongoose = require("mongoose");
 
-var indexRouter = require('./routes/index');
+const app = express();
 
-var app = express();
+app.use(express.json({ extended: true }));
+app.use("/api/auth", require("./routes/auth.routes"));
+app.use("/api/tables", require("./routes/tables.routes"));
+app.use("/api/table", require("./routes/table.routes"));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/api', indexRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+//!!
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
+//!!
+const PORT = process.env.PORT || 5000;
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+async function start() {
+  try {
+    await mongoose.connect(config.get("mongoURI"), {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+    app.listen(PORT, () => console.log("App has been started on port " + PORT));
+  } catch (error) {
+    console.log("Server Error", error.message);
+    process.exit(1);
+  }
+}
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-module.exports = app;
+start();
