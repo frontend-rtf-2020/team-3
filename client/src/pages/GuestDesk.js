@@ -97,8 +97,8 @@ export function GuestDesk(props) {
   };
 
   const addColumn = (event) => {
-    if (column.name === "") {
-    } else {
+    if (column.name !== "" && columns.every(e => e.Name !== column.name))
+    {
       addColumnDb(column.name, column.description);
       columns.push(column);
       setColumn({ name: "", description: "", tasks: [] });
@@ -119,9 +119,11 @@ export function GuestDesk(props) {
         });
         if (user) {
           desk.users.push(user);
-          update();
+          // update();
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log("error", error);
+      }
     }
   };
 
@@ -152,26 +154,27 @@ export function GuestDesk(props) {
     });
   };
 
-  const deleteColumnDb = (position) => {
+  const deleteColumnDb = (name) => {
     request("/api/table/deleteColumn", "POST", {
       tableId: deskId,
-      column: position,
+      column: name,
     });
   };
 
-  const deleteColumn = async (columnToRemove) => {
-    setColumns(columns.filter((column) => column != columnToRemove));
+  const deleteColumn = (columnToRemove) => {
+    setColumns(columns.filter((column) => column.name != columnToRemove.name));
+    deleteColumnDb(columnToRemove.name);
   };
 
   const generateColumns = () => {
-    return columns.map((column, i) => (
+    return columns.map((column) => (
       <ColumnComponent
         deskId={deskId}
         column={column}
+        columns={columns}
         users={desk.users}
-        index={i}
-        key={column.name + i}
-        delete={() => deleteColumn(column)}
+        key={column.name}
+        delete={(id) => deleteColumn(id)}
       />
     ));
   };

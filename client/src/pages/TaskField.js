@@ -37,16 +37,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
-};
 
 function getStyles(name, personName, theme) {
   return {
@@ -62,7 +52,9 @@ function TaskField(props) {
   const { request } = useHttp();
 
   const [task, taskChange] = useState(props.task);
-  const [users, setUsers] = useState(props.users)
+  const [users, setUsers] = useState(props.users);
+  const [baseTaskName, setBaseTaskName] = useState(task.name);
+
 
   const changeHandler = (event) => {
     taskChange({
@@ -77,14 +69,22 @@ function TaskField(props) {
   }
 
   const updateTask = () =>{
-    request("/api/table/updateTask", "POST",
-        { tableId: props.deskId,
-          column: props.columnIndex,
-          task: props.index,
-          name: task.name,
-          description: task.description,
-          owner: task.owner
-        });
+    if(task.name !== "" && props.tasks.every(e => e.name !== task.name)){
+        request("/api/table/updateTask", "POST",
+            { tableId: props.deskId,
+              column: props.columnName,
+              task: baseTaskName,
+              name: task.name,
+              description: task.description,
+              owner: task.owner
+            }
+        );
+      setBaseTaskName(task.name);
+    }
+  }
+
+  const deleteHandler = () =>{
+    props.deleteHandler(baseTaskName);
   }
 
   const classes = useStyles();
@@ -182,7 +182,7 @@ function TaskField(props) {
                 </Select>
             </FormControl>
             <Button onClick={updateTask} style={{marginTop:"20px"}} color="primary">Сохранить изменения</Button>
-            <Button onClick={()=>{}} style={{marginTop:"20px"}} color="primary"><DeleteIcon /></Button>
+            <Button onClick={deleteHandler} style={{marginTop:"20px"}} color="primary"><DeleteIcon /></Button>
           </div>
           <div style={{paddingTop:"10px",paddingRight:"10px",color:"#fafafa", paddingBottom:"10px"}} >
           <ExpansionPanel className={classes.root1} style={{ borderTopLeftRadius:"0px", borderTopRightRadius:"0px",  boxShadow:" 0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>

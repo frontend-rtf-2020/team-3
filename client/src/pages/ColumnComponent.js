@@ -17,8 +17,10 @@ function ColumnComponent(props) {
   const { request } = useHttp();
 
   const [column, setColumn] = useState(props.column);
-  const [users, setUsers] = useState(props.users)
   const [task, setTask] = useState({name:"", description: "", owner: undefined})
+  const [columnBaseName,setColumnBaseName] = useState(column.name);
+
+  const users = props.users;
 
   const onColumnChange = (event) => {
     setColumn({
@@ -39,36 +41,58 @@ function ColumnComponent(props) {
   }
 
   const deleteColumn = () => {
-    props.delete();
+    props.delete(columnBaseName);
   }
 
   const updateColumnInfo = () => {
-    request("/api/table/updateColumn", "POST",
-        { tableId: props.deskId, column: props.index, name: column.name, description: column.description})
+    if(column.name !== "" && props.columns.every(e => e.Name !== column.name)){
+      request("/api/table/updateColumn", "POST",
+          { tableId: props.deskId, column: columnBaseName, name: column.name, description: column.description})
+      setColumnBaseName(column.name);
+    }
   }
 
   const addTaskDb = (name, description, owner) => {
     request("/api/table/addTask", "POST",
-        { tableId: props.deskId, column: props.index, name: name, description: description, owner: owner})
+        { tableId: props.deskId, column: columnBaseName, name: name, description: description, owner: owner})
   }
 
   const addTask = () => {
-    const newTasks = [...column.tasks];
-    newTasks.push(task);
-    setColumn({...column, tasks: newTasks});
-    addTaskDb(task.name, task.description, task.owner);
-    setTask({name:"", description: "", owner: undefined});
-  }
-
-  const deleteTask = (event) => {
-    for (let i = 0; i < column.task.length; i++) {
-      let obj = column.task[i];
-      if (obj.id === event.id) {
-          column.tasks.splice(i, 1);
-          break;
-      }
+    if(task.name !== "" && column.tasks.every(e => e.Name !== task.name)){
+      const newTasks = [...column.tasks];
+      newTasks.push(task);
+      setColumn({...column, tasks: newTasks});
+      addTaskDb(task.name, task.description, task.owner);
+      setTask({name:"", description: "", owner: undefined});
     }
   }
+
+  const deleteTaskDb = (taskName) => {
+    request("/api/table/deleteTask", "POST", {
+      tableId: props.deskId,
+      column: columnBaseName,
+      task: taskName
+    });
+  };
+
+  const deleteTask = (taskName) => {
+    setColumn({... column, tasks : column.tasks.filter((task) => task.name != taskName)});
+    deleteTaskDb(taskName);
+  }
+
+  const generateTasks = () => {
+    return column.tasks.map(
+        (task) =>
+            <TaskField
+                deskId={props.deskId}
+                task={task}
+                tasks={column.tasks}
+                users={users}
+                columnName={columnBaseName}
+                key={task.name}
+                deleteHandler={deleteTask}/>
+    );
+  };
 
   return (
     <div className="card" style={{minWidth:"38vw"}}>
@@ -205,16 +229,7 @@ function ColumnComponent(props) {
           </div>
 
           <div>
-            {column.tasks.map(
-              (task, index) =>
-                <TaskField
-                    task={task}
-                    users={users}
-                    deskId={props.deskId}
-                    columnIndex={props.index}
-                    index={index}
-                    deleteHandler={deleteTask}/>
-            )}
+            {generateTasks()}
           </div>
         </Paper>
     </div>

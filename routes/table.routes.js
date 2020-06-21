@@ -111,12 +111,13 @@ router.post(
             const task = {
                 name: name,
                 description: description,
-                owner: new objectId(owner)
+                owner: new objectId(owner),
+                tags: []
             }
 
             Table.updateOne(
-                {_id: tableId},
-                {$push: {["columns."+column+".tasks"]: task }},
+                {_id: tableId, "columns.name": column},
+                {$push: {"columns.$.tasks": task }},
                 (err, data) =>
                 {
                     if(err)
@@ -150,11 +151,7 @@ router.post(
 
             await Table.updateOne(
                 { _id: tableId},
-                { $unset: { ["columns." + column]: 1}});
-
-            await Table.updateOne(
-                { _id: tableId},
-                { $pull: { columns: null}});
+                { $pull: { columns: {name: column}}});
 
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
@@ -182,13 +179,10 @@ router.post(
             }
             const { tableId, column, task} = req.body;
 
-            await Table.updateOne(
-                { _id: tableId},
-                { $unset: { ["columns." + column + ".tasks." + task]: 1}});
-
-            await Table.updateOne(
-                { _id: tableId},
-                { $pull: { ["columns." + column + ".tasks"]: null}});
+            Table.updateOne(
+                { _id: tableId, "columns.name": column},
+                { $pull: { "columns.$.tasks": {name: task}}},
+                (err, data) => {});
 
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
@@ -254,8 +248,8 @@ router.post(
             const { tableId, column, name, description} = req.body;
 
             await Table.updateOne(
-                { _id: tableId},
-                { $set: { ["columns." + column + ".name"]: name, ["columns." + column + ".description"]: description}});
+                { _id: tableId, "columns.name": column},
+                { $set: { "columns.$.name": name, "columns.$.description": description}});
 
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
@@ -289,13 +283,16 @@ router.post(
             const newTask = {
                 name: name,
                 description: description,
-                tags: [],
-                owner: new objectId(owner)
+                owner: new objectId(owner),
+                tags: []
             }
 
             Table.updateOne(
                 { _id: tableId},
-                { $set: { ["columns." + column + ".tasks." + task ]: newTask}},
+                { $set: {
+                    "columns.$[column].tasks.$[task]": newTask
+                }},
+                {arrayFilters: [{"column.name": column}, {"task.name": task}]},
                 (err, data) => {});
 
         } catch (error) {
