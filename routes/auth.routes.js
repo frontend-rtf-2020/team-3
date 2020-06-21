@@ -32,7 +32,8 @@ router.post(
         const isGood = await bcrypt.compare(password, candidate.password);
         if (isGood && hash !== "") {
           candidate.hash = hash;
-          candidate.save();
+          console.log(candidate.hash);
+          await candidate.save();
           return res.status(201).json({ message: "ВК привязан!" });
         }
         return res.status(400).json({ message: "This user already exist" });
