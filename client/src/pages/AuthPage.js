@@ -91,6 +91,7 @@ export const AuthPage = () => {
       console.log("AuthPage.js", data.name);
       setName(data.name);
       auth.login(data.token, data.userId);
+      return <Redirect to="/"></Redirect>;
     } catch (error) {
       setOpen(true);
     }
@@ -141,7 +142,6 @@ export const AuthPage = () => {
                       </p>
                       <div style={{ paddingTop: "10%" }}>
                         <Button
-                          href="/"
                           onClick={loginHandler}
                           style={{ marginRight: "3%" }}
                           variant="outlined"

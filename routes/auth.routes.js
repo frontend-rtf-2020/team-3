@@ -14,6 +14,7 @@ router.post(
     check("email", "Bad email").normalizeEmail().isEmail(),
     check("password", "Bad password, min length = 6").isLength({ min: 6 }),
     check("myName").isLength({ min: 1 }),
+    check("hash"),
   ],
   async (req, res) => {
     try {
@@ -24,11 +25,12 @@ router.post(
           message: "Bad data",
         });
       }
-      const { email, password, myName, hash } = req.body;
+      const { email, password, hash, myName } = req.body;
       const candidate = await User.findOne({ email: email });
-      const isGood = await bcrypt.compare(password, candidate.password);
+
       if (candidate) {
-        if (isGood) {
+        const isGood = await bcrypt.compare(password, candidate.password);
+        if (isGood && hash !== "") {
           candidate.hash = hash;
           candidate.save();
           return res.status(201).json({ message: "ВК привязан!" });
