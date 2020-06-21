@@ -1,32 +1,19 @@
 import React, {Component} from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Paper,Typography} from '@material-ui/core';
-import ReactDOM from 'react-dom';
-import InputBase from '@material-ui/core/InputBase';
 import { TextField} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import TaskField from './TaskField'
-//import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useState, useEffect } from 'react';
-import Chip from "@material-ui/core/Chip";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import Select from "@material-ui/core/Select";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import clsx from "clsx";
-import Divider from "@material-ui/core/Divider";
 import {useHttp} from "../hooks/http.hook";
  
 function ColumnComponent(props) {
-
   const { request } = useHttp();
 
   const [column, setColumn] = useState(props.column);
@@ -84,8 +71,7 @@ function ColumnComponent(props) {
   }
 
   return (
-    <div style={{paddingBottom: "30px", width: "40%"}}>
-      <Grid style = {{ paddingTop: "10px"}}>
+    <div style={{paddingTop: "20px", width: "60%"}}>
         <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingBottom: "20px", boxShadow: "0 0 1px"}}>
           <div style={{padding: "10px"}}>
             <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 1px 1px grey"}}>
@@ -230,7 +216,6 @@ function ColumnComponent(props) {
             )}
           </div>
         </Paper>
-      </Grid>
     </div>
   )
 }
