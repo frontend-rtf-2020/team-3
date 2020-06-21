@@ -152,6 +152,7 @@ export const AuthPage = () => {
 
                         <VK apiId={7515170}>
                           <Auth
+                            href="/reg"
                             options={{
                               onAuth: (user) => {
                                 vkAuth(user);
