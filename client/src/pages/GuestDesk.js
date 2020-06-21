@@ -119,7 +119,7 @@ export function GuestDesk(props) {
         });
         if (user) {
           desk.users.push(user);
-          // update();
+          update();
         }
       } catch (error) {
         console.log("error", error);
