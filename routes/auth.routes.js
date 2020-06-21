@@ -14,7 +14,6 @@ router.post(
     check("email", "Bad email").normalizeEmail().isEmail(),
     check("password", "Bad password, min length = 6").isLength({ min: 6 }),
     check("myName").isLength({ min: 1 }),
-    check("hash"),
   ],
   async (req, res) => {
     try {
