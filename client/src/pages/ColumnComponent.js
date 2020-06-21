@@ -84,36 +84,40 @@ function ColumnComponent(props) {
   }
 
   return (
-    <div style={{paddingBottom: "30px"}}>
+    <div style={{paddingBottom: "30px", width: "40%"}}>
       <Grid style = {{ paddingTop: "10px"}}>
         <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingBottom: "20px", boxShadow: "0 0 1px"}}>
           <div style={{padding: "10px"}}>
             <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 1px 1px grey"}}>
-              <Typography style = {{paddingLeft: "10px", paddingDown: "15px", fontSize: "25px"}} >
-                Название колонки
-              </Typography>
+              <div style = {{paddingLeft: "5px", paddingDown: "15px", paddingRight: "10px"}}>
+                <Typography style = {{paddingLeft: "5px",paddingDown: "15px", fontSize: "25px"}} >
+                  Название колонки
+                </Typography>
 
-              <TextField fullWidth
-                style = {{paddingLeft: "5px", paddingUp: "15px", paddingDown: "15px", paddingRight: "5px"}}
-                onChange={onColumnChange}
-                name="name"
-                variant="outlined"
-                value={column.name}
-                multiline
-                type="text" />
+                <TextField fullWidth
+                           style = {{paddingUp: "15px"}}
+                           onChange={onColumnChange}
+                           name="name"
+                           variant="outlined"
+                           value={column.name}
+                           multiline
+                           type="text" />
+              </div>
 
-              <Typography style = {{paddingLeft: "10px", paddingUp: "15px", paddingDown: "15px", fontSize: "20px"}} >
-                Описание колонки
-              </Typography>
+              <div style = {{paddingLeft: "5px", paddingUp: "25px", paddingRight: "10px"}}>
+                <Typography style = {{paddingLeft: "5px", fontSize: "20px" }} >
+                  Описание колонки
+                </Typography>
 
-              <TextField fullWidth style = {{paddingLeft: "5px", paddingUp: "15px"}}
-                onChange={onColumnChange}
-                name="description"
-                variant="outlined"
-                value={column.description}
-                multiline
-                type="text"
-              />
+                <TextField fullWidth style = {{paddingUp: "15px"}}
+                           onChange={onColumnChange}
+                           name="description"
+                           variant="outlined"
+                           value={column.description}
+                           multiline
+                           type="text"
+                />
+              </div>
             </Paper>
           </div>
 

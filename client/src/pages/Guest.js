@@ -10,44 +10,30 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import DeskField from "./DeskField";
 import TextField from "@material-ui/core/TextField";
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { useHttp } from "../hooks/http.hook";
 import { useAuth } from "../hooks/auth.hook";
 
 export function GuestDesk(props) {
-  const useStyles = makeStyles({
-    linkstyle: {
-      underline: "none",
-      color: "white",
-      paddingRight: 30,
-      fontSize: 20,
-    },
-    appbarstyle: {
-      elevation: 0,
-    },
-  });
 
-  const { loading, request, error, clearError } = useHttp();
-  const { token, login, logout, userId } = useAuth();
+  const { request } = useHttp();
+  const { userId } = useAuth();
 
-  const [refresh, setRefresh] = useState();
-
-  const defaultDesk = {
-    name: "",
-    description: "",
-    id: "",
-  };
-
-  const [currentDesk, setCurrentDesk] = useState(defaultDesk);
+  const [currentDesk, setCurrentDesk] = useState( { name: "", description: "", id: "" });
   const [desks, setDesks] = useState([]);
 
   const loadDesks = async () => {
+    const data = JSON.parse(localStorage.getItem("userData"));
     setDesks([]);
     try {
-      const tables = await request("/api/tables", "POST", { id: userId });
+      const tables = await request("/api/tables", "POST", { id: data.userId });
       setDesks(tables);
-    } catch (error) {}
+    } catch (error) {
+      console.log("error",error);
+    }
   };
+
+  useEffect(loadDesks, []);
 
   const addDeskDB = async (name, description) => {
     const id = await request("/api/tables/add", "POST", {
@@ -72,7 +58,6 @@ export function GuestDesk(props) {
         id: "",
       });
     }
-    setRefresh();
   };
 
   return (
@@ -84,9 +69,6 @@ export function GuestDesk(props) {
           paddingTop: "20px",
         }}
       >
-        <Button variant="outlined" color="primary" onClick={loadDesks}>
-          Загрузить доски
-        </Button>
         <TextField
           id="name"
           label="Задать имя доски"

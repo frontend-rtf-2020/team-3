@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect} from "react";
 import { Paper, Typography } from "@material-ui/core";
 import { Switch, NavLink, useHistory, Route } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -85,6 +85,8 @@ export function GuestDesk(props) {
     } catch (error) {
     }
   };
+
+  useEffect(loadDesk, []);
 
   const addColumnDb = (name, description) => {
     request("/api/table/addColumn", "POST", {
@@ -173,7 +175,7 @@ export function GuestDesk(props) {
             column={column}
             users={desk.users}
             index={i}
-            key={column}
+            key={column.name + i}
             delete={() => deleteColumn(column) }/>
     );
   }
@@ -195,9 +197,6 @@ export function GuestDesk(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={loadDesk}>
-        load
-      </Button>
       <div>
         <div className={classes.root1}>
           <ExpansionPanel
