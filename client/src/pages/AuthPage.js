@@ -48,6 +48,8 @@ export const AuthPage = () => {
     setName,
     setHash,
     getHash,
+    setCheck,
+    getCheck,
     token,
     userId,
   } = useAuth();
@@ -70,7 +72,7 @@ export const AuthPage = () => {
         console.log(user.hash);
       } else {
         setOpen(true);
-
+        setCheck(true);
         history.push("/reg");
       }
     } catch {

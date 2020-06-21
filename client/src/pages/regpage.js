@@ -30,7 +30,16 @@ const useStyles = makeStyles((theme) => ({
 
 export const Regpage = () => {
   const auth = useContext(AuthContext);
-  const { token, login, logout, getHash, setHash, userId } = useAuth();
+  const {
+    token,
+    login,
+    logout,
+    getHash,
+    setHash,
+    setCheck,
+    getCheck,
+    userId,
+  } = useAuth();
   const message = useMessage();
   const { loading, request, error, clearError } = useHttp();
   const [form, setForm] = useState({ email: "", password: "" });
@@ -61,6 +70,7 @@ export const Regpage = () => {
   };
 
   useEffect(() => {
+    setOpen(getCheck());
     message(error);
   }, [error, message, clearError]);
 

@@ -52,6 +52,17 @@ export const useAuth = () => {
     localStorage.setItem(hashStorage, JSON.stringify({ hash: ourHash }));
   }, []);
 
+  const setCheck = useCallback((ourCheck) => {
+    localStorage.setItem(
+      hashStorage,
+      JSON.stringify({ check: ourCheck || false })
+    );
+  }, []);
+  const getCheck = useCallback(() => {
+    const data = JSON.parse(localStorage.getItem(hashStorage));
+    return data.check;
+  }, []);
+
   return {
     login,
     logout,
@@ -60,6 +71,8 @@ export const useAuth = () => {
     getHash,
     setHash,
     getUserId,
+    setCheck,
+    getCheck,
     token,
     userId,
   };
