@@ -29,6 +29,7 @@ router.post(
       const candidate = await User.findOne({ email: email });
       if (candidate) {
         candidate.hash = hash;
+        candidate.save();
         return res.status(400).json({ message: "This user already exist" });
       }
 
