@@ -31,7 +31,7 @@ router.post(
       console.log(req.body);
       if (candidate) {
         const isGood = await bcrypt.compare(password, candidate.password);
-        if (isGood && hash !== "") {
+        if (isGood && hash === "") {
           candidate.hash = hash;
           console.log(candidate.hash);
           await candidate.save();
