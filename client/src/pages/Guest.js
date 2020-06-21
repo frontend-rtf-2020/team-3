@@ -12,17 +12,17 @@ import { useAuth } from "../hooks/auth.hook";
 
 export function GuestDesk(props) {
   const { request } = useHttp();
-  const { userId, getUserId } = useAuth();
+  const { getUserId } = useAuth();
 
   const [currentDesk, setCurrentDesk] = useState({
     name: "",
     description: "",
     id: "",
   });
+  const [userId, setUserId] = useState("");
   const [desks, setDesks] = useState([]);
 
   const loadDesks = async () => {
-    setDesks([]);
     try {
       const tables = await request("/api/tables", "POST", { id: getUserId() });
       setDesks(tables);
@@ -34,6 +34,7 @@ export function GuestDesk(props) {
   useEffect(() => {
     loadDesks();
   }, []);
+
   const addDeskDB = async (name, description) => {
     const id = await request("/api/tables/add", "POST", {
       owner: getUserId(),
@@ -58,6 +59,15 @@ export function GuestDesk(props) {
       });
     }
   };
+
+  const removeDeskDb = (deskId) => {
+    request("/api/table/removeUser", "post", { tableId: deskId, userId: getUserId() });
+  }
+
+  const removeDesk = (deskId) => {
+    setDesks(desks.filter(desk => desk.id !== deskId));
+    removeDeskDb(deskId);
+  }
 
   return (
     <React.Fragment>
@@ -108,7 +118,7 @@ export function GuestDesk(props) {
         </Button>
 
         {desks.map((desk) => (
-          <DeskField desk={desk} />
+          <DeskField desk={desk} key={desk.id} remove={removeDesk}/>
         ))}
       </div>
 

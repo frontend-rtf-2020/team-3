@@ -21,6 +21,10 @@ function DeskField(props) {
     });
   };
 
+  const stopUse = () => {
+    props.remove(desk.id);
+  }
+
   return (
     <div style={{}}>
       <Grid
@@ -106,7 +110,6 @@ function DeskField(props) {
           >
             <Button
               onClick={() => {
-                console.log("DeskField.js", desk.id, desk.name);
                 dropDesk(desk.id, desk.name);
               }}
             >
@@ -131,7 +134,7 @@ function DeskField(props) {
               flex: "left",
             }}
           >
-            <Button style={{ color: "orange" }}>
+            <Button style={{ color: "orange" }} onClick={stopUse}>
               Прекратить использовать доску
             </Button>
           </div>

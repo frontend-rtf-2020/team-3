@@ -168,7 +168,6 @@ export function GuestDesk(props) {
 
   const shiftTask = (task, newColumn) =>
   {
-    console.log(task, newColumn);
     const column = columns.find(column => column.name === newColumn);
     column.tasks.push(task);
 
