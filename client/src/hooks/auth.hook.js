@@ -60,7 +60,7 @@ export const useAuth = () => {
   }, []);
   const getCheck = useCallback(() => {
     const data = JSON.parse(localStorage.getItem(hashStorage));
-    return data.check;
+    return data.check || false;
   }, []);
 
   return {
