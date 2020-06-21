@@ -49,6 +49,7 @@ export const useAuth = () => {
     return data.hash || "";
   }, []);
   const setHash = useCallback((ourHash) => {
+    console.log(ourHash);
     localStorage.setItem(hashStorage, JSON.stringify({ hash: ourHash }));
   }, []);
 
