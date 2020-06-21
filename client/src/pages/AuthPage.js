@@ -72,10 +72,6 @@ export const AuthPage = () => {
         console.log(user.hash);
       } else {
         setOpen(true);
-        if (!getCheck()) {
-          setCheck(true);
-          history.push("/reg");
-        }
       }
     } catch {
       setOpen(true);
