@@ -25,6 +25,8 @@ router.post(
           message: "Bad data",
         });
       }
+
+      console.log(req.body);
       const { email, password, hash, myName } = req.body;
       console.log(req.body);
       const candidate = await User.findOne({ email });
@@ -32,9 +34,12 @@ router.post(
       if (candidate) {
         const isGood = await bcrypt.compare(password, candidate.password);
         if (isGood && hash === "") {
-          candidate.hash = hash;
           console.log(candidate.hash);
-          await candidate.save();
+
+          await User.updateOne(
+            { _id: candidate._id },
+            { $set: { hash: hash } }
+          );
           return res.status(201).json({ message: "ВК привязан!" });
         }
         return res.status(400).json({ message: "This user already exist" });
