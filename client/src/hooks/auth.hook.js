@@ -54,9 +54,10 @@ export const useAuth = () => {
   }, []);
 
   const setCheck = useCallback((ourCheck) => {
+    const data = JSON.parse(localStorage.getItem(hashStorage));
     localStorage.setItem(
       hashStorage,
-      JSON.stringify({ check: ourCheck || false })
+      JSON.stringify({ check: ourCheck || false, hash: data.hash })
     );
   }, []);
   const getCheck = useCallback(() => {
