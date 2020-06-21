@@ -138,6 +138,7 @@ export const AuthPage = () => {
                       </p>
                       <div style={{ paddingTop: "10%" }}>
                         <Button
+                          href="/"
                           onClick={loginHandler}
                           style={{ marginRight: "3%" }}
                           variant="outlined"
