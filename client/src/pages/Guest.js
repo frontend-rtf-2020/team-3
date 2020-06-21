@@ -19,7 +19,6 @@ export function GuestDesk(props) {
     description: "",
     id: "",
   });
-  const [userId, setUserId] = useState("");
   const [desks, setDesks] = useState([]);
 
   const loadDesks = async () => {
@@ -61,13 +60,16 @@ export function GuestDesk(props) {
   };
 
   const removeDeskDb = (deskId) => {
-    request("/api/table/removeUser", "post", { tableId: deskId, userId: getUserId() });
-  }
+    request("/api/table/removeUser", "post", {
+      tableId: deskId,
+      userId: getUserId(),
+    });
+  };
 
   const removeDesk = (deskId) => {
-    setDesks(desks.filter(desk => desk.id !== deskId));
+    setDesks(desks.filter((desk) => desk.id !== deskId));
     removeDeskDb(deskId);
-  }
+  };
 
   return (
     <React.Fragment>
@@ -118,7 +120,7 @@ export function GuestDesk(props) {
         </Button>
 
         {desks.map((desk) => (
-          <DeskField desk={desk} key={desk.id} remove={removeDesk}/>
+          <DeskField desk={desk} key={desk.id} remove={removeDesk} />
         ))}
       </div>
 

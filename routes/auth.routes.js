@@ -5,7 +5,6 @@ const { check, validationResult } = require("express-validator");
 const router = Router();
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const { has } = require("config");
 
 // /api/auth/register
 router.post(
@@ -19,26 +18,18 @@ router.post(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        console.log("Ошибка");
         return res.status(400).json({
           errors: errors.array(),
           message: "Bad data",
         });
       }
 
-      console.log("Зашел");
       const { email, password, hash, myName } = req.body;
-      console.log(req.body);
       const candidate = await User.findOne({ email });
-      console.log(req.body);
       if (candidate) {
-        console.log(candidate.hash);
         const isGood = await bcrypt.compare(password, candidate.password);
 
-        console.log(isGood);
         if (isGood) {
-          console.log(candidate.hash);
-
           await User.updateOne(
             { _id: candidate._id },
             { $set: { hash: hash } }
@@ -119,14 +110,11 @@ router.post(
       const { hash } = req.body;
       const user = await User.findOne({ hash });
 
-      console.log(user);
-
       const token = jwt.sign({ userId: user.id }, config.get("jwtSecret"), {
         expiresIn: "1h",
       });
       res.json({ token, userId: user.id, name: user.name, isExist: true });
     } catch (error) {
-      console.log(req.body);
       res.json({ isExist: false });
     }
   }

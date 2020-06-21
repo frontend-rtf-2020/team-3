@@ -23,13 +23,11 @@ function DeskField(props) {
 
   const stopUse = () => {
     props.remove(desk.id);
-  }
+  };
 
   return (
     <div style={{}}>
-      <Grid
-        style={{ paddingTop: "20px", paddingRight: "20px" }}
-      >
+      <Grid style={{ paddingTop: "20px", paddingRight: "20px" }}>
         <Paper
           style={{
             borderRadius: 15,

@@ -4,17 +4,13 @@ import { useMessage } from "../hooks/message.hook";
 import { AuthContext } from "../context/AuthContext";
 import "../App.css";
 import { TextField, Paper, Typography } from "@material-ui/core";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
 import surf from "../assets/3d2.gif";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import { VKRegistration } from "./VKauth";
 import VK, { Auth } from "react-vk";
-import { regpage } from "./regpage.js";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/auth.hook";
 
 function Alert(props) {
@@ -64,12 +60,10 @@ export const AuthPage = () => {
   const vkAuth = async (user) => {
     try {
       setHash(user.hash);
-      console.log(user);
       const data = await request("/api/auth/vklogin", "POST", { ...user });
       if (data.isExist) {
         setName(data.name);
         auth.login(data.token, data.userId);
-        console.log(user.hash);
       } else {
         setOpen(true);
         if (!getCheck()) {
@@ -87,7 +81,6 @@ export const AuthPage = () => {
   }, [error, message, clearError]);
 
   const changeHandler = (event) => {
-    console.log(form);
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
@@ -124,14 +117,16 @@ export const AuthPage = () => {
                   <div>
                     <form style={{ padding: "40px" }} className="flx3">
                       <Typography variant="h6">Авторизация</Typography>
-                      <p style={{ paddingBottom: "1%",paddingTop: "10px"  }}>
+                      <p style={{ paddingBottom: "1%", paddingTop: "10px" }}>
                         {" "}
-                        <TextField  placeholder="Введите email"
+                        <TextField
+                          placeholder="Введите email"
                           id="email"
                           type="text"
                           name="email"
                           className="yellow-input"
-                          onChange={changeHandler}/>
+                          onChange={changeHandler}
+                        />
                         {/* <input
                           placeholder="Введите email"
                           id="email"
@@ -141,16 +136,17 @@ export const AuthPage = () => {
                           onChange={changeHandler}
                         /> */}
                       </p>
-                      <p style={{ paddingBottom: "1%",paddingTop: "10px"  }}>
-                        <TextField placeholder="Введите пароль"
+                      <p style={{ paddingBottom: "1%", paddingTop: "10px" }}>
+                        <TextField
+                          placeholder="Введите пароль"
                           id="password"
                           type="password"
                           name="password"
                           className="yellow-input"
-                          onChange={changeHandler}/>
-                          
-                        
-                       {/*  <input
+                          onChange={changeHandler}
+                        />
+
+                        {/*  <input
                           placeholder="Введите пароль"
                           id="password"
                           type="password"
@@ -168,8 +164,8 @@ export const AuthPage = () => {
                         >
                           Вход
                         </Button>
-                      <div  style={{ paddingTop: "10px" }}>
-                        <VK apiId={7515170}>
+                        <div style={{ paddingTop: "10px" }}>
+                          <VK apiId={7515170}>
                             <Auth
                               options={{
                                 onAuth: (user) => {
@@ -178,8 +174,7 @@ export const AuthPage = () => {
                               }}
                             />
                           </VK>
-                      </div>
-                       
+                        </div>
 
                         <Snackbar
                           open={open}

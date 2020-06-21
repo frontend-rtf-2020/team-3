@@ -5,10 +5,8 @@ const hashStorage = "";
 export const useAuth = () => {
   const [token, setToken] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [usName, setUsName] = useState("");
 
   const login = useCallback((jwtToken, id) => {
-    console.log("login");
     setToken(jwtToken);
     setUserId(id);
     localStorage.setItem(
@@ -49,7 +47,6 @@ export const useAuth = () => {
     return data.hash || "";
   }, []);
   const setHash = useCallback((ourHash) => {
-    console.log(ourHash);
     localStorage.setItem(hashStorage, JSON.stringify({ hash: ourHash }));
   }, []);
 

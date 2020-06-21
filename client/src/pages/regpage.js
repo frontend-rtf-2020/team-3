@@ -4,15 +4,11 @@ import { useMessage } from "../hooks/message.hook";
 import { AuthContext } from "../context/AuthContext";
 import "../App.css";
 import { TextField, Paper, Typography } from "@material-ui/core";
-import { /* makeStyles, */ createMuiTheme } from "@material-ui/core/styles";
-import { red } from "@material-ui/core/colors";
 import surf from "../assets/3d2.gif";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import { VKRegistration } from "./VKauth";
-import VK, { Auth } from "react-vk";
 import { useAuth } from "../hooks/auth.hook";
 
 function Alert(props) {
@@ -30,20 +26,10 @@ const useStyles = makeStyles((theme) => ({
 
 export const Regpage = () => {
   const auth = useContext(AuthContext);
-  const {
-    token,
-    login,
-    logout,
-    getHash,
-    setHash,
-    setCheck,
-    getCheck,
-    userId,
-  } = useAuth();
+  const { getHash, getCheck } = useAuth();
   const message = useMessage();
-  const { loading, request, error, clearError } = useHttp();
+  const { request, error, clearError } = useHttp();
   const [form, setForm] = useState({ email: "", password: "" });
-  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [help, setHelp] = useState(
     "Зарегистрируйся или повторно введи свои данные!"
@@ -57,26 +43,12 @@ export const Regpage = () => {
     clearError();
   };
 
-  const vkAuth = async (user) => {
-    console.log(user);
-    // try {
-    //     const data = await request("/api/auth/register", "POST", { ...form });
-    //     setHelp(data.message);
-    //     setOpen(true);
-    //     message(data.message);
-    // } catch (error) {
-    //     setOpen(true);
-    // }
-  };
-
   useEffect(() => {
     setOpen(getCheck());
     message(error);
   }, [error, message, clearError]);
 
   const changeHandler = (event) => {
-    console.log(getHash());
-
     setForm({
       ...form,
       [event.target.name]: event.target.value,
@@ -86,7 +58,6 @@ export const Regpage = () => {
 
   const registerHandler = async () => {
     try {
-      console.log(form);
       const data = await request("/api/auth/register", "POST", { ...form });
       setHelp(data.message);
       setOpen(true);
@@ -106,7 +77,7 @@ export const Regpage = () => {
           <div className="flx2">
             <Paper
               elevation={3}
-              /* className={regstyles.roundtry} */ style={{
+              style={{
                 borderRadius: 25,
                 backgroundColor: "#f4ff81",
                 borderBottom: "40px",
@@ -116,69 +87,44 @@ export const Regpage = () => {
               <div className="flx4" style={{ display: "flex" }}>
                 <div>
                   <form style={{ padding: "40px" }} className="flx3">
-                    {/* <p className = "divvv"  ><label className = "inputs" > Логин: <input type="text" name="login" value={this.state.login}  onChange={this.onChangeLogin}/></label></p>
-                    <p className = "divvv" > <label className = "inputs" > Email: <input type="text" name="email" value={this.state.email}  onChange={this.onChangeEmail}/></label></p>
-                    <p className = "divvv" ><label className = "inputs" > Пароль: <input type="password" name="password" value={this.state.password} onChange={this.onChangePassword}/></label></p>  */}
-                    <Typography
-                      variant="h6" /* className={regstyles.typostyle} */
-                    >
-                      Регистрация
-                    </Typography>
-                    <p style={{ paddingBottom: "1%",paddingTop: "10px" }}>
+                    <Typography variant="h6">Регистрация</Typography>
+                    <p style={{ paddingBottom: "1%", paddingTop: "10px" }}>
                       {" "}
-                      <TextField  placeholder="Введите email"
-                        id="email"
-                        type="text"
-                        name="email"
-                        className="yellow-input"
-                        onChange={changeHandler}/>
-                      {/* <input
+                      <TextField
                         placeholder="Введите email"
                         id="email"
                         type="text"
                         name="email"
                         className="yellow-input"
                         onChange={changeHandler}
-                      /> */}
+                      />
                     </p>
-                    <p style={{ paddingBottom: "1%",paddingTop: "10px" }}>
+                    <p style={{ paddingBottom: "1%", paddingTop: "10px" }}>
                       {" "}
-                      <TextField  placeholder="Введите Имя"
-                        id="name"
-                        type="text"
-                        name="myName"
-                        className="yellow-input"
-                        onChange={changeHandler}/>
-                      {/* <input
+                      <TextField
                         placeholder="Введите Имя"
                         id="name"
                         type="text"
                         name="myName"
                         className="yellow-input"
                         onChange={changeHandler}
-                      /> */}
+                      />
                     </p>
-                    <p style={{ paddingBottom: "1%",paddingTop: "10px" }}>
-                    <TextField  placeholder="Введите пароль"
-                        id="password"
-                        type="password"
-                        name="password"
-                        className="yellow-input"
-                        onChange={changeHandler}/>
-                      {/* <input
+                    <p style={{ paddingBottom: "1%", paddingTop: "10px" }}>
+                      <TextField
                         placeholder="Введите пароль"
                         id="password"
                         type="password"
                         name="password"
                         className="yellow-input"
                         onChange={changeHandler}
-                      /> */}
+                      />
                     </p>
                     <div style={{ paddingTop: "10%" }}>
                       <Button
                         onClick={registerHandler}
                         style={{ marginRight: "3%" }}
-                        /* className={regstyles.buttonstyle} */ variant="outlined"
+                        variant="outlined"
                         color="primary"
                       >
                         Регистрация
@@ -229,11 +175,6 @@ export const Regpage = () => {
                     </Paper>
                   </form>
                 </div>
-                {/* <div>
-                  <Paper className={regstyles.paperimgstyle} elevation = {12}>
-                    <Typography></Typography>
-                  </Paper>
-                </div> */}
               </div>
             </Paper>
           </div>

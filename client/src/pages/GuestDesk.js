@@ -1,46 +1,29 @@
 import React, { useContext, useEffect } from "react";
 import { Paper, Typography } from "@material-ui/core";
-import { Switch, NavLink, useHistory, Route } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Divider from "@material-ui/core/Divider";
-import Chip from "@material-ui/core/Chip";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
 import useStyles from "./useStyles";
 import ColumnComponent from "./ColumnComponent";
-import InputBase from "@material-ui/core/InputBase";
 import { useState } from "react";
 import { useAuth } from "../hooks/auth.hook";
 import TextField from "@material-ui/core/TextField";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import { useHttp } from "../hooks/http.hook";
-import { useDesk } from "../hooks/desk.hook";
 import { DeskContext } from "../context/DeskContext";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CloseIcon from "@material-ui/icons/Close";
-import { makeStyles } from "@material-ui/core/styles";
 
 export function GuestDesk(props) {
   const classes = { props };
@@ -97,8 +80,7 @@ export function GuestDesk(props) {
   };
 
   const addColumn = (event) => {
-    if (column.name !== "" && columns.every(e => e.Name !== column.name))
-    {
+    if (column.name !== "" && columns.every((e) => e.Name !== column.name)) {
       addColumnDb(column.name, column.description);
       columns.push(column);
       setColumn({ name: "", description: "", tasks: [] });
@@ -166,25 +148,29 @@ export function GuestDesk(props) {
     deleteColumnDb(columnToRemove.name);
   };
 
-  const shiftTask = (task, newColumnName) =>
-  {
+  const shiftTask = (task, newColumnName) => {
     console.log(2, task, newColumnName);
 
     const name = newColumnName;
 
-    const a = columns.find(column => column.name === newColumnName);
+    const a = columns.find((column) => column.name === newColumnName);
     a.tasks.push(task);
 
-    setColumns(columns.map(column => {
-      if(column.name === name)
-        return {...a};
-      return column;
-    }))
+    setColumns(
+      columns.map((column) => {
+        if (column.name === name) return { ...a };
+        return column;
+      })
+    );
 
-
-    request("/api/table/addTask", "POST",
-        { tableId: deskId, column: newColumnName, name: task.name, description: task.description, owner: task.owner});
-  }
+    request("/api/table/addTask", "POST", {
+      tableId: deskId,
+      column: newColumnName,
+      name: task.name,
+      description: task.description,
+      owner: task.owner,
+    });
+  };
 
   const generateColumns = () => {
     return columns.map((column) => (
@@ -434,7 +420,7 @@ export function GuestDesk(props) {
                       }}
                       variant="outlined"
                     />
-                    <div style={{paddingTop:"10px", paddingBottom:"15px"}}>
+                    <div style={{ paddingTop: "10px", paddingBottom: "15px" }}>
                       <Button
                         className={classes.paper}
                         variant="outlined"
@@ -444,11 +430,8 @@ export function GuestDesk(props) {
                         + Добавить колонку
                       </Button>
                     </div>
-                    
-                    <div className="card">
-                      {generateColumns()}
-                    </div>
-                    
+
+                    <div className="card">{generateColumns()}</div>
                   </Grid>
                 </Grid>
               </div>
