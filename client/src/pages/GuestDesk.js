@@ -166,6 +166,18 @@ export function GuestDesk(props) {
     deleteColumnDb(columnToRemove.name);
   };
 
+  const shiftTask = (task, newColumn) =>
+  {
+    console.log(task, newColumn);
+    const column = columns.find(column => column.name === newColumn);
+    column.tasks.push(task);
+
+    request("/api/table/addTask", "POST",
+        { tableId: deskId, column: newColumn, name: task.name, description: task.description, owner: task.owner});
+
+    update();
+  }
+
   const generateColumns = () => {
     return columns.map((column) => (
       <ColumnComponent
@@ -174,6 +186,7 @@ export function GuestDesk(props) {
         columns={columns}
         users={desk.users}
         key={column.name}
+        shiftTask={shiftTask}
         delete={(id) => deleteColumn(id)}
       />
     ));

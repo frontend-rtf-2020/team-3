@@ -54,6 +54,7 @@ function TaskField(props) {
   const [task, taskChange] = useState(props.task);
   const [users, setUsers] = useState(props.users);
   const [baseTaskName, setBaseTaskName] = useState(task.name);
+  const [newColumn, setNewColumn] = useState(props.columnName);
 
 
   const changeHandler = (event) => {
@@ -66,6 +67,10 @@ function TaskField(props) {
     taskChange({
       ...task, owner:event.target.value
     });
+  }
+
+  const shiftChangeHandler = (event) => {
+    setNewColumn(event.target.value);
   }
 
   const updateTask = () =>{
@@ -85,6 +90,10 @@ function TaskField(props) {
 
   const deleteHandler = () =>{
     props.deleteHandler(baseTaskName);
+  }
+
+  const shiftTask = (event) =>{
+    props.shiftTask(baseTaskName, props.columnName, newColumn);
   }
 
   const classes = useStyles();
@@ -202,18 +211,18 @@ function TaskField(props) {
                   <FormControl className={classes.formControl}  style = {{width:"80%"}}>
                     <InputLabel >Выбрать колонку</InputLabel>
                       <Select
-                        value={task.owner}
-                        onChange={selectChangeHandler}
+                        defaultValue={newColumn}
+                        onChange={shiftChangeHandler}
                         input={<Input/>}
                         >
-                        {users.map( user => (
-                          <MenuItem value={user.id}>
-                            {user.name}
+                        {props.columns.map( column => (
+                          <MenuItem value={column.name}>
+                            {column.name}
                           </MenuItem>
                         ))}
                       </Select>
                   </FormControl>
-                  <Button onClick={updateTask} style={{marginTop:"20px"}} color="primary">Переместить</Button>
+                  <Button onClick={shiftTask} style={{marginTop:"20px"}} color="primary">Переместить</Button>
                   </div>
                 <div className={clsx(classes.column, classes.helper)}></div>
               </ExpansionPanelDetails>

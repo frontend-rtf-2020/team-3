@@ -80,6 +80,14 @@ function ColumnComponent(props) {
     deleteTaskDb(taskName);
   }
 
+  const shiftTask = (taskName, oldColumn, newColumn) => {
+    if(newColumn !== oldColumn){
+      const task = column.tasks.find(task => task.name === taskName);
+      deleteTask(taskName);
+      props.shiftTask(task, newColumn);
+    }
+  }
+
   const generateTasks = () => {
     return column.tasks.map(
         (task) =>
@@ -87,9 +95,11 @@ function ColumnComponent(props) {
                 deskId={props.deskId}
                 task={task}
                 tasks={column.tasks}
+                columns={props.columns}
                 users={users}
                 columnName={columnBaseName}
                 key={task.name}
+                shiftTask={shiftTask}
                 deleteHandler={deleteTask}/>
     );
   };
