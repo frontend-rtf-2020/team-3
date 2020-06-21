@@ -86,6 +86,7 @@ export const Regpage = () => {
 
   const registerHandler = async () => {
     try {
+      console.log(form);
       const data = await request("/api/auth/register", "POST", { ...form });
       setHelp(data.message);
       setOpen(true);
