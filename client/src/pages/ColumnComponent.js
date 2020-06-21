@@ -71,7 +71,10 @@ function ColumnComponent(props) {
   }
 
   return (
-    <div style={{paddingTop: "20px", width: "60%"}}>
+    <div className="card" style={{minWidth:"38vw"}}>
+
+   
+    <div className="card--content"  style={{paddingBottom: "30px",minWidth:"35vw"}}>
         <Paper style = {{borderRadius: 5, backgroundColor: '#eeeeee', paddingBottom: "20px", boxShadow: "0 0 1px"}}>
           <div style={{padding: "10px"}}>
             <Paper style={{backgroundColor: '#fafafa',paddingBottom:"20px",paddingTop:"10px",paddingLeft:"10px",paddingRight:"10px", boxShadow: "0px 0px 1px 1px grey"}}>
@@ -216,6 +219,7 @@ function ColumnComponent(props) {
             )}
           </div>
         </Paper>
+    </div>
     </div>
   )
 }

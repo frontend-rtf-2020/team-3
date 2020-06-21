@@ -496,16 +496,21 @@ export function GuestDesk(props) {
                       }}
                       variant="outlined"
                     />
-                    <Button
-                      className={classes.paper}
-                      variant="outlined"
-                      color="primary"
-                      onClick={addColumn}
-                    >
-                      + Добавить колонку
-                    </Button>
-
-                    {generateColumns()}
+                    <div style={{paddingTop:"10px", paddingBottom:"15px"}}>
+                      <Button
+                        className={classes.paper}
+                        variant="outlined"
+                        color="primary"
+                        onClick={addColumn}
+                      >
+                        + Добавить колонку
+                      </Button>
+                    </div>
+                    
+                    <div className="card">
+                      {generateColumns()}
+                    </div>
+                    
                   </Grid>
                 </Grid>
               </div>
