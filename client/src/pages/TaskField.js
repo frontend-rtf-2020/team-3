@@ -56,7 +56,6 @@ function TaskField(props) {
   const [baseTaskName, setBaseTaskName] = useState(task.name);
   const [newColumn, setNewColumn] = useState(props.columnName);
 
-
   const changeHandler = (event) => {
     taskChange({
       ...task, [event.target.name]:event.target.value
@@ -84,7 +83,8 @@ function TaskField(props) {
               owner: task.owner
             }
         );
-      setBaseTaskName(task.name);
+        props.changeTask(baseTaskName, task);
+        setBaseTaskName(task.name);
     }
   }
 
@@ -92,7 +92,8 @@ function TaskField(props) {
     props.deleteHandler(baseTaskName);
   }
 
-  const shiftTask = (event) =>{
+  const shiftTask = (event) => {
+    console.log(0, baseTaskName, props.columnName, newColumn);
     props.shiftTask(baseTaskName, props.columnName, newColumn);
   }
 
@@ -131,49 +132,6 @@ function TaskField(props) {
               shrink: true,}}
               variant="outlined"
             />
-          </div>
-
-          <div className={classes.root1} style={{paddingRight:"10px",paddingBottom:"10px",paddingTop:"10px",color:"#fafafa"}}>
-            <ExpansionPanel className={classes.root1} style={{ borderTopLeftRadius:"0px", borderTopRightRadius:"0px", boxShadow:" 0px 0px 0px 1px  rgba(122,122,122,0.5)"}}>
-              <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1c-content"
-                id="panel1c-header"
-                style={{backgroundColor: 'rgba(0, 0, 0, .02)',}}
-              >
-                <div className={classes.column}>
-                  <Typography className={classes.heading}>Фильтры</Typography>
-                </div>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className={classes.details} style={{width:"100%%"}} >
-                <div className={classes.column} />
-                  <div className={classes.column} >
-                    <div fullWidth style={{float:"right"}}>
-                      {/* {desk.filters.map((filter)=> */}
-                      <div style={{paddingRight: "10px", paddingTop: "15px", float:"left"}}>
-                        <Chip /* label={filter.name} */ onDelete={() => {}} />
-                      </div>
-                      <div style={{paddingRight: "10px",paddingBottom: "0px", float:"left"}}>
-                        <TextField
-                          placeholder="Участник"
-                          inputProps={{ "aria-label": "naked" }}
-                          variant="standard"
-                          label="Добавить фильтр"
-                          size="small"
-                          width="30%"
-                          />
-                      </div>
-                      <div style={{paddingRight: "10px", paddingTop: "15px",float:"right",}}>
-                        <Button  size="small" color="primary">
-                          Подтвердить
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                <div className={clsx(classes.column, classes.helper)}></div>
-              </ExpansionPanelDetails>
-              <Divider/>
-            </ExpansionPanel>
           </div>
           <div style = {{width:"100%", paddingTop:"0px"}} >
             <FormControl className={classes.formControl}  style = {{width:"80%"}}>

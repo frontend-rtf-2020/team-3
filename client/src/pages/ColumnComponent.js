@@ -17,7 +17,7 @@ function ColumnComponent(props) {
   const { request } = useHttp();
 
   const [column, setColumn] = useState(props.column);
-  const [task, setTask] = useState({name:"", description: "", owner: undefined})
+  const [task, setTask] = useState({name:"", description: "", owner: props.users[0].id})
   const [columnBaseName,setColumnBaseName] = useState(column.name);
 
   const users = props.users;
@@ -81,11 +81,20 @@ function ColumnComponent(props) {
   }
 
   const shiftTask = (taskName, oldColumn, newColumn) => {
+    console.log(1, taskName, oldColumn, newColumn);
+
     if(newColumn !== oldColumn){
       const task = column.tasks.find(task => task.name === taskName);
       deleteTask(taskName);
       props.shiftTask(task, newColumn);
     }
+  }
+
+  const changeTask = (oldName, newTask) => {
+    const oldTusk = column.tasks.find(task => task.name === oldName);
+    oldTusk.name = newTask.name;
+    oldTusk.description = newTask.description;
+    oldTusk.owner = newTask.owner;
   }
 
   const generateTasks = () => {
@@ -100,6 +109,7 @@ function ColumnComponent(props) {
                 columnName={columnBaseName}
                 key={task.name}
                 shiftTask={shiftTask}
+                changeTask={changeTask}
                 deleteHandler={deleteTask}/>
     );
   };
@@ -219,6 +229,7 @@ function ColumnComponent(props) {
                   <Select
                       name="OwnerSelect"
                       onChange={taskOwnerSelector}
+                      defaultValue={users[0].id}
                       input={<Input />}
                   >
                     { users.map(

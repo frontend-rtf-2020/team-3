@@ -166,15 +166,24 @@ export function GuestDesk(props) {
     deleteColumnDb(columnToRemove.name);
   };
 
-  const shiftTask = (task, newColumn) =>
+  const shiftTask = (task, newColumnName) =>
   {
-    const column = columns.find(column => column.name === newColumn);
-    column.tasks.push(task);
+    console.log(2, task, newColumnName);
+
+    const name = newColumnName;
+
+    const a = columns.find(column => column.name === newColumnName);
+    a.tasks.push(task);
+
+    setColumns(columns.map(column => {
+      if(column.name === name)
+        return {...a};
+      return column;
+    }))
+
 
     request("/api/table/addTask", "POST",
-        { tableId: deskId, column: newColumn, name: task.name, description: task.description, owner: task.owner});
-
-    update();
+        { tableId: deskId, column: newColumnName, name: task.name, description: task.description, owner: task.owner});
   }
 
   const generateColumns = () => {
@@ -361,92 +370,6 @@ export function GuestDesk(props) {
                   <Button size="small" color="primary" onClick={addUser}>
                     Подтвердить
                   </Button>
-                </div>
-              </div>
-              <div className={clsx(classes.column, classes.helper)}></div>
-            </ExpansionPanelDetails>
-            <Divider />
-          </ExpansionPanel>
-        </div>
-
-        <div className={classes.root1}>
-          <ExpansionPanel
-            className={classes.root1}
-            style={{
-              borderTopLeftRadius: "0px",
-              borderTopRightRadius: "0px",
-              boxShadow: " 0px 0px 0px 1px  rgba(122,122,122,0.5)",
-            }}
-          >
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1c-content"
-              id="panel1c-header"
-            >
-              <div className={classes.column}>
-                <Typography className={classes.heading}>Фильтры</Typography>
-              </div>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails
-              className={classes.details}
-              style={{ width: "100%%" }}
-            >
-              <div className={classes.column} />
-              <div className={classes.column}>
-                <div fullWidth style={{ float: "right" }}>
-                  <div
-                    className={classes.demo}
-                    style={{ float: "left", paddingRight: "50px" }}
-                  >
-                    <List dense={dense}>
-                      {generate(
-                        <ListItem>
-                          <ListItemText
-                            primary="Single-line item"
-                            secondary={secondary ? "Secondary text" : null}
-                          />
-                          <ListItemSecondaryAction>
-                            <IconButton edge="center" aria-label="delete">
-                              <CloseIcon />
-                            </IconButton>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      )}
-                    </List>
-                  </div>
-                  <div
-                    style={{
-                      paddingRight: "10px",
-                      paddingBottom: "20px",
-                      float: "left",
-                    }}
-                  >
-                    <FormControl className={classes.formControl}>
-                      <InputLabel id="demo-simple-select-label">
-                        Фильтр
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        style={{ paddingRight: "80px" }}
-                      >
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div
-                    style={{
-                      paddingRight: "10px",
-                      paddingTop: "15px",
-                      float: "right",
-                    }}
-                  >
-                    <Button size="small" color="primary">
-                      Подтвердить
-                    </Button>
-                  </div>
                 </div>
               </div>
               <div className={clsx(classes.column, classes.helper)}></div>
