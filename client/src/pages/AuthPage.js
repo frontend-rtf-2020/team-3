@@ -37,7 +37,9 @@ export const AuthPage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [help, setHelp] = useState("Зарегистрируйся пожожста!");
+  const [help, setHelp] = useState(
+    "Зарегистрируйся или повторно введи свои данные!"
+  );
   const {
     login,
     logout,
@@ -67,6 +69,7 @@ export const AuthPage = () => {
         console.log(user.hash);
       } else {
         setOpen(true);
+        return <Redirect to="/reg"></Redirect>;
       }
     } catch {
       setOpen(true);

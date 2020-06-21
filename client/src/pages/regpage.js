@@ -36,7 +36,9 @@ export const Regpage = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [help, setHelp] = useState("");
+  const [help, setHelp] = useState(
+    "Зарегистрируйся или повторно введи свои данные!"
+  );
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {

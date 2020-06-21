@@ -14,7 +14,6 @@ router.post(
     check("email", "Bad email").normalizeEmail().isEmail(),
     check("password", "Bad password, min length = 6").isLength({ min: 6 }),
     check("myName").isLength({ min: 1 }),
-    check("hash").exists(),
   ],
   async (req, res) => {
     try {
@@ -27,9 +26,13 @@ router.post(
       }
       const { email, password, myName, hash } = req.body;
       const candidate = await User.findOne({ email: email });
+      const isGood = await bcrypt.compare(password, candidate.password);
       if (candidate) {
-        candidate.hash = hash;
-        candidate.save();
+        if (isGood) {
+          candidate.hash = hash;
+          candidate.save();
+          return res.status(201).json({ message: "ВК привязан!" });
+        }
         return res.status(400).json({ message: "This user already exist" });
       }
 
