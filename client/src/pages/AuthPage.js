@@ -124,28 +124,42 @@ export const AuthPage = () => {
                   <div>
                     <form style={{ padding: "40px" }} className="flx3">
                       <Typography variant="h6">Авторизация</Typography>
-                      <p style={{ paddingBottom: "1%" }}>
+                      <p style={{ paddingBottom: "1%",paddingTop: "10px"  }}>
                         {" "}
-                        <input
+                        <TextField  placeholder="Введите email"
+                          id="email"
+                          type="text"
+                          name="email"
+                          className="yellow-input"
+                          onChange={changeHandler}/>
+                        {/* <input
                           placeholder="Введите email"
                           id="email"
                           type="text"
                           name="email"
                           className="yellow-input"
                           onChange={changeHandler}
-                        />
+                        /> */}
                       </p>
-                      <p style={{ paddingBottom: "1%" }}>
-                        <input
+                      <p style={{ paddingBottom: "1%",paddingTop: "10px"  }}>
+                        <TextField placeholder="Введите пароль"
+                          id="password"
+                          type="password"
+                          name="password"
+                          className="yellow-input"
+                          onChange={changeHandler}/>
+                          
+                        
+                       {/*  <input
                           placeholder="Введите пароль"
                           id="password"
                           type="password"
                           name="password"
                           className="yellow-input"
                           onChange={changeHandler}
-                        />
+                        /> */}
                       </p>
-                      <div style={{ paddingTop: "10%" }}>
+                      <div style={{ paddingTop: "10px" }}>
                         <Button
                           onClick={loginHandler}
                           style={{ marginRight: "3%" }}
@@ -154,16 +168,18 @@ export const AuthPage = () => {
                         >
                           Вход
                         </Button>
-
+                      <div  style={{ paddingTop: "10px" }}>
                         <VK apiId={7515170}>
-                          <Auth
-                            options={{
-                              onAuth: (user) => {
-                                vkAuth(user);
-                              },
-                            }}
-                          />
-                        </VK>
+                            <Auth
+                              options={{
+                                onAuth: (user) => {
+                                  vkAuth(user);
+                                },
+                              }}
+                            />
+                          </VK>
+                      </div>
+                       
 
                         <Snackbar
                           open={open}

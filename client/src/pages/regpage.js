@@ -124,37 +124,55 @@ export const Regpage = () => {
                     >
                       Регистрация
                     </Typography>
-                    <p style={{ paddingBottom: "1%" }}>
+                    <p style={{ paddingBottom: "1%",paddingTop: "10px" }}>
                       {" "}
-                      <input
+                      <TextField  placeholder="Введите email"
+                        id="email"
+                        type="text"
+                        name="email"
+                        className="yellow-input"
+                        onChange={changeHandler}/>
+                      {/* <input
                         placeholder="Введите email"
                         id="email"
                         type="text"
                         name="email"
                         className="yellow-input"
                         onChange={changeHandler}
-                      />
+                      /> */}
                     </p>
-                    <p style={{ paddingBottom: "1%" }}>
+                    <p style={{ paddingBottom: "1%",paddingTop: "10px" }}>
                       {" "}
-                      <input
+                      <TextField  placeholder="Введите Имя"
+                        id="name"
+                        type="text"
+                        name="myName"
+                        className="yellow-input"
+                        onChange={changeHandler}/>
+                      {/* <input
                         placeholder="Введите Имя"
                         id="name"
                         type="text"
                         name="myName"
                         className="yellow-input"
                         onChange={changeHandler}
-                      />
+                      /> */}
                     </p>
-                    <p style={{ paddingBottom: "1%" }}>
-                      <input
+                    <p style={{ paddingBottom: "1%",paddingTop: "10px" }}>
+                    <TextField  placeholder="Введите пароль"
+                        id="password"
+                        type="password"
+                        name="password"
+                        className="yellow-input"
+                        onChange={changeHandler}/>
+                      {/* <input
                         placeholder="Введите пароль"
                         id="password"
                         type="password"
                         name="password"
                         className="yellow-input"
                         onChange={changeHandler}
-                      />
+                      /> */}
                     </p>
                     <div style={{ paddingTop: "10%" }}>
                       <Button
