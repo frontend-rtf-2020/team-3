@@ -24,7 +24,7 @@ export const useAuth = () => {
 
   const getName = useCallback(() => {
     const data = JSON.parse(localStorage.getItem(nameStorage));
-    return data.name;
+    return data.name || "";
   }, []);
   const setName = useCallback((ourName) => {
     localStorage.setItem(nameStorage, JSON.stringify({ name: ourName }));
