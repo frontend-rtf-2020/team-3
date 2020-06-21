@@ -36,7 +36,7 @@ router.post(
         const isGood = await bcrypt.compare(password, candidate.password);
 
         console.log(isGood);
-        if (isGood && hash === "") {
+        if (isGood) {
           console.log(candidate.hash);
 
           await User.updateOne(
