@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { Paper, Typography } from "@material-ui/core";
 import { Switch, NavLink, useHistory, Route } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -54,7 +54,7 @@ export function GuestDesk(props) {
     description: "",
     users: [],
     columns: [],
-    tags: []
+    tags: [],
   };
 
   const [column, setColumn] = useState({
@@ -73,20 +73,20 @@ export function GuestDesk(props) {
 
   const update = () => {
     setSome(!some);
-  }
-
-  const loadDesk = async () => {
-
-    if (!deskId) return;
-    try {
-      const table = await request("/api/table", "POST", {tableId: deskId});
-      setDesk(table);
-      setColumns(table.columns);
-    } catch (error) {
-    }
   };
 
-  useEffect(loadDesk, []);
+  const loadDesk = async () => {
+    if (!deskId) return;
+    try {
+      const table = await request("/api/table", "POST", { tableId: deskId });
+      setDesk(table);
+      setColumns(table.columns);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    loadDesk();
+  }, []);
 
   const addColumnDb = (name, description) => {
     request("/api/table/addColumn", "POST", {
@@ -101,12 +101,11 @@ export function GuestDesk(props) {
     } else {
       addColumnDb(column.name, column.description);
       columns.push(column);
-      setColumn({name: "", description: "", tasks: []});
+      setColumn({ name: "", description: "", tasks: [] });
     }
   };
 
   const addUser = async (event) => {
-
     if (newUser !== "") {
       for (let i = 0; i < desk.users.length; i++) {
         if (desk.users[i].email === newUser) {
@@ -114,34 +113,31 @@ export function GuestDesk(props) {
         }
       }
       try {
-        const user = await request("/api/table/addUser",
-            "post",
-            {tableId: deskId, email: newUser});
+        const user = await request("/api/table/addUser", "post", {
+          tableId: deskId,
+          email: newUser,
+        });
         if (user) {
           desk.users.push(user);
           update();
         }
-      } catch (error) {
-      }
+      } catch (error) {}
     }
-  }
+  };
 
   const removeUserDb = (id) => {
-    request("/api/table/removeUser",
-        "post",
-        {tableId: deskId, userId: id});
-  }
+    request("/api/table/removeUser", "post", { tableId: deskId, userId: id });
+  };
 
   const removeUser = (id) => {
-    if(id != userId)
-    {
+    if (id != userId) {
       setDesk({
-      ...desk,
-      users: desk.users.filter(( user )  => user.id != id )
+        ...desk,
+        users: desk.users.filter((user) => user.id != id),
       });
       removeUserDb(id);
     }
-  }
+  };
 
   const changeDeskInfo = () => {
     changeDeskInfoDb(desk.name, desk.description);
@@ -159,38 +155,38 @@ export function GuestDesk(props) {
   const deleteColumnDb = (position) => {
     request("/api/table/deleteColumn", "POST", {
       tableId: deskId,
-      column: position
+      column: position,
     });
-  }
+  };
 
   const deleteColumn = async (columnToRemove) => {
-      setColumns(columns.filter((column) => column != columnToRemove));
-  }
+    setColumns(columns.filter((column) => column != columnToRemove));
+  };
 
-  const generateColumns = () =>
-  {
-    return columns.map((column, i) =>
-        <ColumnComponent
-            deskId={deskId}
-            column={column}
-            users={desk.users}
-            index={i}
-            key={column.name + i}
-            delete={() => deleteColumn(column) }/>
-    );
-  }
+  const generateColumns = () => {
+    return columns.map((column, i) => (
+      <ColumnComponent
+        deskId={deskId}
+        column={column}
+        users={desk.users}
+        index={i}
+        key={column.name + i}
+        delete={() => deleteColumn(column)}
+      />
+    ));
+  };
 
   const handleExpand = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   const generate = (element) => {
-    return desk.users.map(value =>
-        React.cloneElement(element, {
-          key: value.name
-        })
+    return desk.users.map((value) =>
+      React.cloneElement(element, {
+        key: value.name,
+      })
     );
-  }
+  };
 
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
@@ -218,7 +214,13 @@ export function GuestDesk(props) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
-              <div style={{ width: "50%", paddingRight: "5px", paddingLeft: "5px" }}>
+              <div
+                style={{
+                  width: "50%",
+                  paddingRight: "5px",
+                  paddingLeft: "5px",
+                }}
+              >
                 <TextField
                   name="name"
                   label="Имя доски"
@@ -235,7 +237,13 @@ export function GuestDesk(props) {
                   variant="outlined"
                 />
               </div>
-              <div style={{ width: "50%", paddingRight: "5px", paddingLeft: "5px" }}>
+              <div
+                style={{
+                  width: "50%",
+                  paddingRight: "5px",
+                  paddingLeft: "5px",
+                }}
+              >
                 <TextField
                   name="description"
                   label="Описание"
@@ -282,53 +290,63 @@ export function GuestDesk(props) {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.details}>
               <div className={classes.column} />
-              <div className={classes.column} >
-                <div className={classes.demo} style={{float:"left", paddingRight:"5px"}}>
+              <div className={classes.column}>
+                <div
+                  className={classes.demo}
+                  style={{ float: "left", paddingRight: "5px" }}
+                >
                   <List dense={dense}>
-                    { desk.users.map((user) =>
+                    {desk.users.map((user) => (
                       <ListItem>
-                        <ListItemText
-                          primary={user.name}
-                        />
-                        <ListItemSecondaryAction onClick={()=>{removeUser(user.id)}}>
-                          <IconButton edge="center" aria-label="delete" style={{padding: "5px"}}>
+                        <ListItemText primary={user.name} />
+                        <ListItemSecondaryAction
+                          onClick={() => {
+                            removeUser(user.id);
+                          }}
+                        >
+                          <IconButton
+                            edge="center"
+                            aria-label="delete"
+                            style={{ padding: "5px" }}
+                          >
                             <CloseIcon />
                           </IconButton>
                         </ListItemSecondaryAction>
                       </ListItem>
-                    )}
+                    ))}
                   </List>
-                 </div>
-                  <div
-                    style={{
-                      paddingRight: "10px",
-                      paddingBottom: "0px",
-                      float: "left",
+                </div>
+                <div
+                  style={{
+                    paddingRight: "10px",
+                    paddingBottom: "0px",
+                    float: "left",
+                  }}
+                >
+                  <TextField
+                    placeholder="Email"
+                    inputProps={{ "aria-label": "naked" }}
+                    defaultValue=""
+                    variant="standard"
+                    label="Добавить участника"
+                    onChange={(event) => {
+                      newUser = event.target.value;
                     }}
-                  >
-                    <TextField
-                      placeholder="Email"
-                      inputProps={{ "aria-label": "naked" }}
-                      defaultValue=""
-                      variant="standard"
-                      label="Добавить участника"
-                      onChange={(event) => {newUser = event.target.value}}
-                      size="small"
-                      width="30%"
-                    />
-                  </div>
-                  <div
-                    style={{
-                      paddingRight: "10px",
-                      paddingTop: "15px",
-                      float: "right",
-                    }}
-                  >
-                    <Button size="small" color="primary" onClick={addUser}>
-                      Подтвердить
-                    </Button>
-                  </div>
-
+                    size="small"
+                    width="30%"
+                  />
+                </div>
+                <div
+                  style={{
+                    paddingRight: "10px",
+                    paddingTop: "15px",
+                    float: "right",
+                  }}
+                >
+                  <Button size="small" color="primary" onClick={addUser}>
+                    Подтвердить
+                  </Button>
+                </div>
               </div>
               <div className={clsx(classes.column, classes.helper)}></div>
             </ExpansionPanelDetails>
@@ -361,8 +379,10 @@ export function GuestDesk(props) {
               <div className={classes.column} />
               <div className={classes.column}>
                 <div fullWidth style={{ float: "right" }}>
-                
-                <div className={classes.demo} style={{float:"left", paddingRight:"50px"}}>
+                  <div
+                    className={classes.demo}
+                    style={{ float: "left", paddingRight: "50px" }}
+                  >
                     <List dense={dense}>
                       {generate(
                         <ListItem>
@@ -370,15 +390,15 @@ export function GuestDesk(props) {
                             primary="Single-line item"
                             secondary={secondary ? "Secondary text" : null}
                           />
-                          <ListItemSecondaryAction >
-                            <IconButton edge="center" aria-label="delete"  >
+                          <ListItemSecondaryAction>
+                            <IconButton edge="center" aria-label="delete">
                               <CloseIcon />
                             </IconButton>
                           </ListItemSecondaryAction>
                         </ListItem>
                       )}
                     </List>
-                 </div>
+                  </div>
                   <div
                     style={{
                       paddingRight: "10px",
@@ -448,7 +468,9 @@ export function GuestDesk(props) {
                       id="name"
                       label="Имя колонки"
                       defaultValue={column.name}
-                      onChange={(event) => {column.name = event.target.value}}
+                      onChange={(event) => {
+                        column.name = event.target.value;
+                      }}
                       placeholder="(не должно быть пустым)"
                       fullWidth
                       multiline
@@ -462,7 +484,9 @@ export function GuestDesk(props) {
                       id="description"
                       label="Описание колонки"
                       defaultValue={column.description}
-                      onChange={(event) => {column.description = event.target.value}}
+                      onChange={(event) => {
+                        column.description = event.target.value;
+                      }}
                       placeholder="(не должно быть пустым)"
                       fullWidth
                       multiline
@@ -481,10 +505,7 @@ export function GuestDesk(props) {
                       + Добавить колонку
                     </Button>
 
-                    {
-                      generateColumns()
-                    }
-
+                    {generateColumns()}
                   </Grid>
                 </Grid>
               </div>

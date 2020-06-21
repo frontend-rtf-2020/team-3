@@ -26,10 +26,10 @@ import { Paper, Typography } from "@material-ui/core";
 import { useAuth } from "../hooks/auth.hook";
 import Guest from "./Guest";
 import Body from "./Body";
-import {GuestDesk} from "./GuestDesk";
+import { GuestDesk } from "./GuestDesk";
 import { Switch, Route, Redirect } from "react-router-dom";
-import {AuthPage} from "./AuthPage";
-import {Regpage} from "./regpage";
+import { AuthPage } from "./AuthPage";
+import { Regpage } from "./regpage";
 
 export function CreatePage(props) {
   const history = useHistory();
@@ -45,7 +45,12 @@ export function CreatePage(props) {
   const [id, setId] = useState(1);
 
   const classes = { props };
-  const sr = { paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto" };
+  const sr = {
+    paddingRight: 30,
+    fontSize: 20,
+    color: "white",
+    fontFamily: "Roboto",
+  };
 
   return (
     <div>
@@ -53,39 +58,46 @@ export function CreatePage(props) {
 
       <AppBar position="static" className={classes.appbarstyle}>
         <Toolbar className={classes.appbarstyle}>
-          <Link href="/main" style={sr}>
+          <Link href="/" style={sr}>
             Главная
           </Link>
           <Link
             href="/auth"
             className={classes.useStyles}
-            style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
+            style={{
+              paddingRight: 30,
+              fontSize: 20,
+              color: "white",
+              fontFamily: "Roboto",
+            }}
           >
             Авторизация
           </Link>
           <Link
             href="/reg"
             className={classes.useStyles}
-            style={{ paddingRight: 30, fontSize: 20, color: "white", fontFamily:"Roboto"  }}
+            style={{
+              paddingRight: 30,
+              fontSize: 20,
+              color: "white",
+              fontFamily: "Roboto",
+            }}
           >
             Регистрация
           </Link>
-
         </Toolbar>
       </AppBar>
       <Switch>
-        <Route exact path="/main" component={Body} />
+        <Route exact path="/" component={Body} />
         <Route path="/auth">
-            <AuthPage />
+          <AuthPage />
         </Route>
         <Route path="/reg">
-            <Regpage />
+          <Regpage />
         </Route>
       </Switch>
-      
     </div>
   );
 }
 
 export default withStyles(useStyles)(CreatePage);
-

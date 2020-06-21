@@ -17,7 +17,10 @@ export const useAuth = () => {
     );
   }, []);
 
-  //const getLoginData = ;
+  const getUserId = useCallback(() => {
+    const data = JSON.parse(localStorage.getItem(storageName));
+    return data.userId;
+  }, []);
 
   const getName = useCallback(() => {
     const data = JSON.parse(localStorage.getItem(nameStorage));
@@ -56,6 +59,7 @@ export const useAuth = () => {
     setName,
     getHash,
     setHash,
+    getUserId,
     token,
     userId,
   };

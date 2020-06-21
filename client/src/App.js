@@ -15,6 +15,7 @@ function App() {
     setName,
     setHash,
     getHash,
+    getUserId,
     userId,
   } = useAuth();
   const { dropDesk, upDesk, deskId } = useDesk();
@@ -31,6 +32,7 @@ function App() {
         setName,
         setHash,
         getHash,
+        getUserId,
         userId,
         isAuthenticated,
       }}
