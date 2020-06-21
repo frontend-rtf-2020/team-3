@@ -27,7 +27,7 @@ router.post(
       }
       const { email, password, hash, myName } = req.body;
       const candidate = await User.findOne({ email: email });
-
+      console.log(req.body);
       if (candidate) {
         const isGood = await bcrypt.compare(password, candidate.password);
         if (isGood && hash !== "") {
